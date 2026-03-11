@@ -1,0 +1,462 @@
+/*
+ * ============================================================
+ * Homepage — Section-specific styles
+ * ============================================================
+ * Supplements the core component library for homepage-only
+ * patterns: problem cards, steps, flow diagram, pricing.
+ * ============================================================
+ */
+
+/* ============================================================
+   PROBLEM SECTION
+   ============================================================ */
+
+.problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+}
+
+@media (max-width: 768px) {
+    .problem-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.problem-card {
+    background: var(--color-bg-surface);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle left accent bar */
+.problem-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: var(--space-8);
+    bottom: var(--space-8);
+    width: 2px;
+    background: linear-gradient(to bottom,
+            rgba(14, 165, 233, 0.6),
+            rgba(3, 105, 161, 0.2));
+    border-radius: 2px;
+}
+
+.problem-card__icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(14, 165, 233, 0.07);
+    border: 1px solid rgba(14, 165, 233, 0.15);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-5);
+    color: var(--color-glow-400);
+    flex-shrink: 0;
+}
+
+.problem-card__title {
+    font-size: 1.0625rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+}
+
+.problem-card__desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+}
+
+/* ============================================================
+   SERVICES SECTION
+   ============================================================ */
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+}
+
+@media (max-width: 900px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.service-card {
+    background: var(--color-bg-surface);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    transition:
+        border-color var(--transition-base),
+        box-shadow var(--transition-base);
+}
+
+.service-card:hover {
+    border-color: rgba(14, 165, 233, 0.28);
+    box-shadow: 0 0 32px rgba(14, 165, 233, 0.08);
+}
+
+.service-card__icon {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(14, 165, 233, 0.1);
+    border: 1px solid rgba(14, 165, 233, 0.18);
+    border-radius: var(--radius-md);
+    font-size: 1.375rem;
+    flex-shrink: 0;
+}
+
+/* Image visual replaces icon in service cards */
+.service-card__visual {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: rgba(3, 7, 18, 0.8);
+    border: 1px solid rgba(14, 165, 233, 0.12);
+    position: relative;
+}
+
+.service-card__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
+    display: block;
+}
+
+.service-card:hover .service-card__visual img {
+    transform: scale(1.03);
+}
+
+.service-card__title {
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    line-height: var(--leading-snug);
+}
+
+.service-card__desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+    flex: 1;
+}
+
+.service-card__outcome {
+    font-size: 0.8125rem;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-glow-400);
+    padding-top: var(--space-4);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.service-card__outcome::before {
+    content: '→';
+    opacity: 0.7;
+}
+
+/* ============================================================
+   HOW IT WORKS — STEPS
+   ============================================================ */
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    position: relative;
+}
+
+/* Horizontal connector line between steps */
+.steps::before {
+    content: '';
+    position: absolute;
+    top: 1.75rem;
+    left: calc(100% / 6);
+    right: calc(100% / 6);
+    height: 1px;
+    background: linear-gradient(to right,
+            transparent,
+            rgba(14, 165, 233, 0.3) 20%,
+            rgba(56, 189, 248, 0.4) 50%,
+            rgba(14, 165, 233, 0.3) 80%,
+            transparent);
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .steps {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+
+    .steps::before {
+        display: none;
+    }
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-8) var(--space-8);
+    position: relative;
+}
+
+.step__number {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-surface);
+    border: 1px solid rgba(14, 165, 233, 0.35);
+    border-radius: 50%;
+    font-size: 1rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-glow-400);
+    margin-bottom: var(--space-6);
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    box-shadow: 0 0 16px rgba(14, 165, 233, 0.12);
+}
+
+.step__title {
+    font-size: 1.0625rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+}
+
+.step__desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+    max-width: 220px;
+}
+
+/* ============================================================
+   AUTOMATION VISUAL PANEL — replaces old flow list
+   ============================================================ */
+
+.automation-visual-panel {
+    max-width: 860px;
+    margin-inline: auto;
+    background: var(--color-bg-surface);
+    border: 1px solid rgba(14, 165, 233, 0.18);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow:
+        0 0 60px rgba(14, 165, 233, 0.07),
+        0 4px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* macOS-style chrome bar */
+.automation-visual-panel__bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-6);
+    background: rgba(3, 7, 18, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.automation-visual-panel__dots {
+    display: flex;
+    gap: 6px;
+}
+
+.automation-visual-panel__dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: block;
+}
+
+.automation-visual-panel__dots span:nth-child(1) {
+    background: rgba(239, 68, 68, 0.5);
+}
+
+.automation-visual-panel__dots span:nth-child(2) {
+    background: rgba(251, 191, 36, 0.5);
+}
+
+.automation-visual-panel__dots span:nth-child(3) {
+    background: rgba(52, 211, 153, 0.5);
+}
+
+.automation-visual-panel__label {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.02em;
+    flex: 1;
+    text-align: center;
+    margin-right: 52px;
+    /* balance the dots */
+}
+
+.automation-visual-panel__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 440px;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ============================================================
+   PRICING SECTION
+   ============================================================ */
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+        margin-inline: auto;
+    }
+}
+
+.pricing-card {
+    background: var(--color-bg-surface);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    position: relative;
+    transition:
+        border-color var(--transition-base),
+        box-shadow var(--transition-base);
+}
+
+/* Featured / middle card */
+.pricing-card--featured {
+    border-color: rgba(14, 165, 233, 0.35);
+    box-shadow: 0 0 40px rgba(14, 165, 233, 0.1);
+    background: linear-gradient(160deg,
+            rgba(14, 165, 233, 0.05) 0%,
+            var(--color-bg-surface) 60%);
+}
+
+.pricing-card--featured:hover {
+    border-color: rgba(56, 189, 248, 0.5);
+    box-shadow: 0 0 48px rgba(14, 165, 233, 0.16);
+}
+
+.pricing-card:not(.pricing-card--featured):hover {
+    border-color: rgba(14, 165, 233, 0.2);
+    box-shadow: 0 0 24px rgba(14, 165, 233, 0.06);
+}
+
+/* Featured badge */
+.pricing-badge {
+    position: absolute;
+    top: -0.875rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gradient-brand);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.875rem;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+}
+
+.pricing-card__name {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.pricing-card__price {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-1);
+}
+
+.pricing-card__currency {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+}
+
+.pricing-card__amount {
+    font-size: 3rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.pricing-card__features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pricing-card__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+}
+
+.pricing-card__feature::before {
+    content: '✓';
+    color: var(--color-glow-400);
+    font-weight: var(--font-weight-bold);
+    font-size: 0.875rem;
+    flex-shrink: 0;
+}
+
+.pricing-card__cta {
+    margin-top: auto;
+}
+
+/* ============================================================
+   SECTION DIVIDERS — subtle between sections
+   ============================================================ */
+
+.section--alt-bg {
+    background: rgba(15, 23, 42, 0.5);
+}

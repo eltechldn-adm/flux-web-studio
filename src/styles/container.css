@@ -1,0 +1,21 @@
+/*
+ * ============================================================
+ * Container — Reusable layout wrapper
+ * ============================================================
+ * Usage:
+ *   <div class="container"></div>
+ *   <div class="container container--narrow"></div>
+ * ============================================================
+ */
+
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin-inline: auto;
+    padding-inline: var(--container-padding-x);
+}
+
+/* Narrow variant for content-heavy sections (e.g. blog, legal) */
+.container--narrow {
+    max-width: 760px;
+}

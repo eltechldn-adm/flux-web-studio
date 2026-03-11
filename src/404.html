@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Page Not Found | Flux Web Studio</title>
+    <meta property="og:image" content="https://fluxwebstudio.com/assets/og-image.png" />
+    <meta name="twitter:image" content="https://fluxwebstudio.com/assets/og-image.png" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/container.css" />
+    <link rel="stylesheet" href="./styles/components/index.css" />
+
+    <style>
+        .error-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 60vh;
+            padding-block: var(--space-24);
+        }
+
+        .error-section__content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+            align-items: center;
+            max-width: 500px;
+        }
+
+        .error-section__code {
+            font-size: 0.875rem;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-glow-400);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .error-section__title {
+            font-size: 3rem;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text-primary);
+            line-height: var(--leading-tight);
+            letter-spacing: -0.02em;
+        }
+
+        .error-section__desc {
+            font-size: 1.125rem;
+            color: var(--color-text-muted);
+            line-height: var(--leading-relaxed);
+        }
+
+        .error-section__actions {
+            display: flex;
+            gap: var(--space-4);
+            margin-top: var(--space-2);
+        }
+
+        @media (max-width: 600px) {
+            .error-section__actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .error-section__actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a class="skip-link" href="#error-main">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
+        <div class="container nav__inner">
+            <a href="index.html" class="nav__logo" aria-label="Flux Web Studio — Home">
+                <span class="nav__logo-text">Flux Web Studio</span>
+            </a>
+            <ul class="nav__menu" role="list">
+                <li class="nav__item"><a href="services.html" class="nav__link">Services</a></li>
+                <li class="nav__item"><a href="how-it-works.html" class="nav__link">How It Works</a></li>
+                <li class="nav__item"><a href="case-studies.html" class="nav__link">Case Studies</a></li>
+                <li class="nav__item"><a href="pricing.html" class="nav__link">Pricing</a></li>
+                <li class="nav__item"><a href="contact.html" class="nav__link">Contact</a></li>
+            </ul>
+            <div class="nav__cta">
+                <a href="automation-request.html" class="btn btn--primary" id="nav-cta-btn">Get Automation</a>
+            </div>
+            <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="nav__toggle-icon" aria-hidden="true"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Error Content -->
+    <main id="error-main">
+        <section class="section error-section">
+            <div class="container">
+                <div class="error-section__content mx-auto">
+                    <span class="error-section__code">404 Error</span>
+                    <h1 class="error-section__title">Page not found</h1>
+                    <p class="error-section__desc">
+                        The page you are looking for doesn't exist or has been moved. Use the links below to return to the dashboard or start a request.
+                    </p>
+                    <div class="error-section__actions">
+                        <a href="index.html" class="btn btn--secondary">Back to Homepage</a>
+                        <a href="automation-request.html" class="btn btn--primary">Get Automation</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container footer__inner">
+            <div class="footer__brand">
+                <a href="index.html" class="footer__logo">Flux Web Studio</a>
+                <p class="footer__desc">
+                    We install custom AI systems that run entirely automatically. Reduce manual input to zero.
+                </p>
+            </div>
+            <nav class="footer__nav" aria-label="Footer Navigation">
+                <div class="footer__col">
+                    <h3 class="footer__heading">Services</h3>
+                    <ul class="footer__list" role="list">
+                        <li><a href="services.html#lead-response">Lead Response Automation</a></li>
+                        <li><a href="services.html#email-assistant">Email AI Assistant</a></li>
+                        <li><a href="services.html#client-onboarding">Client Onboarding</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h3 class="footer__heading">Company</h3>
+                    <ul class="footer__list" role="list">
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="case-studies.html">Case Studies</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="footer__bottom">
+            <div class="container footer__bottom-inner">
+                <p class="footer__copyright">
+                    &copy; <span id="footer-year">2026</span> Flux Web Studio. All rights reserved.
+                </p>
+                <ul class="footer__legal" role="list">
+                    <li><a href="privacy.html" class="footer__link">Privacy Policy</a></li>
+                    <li><a href="terms.html" class="footer__link">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./utils/index.js" defer></script>
+</body>
+</html>

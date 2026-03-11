@@ -1,0 +1,66 @@
+<!--
+  ============================================================
+  Layout — Global Page Shell
+  ============================================================
+  This is the master page template.
+  Every page includes Nav + main content slot + Footer.
+
+  Usage:
+    Replace <!-- PAGE CONTENT --> with page-specific HTML.
+============================================================
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO defaults — override per page -->
+    <title>Flux Web Studio — AI Automation Systems</title>
+    <meta name="description"
+        content="We install AI automation systems that save businesses 10+ hours per week. Lead response, email workflows, and client onboarding — automated." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://fluxwebstudio.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://fluxwebstudio.com/" />
+    <meta property="og:title" content="Flux Web Studio — AI Automation Systems" />
+    <meta property="og:description"
+        content="We install AI automation systems that save businesses 10+ hours per week." />
+    <meta property="og:image" content="https://fluxwebstudio.com/og-image.png" />
+
+    <!-- Favicon placeholder -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/container.css" />
+    <link rel="stylesheet" href="/src/styles/components/index.css" />
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <!-- INCLUDE: /src/components/layout/Nav.html -->
+    <div id="nav-placeholder"></div>
+
+    <!-- Main Content -->
+    <main id="main-content" tabindex="-1">
+
+        <!-- PAGE CONTENT -->
+
+    </main>
+
+    <!-- Footer -->
+    <!-- INCLUDE: /src/components/layout/Footer.html -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="/src/utils/index.js" defer></script>
+
+</body>
+
+</html>

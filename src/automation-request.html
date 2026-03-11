@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Request Automation | Flux Web Studio</title>
+    <meta property="og:image" content="https://fluxwebstudio.com/assets/og-image.png" />
+    <meta name="twitter:image" content="https://fluxwebstudio.com/assets/og-image.png" />
+    <meta name="description"
+        content="Tell us what workflow you want to automate and we will help design the right system." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://fluxwebstudio.com/automation-request" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://fluxwebstudio.com/automation-request" />
+    <meta property="og:title" content="Request Automation | Flux Web Studio" />
+    <meta property="og:description" content="Tell us what workflow you want to automate and we will design the right AI automation system for your business." />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Request Automation | Flux Web Studio" />
+    <meta name="twitter:description" content="Tell us what you want to automate. We will review and send a fixed-price proposal." />
+
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/container.css" />
+    <link rel="stylesheet" href="./styles/components/index.css" />
+
+    <style>
+        /* ─── Page-level layout ─────────────────── */
+        .request-page {
+            min-height: calc(100svh - 4.5rem);
+            padding-block: var(--space-20) var(--section-spacing-md);
+        }
+
+        .request-page__inner {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: var(--space-16);
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .request-page__inner {
+                grid-template-columns: 1fr;
+            }
+
+            .request-page__sidebar {
+                order: -1;
+            }
+        }
+
+        /* ─── Page header ────────────────────────── */
+        .request-page__header {
+            margin-bottom: var(--space-10);
+        }
+
+        .request-page__label {
+            display: inline-block;
+            font-size: 0.8125rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-glow-400);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: var(--space-4);
+        }
+
+        .request-page__title {
+            font-size: var(--text-h1);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text-primary);
+            line-height: var(--leading-tight);
+            letter-spacing: -0.02em;
+            margin-bottom: var(--space-4);
+        }
+
+        .request-page__sub {
+            font-size: var(--text-body);
+            color: var(--color-text-muted);
+            max-width: 520px;
+            line-height: var(--leading-normal);
+        }
+
+        /* ─── Form card ──────────────────────────── */
+        .form-card {
+            background: var(--color-bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: var(--radius-lg);
+            padding: var(--space-10);
+        }
+
+        /* ─── Sidebar ────────────────────────────── */
+        .request-page__sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+        }
+
+        .sidebar-card {
+            background: var(--color-bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+        }
+
+        .sidebar-card__title {
+            font-size: 0.9375rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-4);
+        }
+
+        .sidebar-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-list__item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            line-height: var(--leading-normal);
+        }
+
+        .sidebar-list__icon {
+            color: var(--color-glow-400);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .sidebar-card__note {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            line-height: var(--leading-normal);
+        }
+
+        .sidebar-card--highlight {
+            border-color: rgba(14, 165, 233, 0.2);
+            background: linear-gradient(140deg,
+                    rgba(14, 165, 233, 0.06),
+                    var(--color-bg-surface) 70%);
+        }
+
+        .sidebar-card__stat {
+            font-size: 2rem;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-glow-400);
+            line-height: 1;
+            margin-bottom: var(--space-2);
+        }
+
+        .sidebar-card__stat-label {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- ============================================================
+     NAVIGATION
+============================================================ -->
+    <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
+        <div class="container nav__inner">
+
+            <a href="index.html" class="nav__logo" aria-label="Flux Web Studio — Home">
+                <span class="nav__logo-text">Flux Web Studio</span>
+            </a>
+
+            <ul class="nav__menu" role="list">
+                <li class="nav__item"><a href="services.html"          class="nav__link">Services</a></li>
+                <li class="nav__item"><a href="how-it-works.html" class="nav__link">How It Works</a></li>
+                <li class="nav__item"><a href="case-studies.html" class="nav__link">Case Studies</a></li>
+                <li class="nav__item"><a href="pricing.html" class="nav__link">Pricing</a></li>
+                <li class="nav__item"><a href="contact.html"           class="nav__link">Contact</a></li>
+            </ul>
+
+            <div class="nav__cta">
+                <a href="automation-request.html" class="btn btn--primary" id="nav-cta-btn">Get Automation</a>
+            </div>
+
+            <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="nav__toggle-bar"></span>
+                <span class="nav__toggle-bar"></span>
+                <span class="nav__toggle-bar"></span>
+            </button>
+
+        </div>
+    </nav>
+
+
+    <!-- ============================================================
+     MAIN CONTENT
+============================================================ -->
+    <main id="main-content" class="request-page" tabindex="-1">
+        <div class="container">
+
+            <!-- Page Header -->
+            <div class="request-page__header">
+                <span class="request-page__label">Step 1 of 3</span>
+                <h1 class="request-page__title">Automation Request</h1>
+                <p class="request-page__sub">
+                    Tell us what workflow you want to automate and we will help design the right system for your
+                    business.
+                </p>
+            </div>
+
+            <div class="request-page__inner">
+
+                <!-- === FORM COLUMN === -->
+                <div class="request-page__form-col">
+
+                    <!-- Success State (hidden until submit) -->
+                    <div class="form-success" id="form-success" role="alert" aria-live="polite">
+                        <div class="form-success__icon" aria-hidden="true">✓</div>
+                        <h2 class="form-success__title">Request Received</h2>
+                        <p class="form-success__message">
+                            Thanks for your request. We will review your workflow and get back to you shortly.
+                        </p>
+                        <a href="index.html" class="btn btn--secondary form-success__back">Back to Homepage</a>
+                    </div>
+
+                    <!-- Request Form -->
+                    <div class="form-card" id="form-wrapper">
+                        <form class="form" action="/api/automation-request" method="POST" id="automation-request-form" novalidate aria-label="Automation request form">
+
+                            <!-- Row 1: Name + Email -->
+                            <div class="form__row">
+                                <div class="form-group">
+                                    <label class="form-label form-label--required" for="full-name">Full Name</label>
+                                    <input class="form-input" type="text" id="full-name" name="fullName"
+                                        placeholder="Jane Smith" autocomplete="name" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label form-label--required" for="email">Email Address</label>
+                                    <input class="form-input" type="email" id="email" name="email"
+                                        placeholder="jane@company.com" autocomplete="email" required />
+                                </div>
+                            </div>
+
+                            <!-- Row 2: Company + Business Type -->
+                            <div class="form__row">
+                                <div class="form-group">
+                                    <label class="form-label" for="company-name">Company Name</label>
+                                    <input class="form-input" type="text" id="company-name" name="companyName"
+                                        placeholder="Acme Ltd" autocomplete="organization" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label form-label--required" for="business-type">Business
+                                        Type</label>
+                                    <select class="form-select" id="business-type" name="businessType" required>
+                                        <option value="" disabled selected>Select business type</option>
+                                        <option value="consultant">Consultant</option>
+                                        <option value="agency">Agency</option>
+                                        <option value="local-business">Local Business</option>
+                                        <option value="startup">Startup</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Automation Interest -->
+                            <div class="form-group">
+                                <label class="form-label form-label--required" for="automation-interest">Automation
+                                    Interest</label>
+                                <select class="form-select" id="automation-interest" name="automationInterest" required>
+                                    <option value="" disabled selected>Which automation are you interested in?</option>
+                                    <option value="lead-response">Lead Response Automation</option>
+                                    <option value="email-assistant">Email AI Assistant</option>
+                                    <option value="client-onboarding">Client Onboarding Automation</option>
+                                    <option value="not-sure">Not Sure Yet</option>
+                                </select>
+                            </div>
+
+                            <!-- Workflow Description -->
+                            <div class="form-group">
+                                <label class="form-label form-label--required" for="workflow-description">Workflow
+                                    Description</label>
+                                <textarea class="form-textarea" id="workflow-description" name="workflowDescription"
+                                    placeholder="Describe the repetitive workflow you want to automate. For example: we manually reply to every website lead — this takes 30 minutes per day and leads sometimes go cold."
+                                    rows="5" required></textarea>
+                                <p class="form-hint">Be as specific as possible — this helps us design the right system.
+                                </p>
+                            </div>
+
+                            <!-- Urgency -->
+                            <div class="form-group">
+                                <span class="form-label" id="urgency-label">Estimated Urgency</span>
+                                <div class="form-radio-group" role="radiogroup" aria-labelledby="urgency-label">
+
+                                    <div class="form-radio-option">
+                                        <input type="radio" id="urgency-exploring" name="urgency" value="exploring"
+                                            checked />
+                                        <label class="form-radio-label" for="urgency-exploring">Just Exploring</label>
+                                    </div>
+
+                                    <div class="form-radio-option">
+                                        <input type="radio" id="urgency-30days" name="urgency" value="30days" />
+                                        <label class="form-radio-label" for="urgency-30days">Within 30 Days</label>
+                                    </div>
+
+                                    <div class="form-radio-option">
+                                        <input type="radio" id="urgency-asap" name="urgency" value="asap" />
+                                        <label class="form-radio-label" for="urgency-asap">ASAP</label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- Submit -->
+                            <div class="form__submit">
+                                <button type="submit" class="btn btn--primary btn--lg" id="submit-btn">
+                                    Submit Automation Request
+                                </button>
+                            </div>
+
+                            <!-- Error banner (hidden) -->
+                            <div id="form-error" role="alert" aria-live="assertive" style="
+                display: none;
+                padding: var(--space-4) var(--space-6);
+                background: rgba(239, 68, 68, 0.08);
+                border: 1px solid rgba(239, 68, 68, 0.3);
+                border-radius: var(--radius-md);
+                font-size: var(--text-sm);
+                color: #fca5a5;
+              ">
+                                Please fill in all required fields before submitting.
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                <!-- === SIDEBAR === -->
+                <aside class="request-page__sidebar" aria-label="Request information">
+
+                    <!-- Stat card -->
+                    <div class="sidebar-card sidebar-card--highlight">
+                        <div class="sidebar-card__stat">10+</div>
+                        <p class="sidebar-card__stat-label">hours saved per week, on average, after installation.</p>
+                    </div>
+
+                    <!-- What happens next -->
+                    <div class="sidebar-card">
+                        <h2 class="sidebar-card__title">What happens next</h2>
+                        <ul class="sidebar-list">
+                            <li class="sidebar-list__item">
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                We review your workflow within 1 business day
+                            </li>
+                            <li class="sidebar-list__item">
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                We confirm whether automation is a strong fit
+                            </li>
+                            <li class="sidebar-list__item">
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                We send a proposal with timeline and price
+                            </li>
+                            <li class="sidebar-list__item">
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                Build starts when you approve
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Included in every build -->
+                    <div class="sidebar-card">
+                        <h2 class="sidebar-card__title">Included in every build</h2>
+                        <ul class="sidebar-list">
+                            <li class="sidebar-list__item">
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                Full automation setup and testing
+                            </li>
+                            <li class="sidebar-list__item">
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                Clear documentation for your team
+                            </li>
+                            <li class="sidebar-list__item">
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                Integration with your existing tools
+                            </li>
+                            <li class="sidebar-list__item">
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                No retainer — one-time delivery
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Privacy note -->
+                    <div class="sidebar-card">
+                        <p class="sidebar-card__note">
+                            Your information is only used to assess your automation request. We do not share your data
+                            with third parties.
+                        </p>
+                    </div>
+
+                </aside>
+
+            </div>
+        </div>
+    </main>
+
+
+    <!-- ============================================================
+     FOOTER
+============================================================ -->
+    <footer class="footer" id="main-footer" role="contentinfo">
+        <div class="container footer__inner">
+
+            <div class="footer__brand">
+                <a href="index.html" class="footer__logo">Flux Web Studio</a>
+                <p class="footer__tagline">AI automation systems for modern businesses.</p>
+            </div>
+
+            <nav class="footer__column" aria-label="Services navigation">
+                <h3 class="footer__heading">Services</h3>
+                <ul class="footer__links" role="list">
+                    <li><a href="services.html#lead-response" class="footer__link">Lead Response Automation</a></li>
+                    <li><a href="services.html#email-assistant" class="footer__link">Email AI Assistant</a></li>
+                    <li><a href="services.html#client-onboarding" class="footer__link">Client Onboarding Automation</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <nav class="footer__column" aria-label="Company navigation">
+                <h3 class="footer__heading">Company</h3>
+                <ul class="footer__links" role="list">
+                    <li><a href="how-it-works.html" class="footer__link">How It Works</a></li>
+                    <li><a href="pricing.html" class="footer__link">Pricing</a></li>
+                    <li><a href="contact.html" class="footer__link">Contact</a></li>
+                </ul>
+            </nav>
+
+        </div>
+
+        <div class="footer__bottom">
+            <div class="container footer__bottom-inner">
+                <p class="footer__copyright">
+                    &copy; <span id="footer-year">2026</span> Flux Web Studio. All rights reserved.
+                </p>
+                <ul class="footer__legal" role="list">
+                    <li><a href="privacy.html" class="footer__link">Privacy Policy</a></li>
+                    <li><a href="terms.html" class="footer__link">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ============================================================
+     SCRIPTS
+============================================================ -->
+    <script src="./utils/index.js" defer></script>
+
+    <script>
+        (function () {
+            'use strict';
+
+            const form = document.getElementById('automation-request-form');
+            const formCard = document.getElementById('form-wrapper');
+            const success = document.getElementById('form-success');
+            const errorBanner = document.getElementById('form-error');
+            const submitBtn = document.getElementById('submit-btn');
+
+            // ── Handle redirect success state ──────────
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === '1') {
+                if (formCard) formCard.style.display = 'none';
+                if (success) {
+                    success.classList.add('is-visible');
+                    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Clean URL
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            }
+
+            if (!form) return;
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // ── Simple client-side validation ──────────
+                const required = form.querySelectorAll('[required]');
+                let valid = true;
+
+                required.forEach(function (field) {
+                    // Clear previous invalid state
+                    field.style.borderColor = '';
+                    if (!field.value.trim()) {
+                        valid = false;
+                        field.style.borderColor = 'rgba(239, 68, 68, 0.6)';
+                    }
+                });
+
+                if (!valid) {
+                    errorBanner.style.display = 'block';
+                    // scroll to first invalid field
+                    const firstInvalid = form.querySelector('[required][style*="rgb(239"]');
+                    if (firstInvalid) firstInvalid.focus();
+                    return;
+                }
+
+                errorBanner.style.display = 'none';
+
+                // ── Submit to production endpoint ──────────
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting…';
+                form.submit();
+            });
+
+            // ── Clear individual field error highlight on input
+            form.addEventListener('input', function (e) {
+                if (e.target.style.borderColor) {
+                    e.target.style.borderColor = '';
+                }
+                // Hide global error banner once any field is corrected
+                if (errorBanner.style.display !== 'none') {
+                    errorBanner.style.display = 'none';
+                }
+            });
+
+        })();
+    </script>
+
+</body>
+
+</html>

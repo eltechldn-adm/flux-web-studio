@@ -1,0 +1,86 @@
+/*
+ * ============================================================
+ * Cards — Service / Feature / Content cards
+ * ============================================================
+ * Usage:
+ *   <div class="card">...</div>
+ *   <div class="card card--hover">...</div>  ← interactive card
+ * ============================================================
+ */
+
+.card {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    position: relative;
+    overflow: hidden;
+    transition:
+        border-color var(--transition-base),
+        box-shadow var(--transition-base);
+}
+
+/* Subtle top-edge glow on hover for interactive cards */
+.card--hover {
+    cursor: default;
+}
+
+.card--hover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg,
+            rgba(14, 165, 233, 0.04),
+            transparent 60%);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+    pointer-events: none;
+}
+
+.card--hover:hover {
+    border-color: rgba(14, 165, 233, 0.25);
+    box-shadow: var(--glow-subtle);
+}
+
+.card--hover:hover::before {
+    opacity: 1;
+}
+
+/* --------------------------------------------------
+ * CARD INTERNALS
+ * -------------------------------------------------- */
+.card__icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(14, 165, 233, 0.1);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-6);
+    color: var(--color-glow-400);
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.card__title {
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-snug);
+}
+
+.card__body {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+}
+
+.card__footer {
+    margin-top: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border-subtle);
+}

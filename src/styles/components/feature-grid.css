@@ -1,0 +1,89 @@
+/*
+ * ============================================================
+ * Feature Grid — 3-column icon/title/description grid
+ * ============================================================
+ * Usage:
+ *   <div class="feature-grid">
+ *     <div class="feature-item">...</div>
+ *   </div>
+ * ============================================================
+ */
+
+/* --------------------------------------------------
+ * GRID WRAPPER
+ * -------------------------------------------------- */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+}
+
+@media (max-width: 1024px) {
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --------------------------------------------------
+ * FEATURE ITEM — individual card
+ * -------------------------------------------------- */
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-8);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+    transition:
+        border-color var(--transition-base),
+        box-shadow var(--transition-base);
+}
+
+.feature-item:hover {
+    border-color: rgba(14, 165, 233, 0.25);
+    box-shadow: var(--glow-subtle);
+}
+
+/* --------------------------------------------------
+ * FEATURE ITEM — icon
+ * -------------------------------------------------- */
+.feature-item__icon {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(14, 165, 233, 0.1);
+    border: 1px solid rgba(14, 165, 233, 0.18);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-6);
+    color: var(--color-glow-400);
+    font-size: 1.375rem;
+    flex-shrink: 0;
+}
+
+/* --------------------------------------------------
+ * FEATURE ITEM — text
+ * -------------------------------------------------- */
+.feature-item__title {
+    font-size: 1.0625rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-snug);
+}
+
+.feature-item__desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    flex: 1;
+}

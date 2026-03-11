@@ -1,0 +1,112 @@
+/*
+ * ============================================================
+ * Sections — Layout blocks
+ * ============================================================
+ * Usage:
+ *   <section class="section">
+ *     <div class="container">
+ *       <div class="section__header">...</div>
+ *       <div class="section__grid">...</div>
+ *     </div>
+ *   </section>
+ * ============================================================
+ */
+
+/* --------------------------------------------------
+ * SECTION SPACING (augments global.css .section utility)
+ * -------------------------------------------------- */
+.section {
+    padding-block: var(--section-spacing-md);
+}
+
+.section--lg {
+    padding-block: var(--section-spacing-lg);
+}
+
+.section--sm {
+    padding-block: var(--section-spacing-sm);
+}
+
+/* --------------------------------------------------
+ * SECTION HEADER — centred title + subtitle block
+ * -------------------------------------------------- */
+.section__header {
+    text-align: center;
+    margin-bottom: var(--space-16);
+    max-width: 640px;
+    margin-inline: auto;
+    margin-bottom: var(--space-16);
+}
+
+.section__label {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-glow-400);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-5);
+}
+
+.section__title {
+    font-size: var(--text-h2);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-5);
+}
+
+.section__subtitle {
+    font-size: var(--text-body);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+    max-width: 540px;
+    margin-inline: auto;
+}
+
+/* --------------------------------------------------
+ * SECTION GRIDS
+ * -------------------------------------------------- */
+
+/* Generic auto-responsive grid */
+.section__grid {
+    display: grid;
+    gap: var(--space-6);
+}
+
+/* 2-column grid */
+.section__grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* 3-column grid (feature grid default) */
+.section__grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* 4-column grid */
+.section__grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* --------------------------------------------------
+ * RESPONSIVE BREAKDOWNS
+ * -------------------------------------------------- */
+@media (max-width: 1024px) {
+    .section__grid--4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .section__grid--2,
+    .section__grid--3,
+    .section__grid--4 {
+        grid-template-columns: 1fr;
+    }
+
+    .section__header {
+        margin-bottom: var(--space-12);
+    }
+}

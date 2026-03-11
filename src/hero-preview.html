@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Hero Preview — Flux Web Studio</title>
+    <meta name="description" content="Hero section preview for Flux Web Studio." />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/container.css" />
+    <link rel="stylesheet" href="./styles/components/index.css" />
+</head>
+
+<body>
+
+    <!-- ================================================
+       NAVIGATION
+  ================================================ -->
+    <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
+        <div class="container nav__inner">
+
+            <a href="/" class="nav__logo" aria-label="Flux Web Studio — Home">
+                <span class="nav__logo-text">Flux Web Studio</span>
+            </a>
+
+            <ul class="nav__menu" role="list">
+                <li class="nav__item">
+                    <a href="/services" class="nav__link">Services</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/how-it-works" class="nav__link">How It Works</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/case-studies" class="nav__link">Case Studies</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/contact" class="nav__link">Contact</a>
+                </li>
+            </ul>
+
+            <div class="nav__cta">
+                <a href="/contact" class="btn btn--primary" id="nav-cta-btn">Get Automation</a>
+            </div>
+
+            <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="nav__toggle-bar"></span>
+                <span class="nav__toggle-bar"></span>
+                <span class="nav__toggle-bar"></span>
+            </button>
+
+        </div>
+    </nav>
+
+    <!-- ================================================
+       HERO — Energy Core Glow
+  ================================================ -->
+    <section class="hero" id="hero" aria-label="Hero">
+
+        <!-- Glow layers — bottom-up stack -->
+        <div class="hero__glow-haze" aria-hidden="true"></div>
+        <div class="hero__glow-bloom" aria-hidden="true"></div>
+        <div class="hero__glow-core" aria-hidden="true"></div>
+        <div class="hero__glow-nucleus" aria-hidden="true"></div>
+        <div class="hero__glow-horizon" aria-hidden="true"></div>
+
+        <!-- Content -->
+        <div class="hero__content">
+
+            <div class="hero__badge" role="note">
+                <span class="hero__badge-dot" aria-hidden="true"></span>
+                AI Automation Systems for Modern Businesses
+            </div>
+
+            <h1 class="hero__headline">
+                AI Systems That Save Businesses<br>
+                <mark>10+ Hours Per Week</mark>
+            </h1>
+
+            <p class="hero__sub">
+                We install AI automation systems that handle lead responses,
+                email workflows, and client onboarding automatically.
+            </p>
+
+            <div class="hero__actions">
+                <a href="/contact" class="btn btn--primary   btn--lg" id="hero-cta-primary">
+                    Get Automation
+                </a>
+                <a href="/how-it-works" class="btn btn--secondary btn--lg" id="hero-cta-secondary">
+                    See How It Works
+                </a>
+            </div>
+
+            <p class="hero__trust">
+                Built for businesses that want faster workflows, fewer manual tasks, and better response times.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- ================================================
+       FOOTER
+  ================================================ -->
+    <footer class="footer" id="main-footer" role="contentinfo">
+        <div class="container footer__inner">
+
+            <div class="footer__brand">
+                <a href="/" class="footer__logo">Flux Web Studio</a>
+                <p class="footer__tagline">
+                    AI automation systems for modern businesses.
+                </p>
+            </div>
+
+            <nav class="footer__column" aria-label="Services navigation">
+                <h3 class="footer__heading">Services</h3>
+                <ul class="footer__links" role="list">
+                    <li><a href="/services#lead-response" class="footer__link">Lead Response Automation</a></li>
+                    <li><a href="/services#email-assistant" class="footer__link">Email AI Assistant</a></li>
+                    <li><a href="/services#client-onboarding" class="footer__link">Client Onboarding Automation</a></li>
+                </ul>
+            </nav>
+
+            <nav class="footer__column" aria-label="Company navigation">
+                <h3 class="footer__heading">Company</h3>
+                <ul class="footer__links" role="list">
+                    <li><a href="/how-it-works" class="footer__link">How It Works</a></li>
+                    <li><a href="/case-studies" class="footer__link">Case Studies</a></li>
+                    <li><a href="/contact" class="footer__link">Contact</a></li>
+                </ul>
+            </nav>
+
+        </div>
+
+        <div class="footer__bottom">
+            <div class="container footer__bottom-inner">
+                <p class="footer__copyright">
+                    &copy; <span id="footer-year">2026</span> Flux Web Studio. All rights reserved.
+                </p>
+                <ul class="footer__legal" role="list">
+                    <li><a href="/privacy" class="footer__link">Privacy Policy</a></li>
+                    <li><a href="/terms" class="footer__link">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================================================
+       SCRIPTS
+  ================================================ -->
+    <script src="./utils/index.js" defer></script>
+
+</body>
+
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Showcase — Flux Web Studio</title>
+    <meta name="robots" content="noindex" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/container.css" />
+    <link rel="stylesheet" href="/src/styles/components/index.css" />
+
+    <style>
+        /* Showcase-only layout helpers */
+        .showcase-section {
+            padding-block: var(--space-16);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .showcase-label {
+            font-size: 0.75rem;
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-glow-400);
+            margin-bottom: var(--space-8);
+        }
+
+        .showcase-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================================================
+       NAVIGATION
+  ================================================ -->
+    <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
+        <div class="container nav__inner">
+            <a href="/" class="nav__logo" aria-label="Flux Web Studio — Home">
+                <span class="nav__logo-text">Flux Web Studio</span>
+            </a>
+            <ul class="nav__menu" role="list">
+                <li class="nav__item"><a href="/services" class="nav__link">Services</a></li>
+                <li class="nav__item"><a href="/how-it-works" class="nav__link">How It Works</a></li>
+                <li class="nav__item"><a href="/case-studies" class="nav__link">Case Studies</a></li>
+                <li class="nav__item"><a href="/contact" class="nav__link">Contact</a></li>
+            </ul>
+            <div class="nav__cta">
+                <a href="/contact" class="btn btn--primary" id="nav-cta-btn">Get Automation</a>
+            </div>
+            <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="nav__toggle-bar"></span>
+                <span class="nav__toggle-bar"></span>
+                <span class="nav__toggle-bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content">
+
+        <!-- ================================================
+         PAGE HEADER
+    ================================================ -->
+        <div style="padding-block: var(--space-16); text-align: center; border-bottom: 1px solid var(--border-subtle);">
+            <div class="container">
+                <p
+                    style="font-size: 0.8125rem; color: var(--color-glow-400); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: var(--space-4);">
+                    Phase 2</p>
+                <h1 style="font-size: var(--text-h1); font-weight: 700; margin-bottom: var(--space-4);">Component
+                    Showcase</h1>
+                <p style="color: var(--color-text-muted);">All reusable UI components for Flux Web Studio.</p>
+            </div>
+        </div>
+
+        <!-- ================================================
+         BUTTONS
+    ================================================ -->
+        <div class="showcase-section">
+            <div class="container">
+                <p class="showcase-label">Buttons</p>
+                <div class="showcase-row">
+                    <a href="#" class="btn btn--primary">Get Automation</a>
+                    <a href="#" class="btn btn--secondary">See How It Works</a>
+                    <a href="#" class="btn btn--primary btn--lg">Primary — Large</a>
+                    <a href="#" class="btn btn--secondary btn--lg">Secondary — Large</a>
+                    <a href="#" class="btn btn--primary btn--sm">Primary — Small</a>
+                    <a href="#" class="btn btn--secondary btn--sm">Secondary — Small</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================================================
+         CARDS
+    ================================================ -->
+        <div class="showcase-section">
+            <div class="container">
+                <p class="showcase-label">Cards</p>
+                <div class="section__grid section__grid--3">
+
+                    <div class="card card--hover">
+                        <div class="card__icon" aria-hidden="true">⚡</div>
+                        <h3 class="card__title">Lead Response Automation</h3>
+                        <p class="card__body">Instantly respond to new website enquiries using AI — no manual follow-up
+                            required.</p>
+                        <div class="card__footer">
+                            <a href="#" class="btn btn--secondary btn--sm">Learn More</a>
+                        </div>
+                    </div>
+
+                    <div class="card card--hover">
+                        <div class="card__icon" aria-hidden="true">📧</div>
+                        <h3 class="card__title">Email AI Assistant</h3>
+                        <p class="card__body">AI reads, summarises, and suggests replies to emails — saving hours every
+                            week.</p>
+                        <div class="card__footer">
+                            <a href="#" class="btn btn--secondary btn--sm">Learn More</a>
+                        </div>
+                    </div>
+
+                    <div class="card card--hover">
+                        <div class="card__icon" aria-hidden="true">🤖</div>
+                        <h3 class="card__title">Client Onboarding Automation</h3>
+                        <p class="card__body">Automates the onboarding process the moment a new client signs up.</p>
+                        <div class="card__footer">
+                            <a href="#" class="btn btn--secondary btn--sm">Learn More</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ================================================
+         SECTION LAYOUT + FEATURE GRID
+    ================================================ -->
+        <section class="section">
+            <div class="container">
+
+                <div class="section__header">
+                    <span class="section__label">Why Flux</span>
+                    <h2 class="section__title">Built for Businesses That Move Fast</h2>
+                    <p class="section__subtitle">
+                        Every automation system we install is designed to save time, reduce manual work, and scale with
+                        your business.
+                    </p>
+                </div>
+
+                <div class="feature-grid">
+
+                    <div class="feature-item">
+                        <div class="feature-item__icon" aria-hidden="true">⚡</div>
+                        <h3 class="feature-item__title">Instant Lead Response</h3>
+                        <p class="feature-item__desc">Never miss a lead. AI responds within seconds of a new enquiry
+                            landing.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-item__icon" aria-hidden="true">🔗</div>
+                        <h3 class="feature-item__title">System Integrations</h3>
+                        <p class="feature-item__desc">Connects to the tools your team already uses — no rebuilding
+                            workflows.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-item__icon" aria-hidden="true">🤖</div>
+                        <h3 class="feature-item__title">Powered by OpenAI</h3>
+                        <p class="feature-item__desc">Every automation uses production-grade AI to handle complex,
+                            real-world scenarios.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-item__icon" aria-hidden="true">📋</div>
+                        <h3 class="feature-item__title">Documentation Included</h3>
+                        <p class="feature-item__desc">Every system ships with clear documentation your team can
+                            understand and maintain.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-item__icon" aria-hidden="true">🔒</div>
+                        <h3 class="feature-item__title">Built to Scale</h3>
+                        <p class="feature-item__desc">Systems are structured as reusable templates — ready to expand as
+                            you grow.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-item__icon" aria-hidden="true">⏱</div>
+                        <h3 class="feature-item__title">10+ Hours Saved Weekly</h3>
+                        <p class="feature-item__desc">Our core promise. Every system we install is measured against this
+                            outcome.</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================================================
+         CTA BLOCK
+    ================================================ -->
+        <section class="section section--sm">
+            <div class="container">
+                <div class="cta-block">
+                    <span class="cta-block__eyebrow">Ready to automate?</span>
+                    <h2 class="cta-block__headline">Save 10+ Hours Per Week With AI Automation</h2>
+                    <p class="cta-block__desc">
+                        We install automation systems that handle the repetitive work so your team can focus on what
+                        matters.
+                    </p>
+                    <div class="cta-block__actions">
+                        <a href="/contact" class="btn btn--primary btn--lg" id="cta-block-primary">Get Automation</a>
+                        <a href="/how-it-works" class="btn btn--secondary btn--lg" id="cta-block-secondary">See How It
+                            Works</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================================================
+       FOOTER
+  ================================================ -->
+    <footer class="footer" id="main-footer" role="contentinfo">
+        <div class="container footer__inner">
+
+            <div class="footer__brand">
+                <a href="/" class="footer__logo">Flux Web Studio</a>
+                <p class="footer__tagline">AI automation systems for modern businesses.</p>
+            </div>
+
+            <nav class="footer__column" aria-label="Services navigation">
+                <h3 class="footer__heading">Services</h3>
+                <ul class="footer__links" role="list">
+                    <li><a href="/services#lead-response" class="footer__link">Lead Response Automation</a></li>
+                    <li><a href="/services#email-assistant" class="footer__link">Email AI Assistant</a></li>
+                    <li><a href="/services#client-onboarding" class="footer__link">Client Onboarding Automation</a></li>
+                </ul>
+            </nav>
+
+            <nav class="footer__column" aria-label="Company navigation">
+                <h3 class="footer__heading">Company</h3>
+                <ul class="footer__links" role="list">
+                    <li><a href="/how-it-works" class="footer__link">How It Works</a></li>
+                    <li><a href="/case-studies" class="footer__link">Case Studies</a></li>
+                    <li><a href="/contact" class="footer__link">Contact</a></li>
+                </ul>
+            </nav>
+
+        </div>
+
+        <div class="footer__bottom">
+            <div class="container footer__bottom-inner">
+                <p class="footer__copyright">&copy; <span id="footer-year">2026</span> Flux Web Studio. All rights
+                    reserved.</p>
+                <ul class="footer__legal" role="list">
+                    <li><a href="/privacy" class="footer__link">Privacy Policy</a></li>
+                    <li><a href="/terms" class="footer__link">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/src/utils/index.js" defer></script>
+
+</body>
+
+</html>

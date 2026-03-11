@@ -1,0 +1,360 @@
+/*
+ * ============================================================
+ * UI Flow Components
+ * ============================================================
+ * .ui-flow      — horizontal 3-step card process flow
+ * .node-flow    — vertical lead automation pipeline
+ * ============================================================
+ */
+
+/* ============================================================
+   SHARED: PREMIUM PANEL WRAPPER
+   Clean replacement for the old fake app-window chrome.
+   ============================================================ */
+
+.flow-panel {
+    background: var(--color-bg-surface);
+    border: 1px solid rgba(14, 165, 233, 0.18);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow:
+        0 0 60px rgba(14, 165, 233, 0.06),
+        0 4px 40px rgba(0, 0, 0, 0.4);
+    max-width: 860px;
+    margin-inline: auto;
+    margin-top: var(--space-14);
+    position: relative;
+}
+
+/* Subtle top accent line — replaces the 3-dot OS chrome bar */
+.flow-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(14, 165, 233, 0.45) 30%,
+        rgba(56, 189, 248, 0.6) 50%,
+        rgba(14, 165, 233, 0.45) 70%,
+        transparent
+    );
+    pointer-events: none;
+}
+
+/* Hide the old fake bar entirely */
+.flow-panel__bar {
+    display: none;
+}
+
+/* Hidden but retained for screen-readers / landmark purpose */
+.flow-panel__title {
+    display: none;
+}
+
+/* Premium panel header — optional clean label above content */
+.flow-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-5) var(--space-8) 0;
+    margin-bottom: var(--space-1);
+}
+
+.flow-panel__header-label {
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-glow-400);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.flow-panel__header-status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.75rem;
+    color: #34d399;
+    font-weight: var(--font-weight-medium);
+}
+
+.flow-panel__header-status::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 6px rgba(52, 211, 153, 0.6);
+    flex-shrink: 0;
+}
+
+.flow-panel__body {
+    padding: var(--space-8) var(--space-10) var(--space-10);
+}
+
+/* ============================================================
+   UI FLOW — 3-STEP HORIZONTAL CARDS (How It Works hero)
+   ============================================================ */
+
+.ui-flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    justify-content: center;
+}
+
+.ui-flow__card {
+    flex: 1;
+    max-width: 220px;
+    background: rgba(3, 7, 18, 0.6);
+    border: 1px solid rgba(14, 165, 233, 0.18);
+    border-radius: var(--radius-md);
+    padding: var(--space-7) var(--space-6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    text-align: center;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+    position: relative;
+}
+
+.ui-flow__card:hover {
+    border-color: rgba(14, 165, 233, 0.42);
+    box-shadow: 0 0 24px rgba(14, 165, 233, 0.12);
+    transform: translateY(-2px);
+}
+
+.ui-flow__step-badge {
+    position: absolute;
+    top: -0.875rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1.75rem;
+    height: 1.75rem;
+    background: var(--color-bg-surface);
+    border: 1px solid rgba(14, 165, 233, 0.35);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-glow-400);
+    box-shadow: 0 0 10px rgba(14, 165, 233, 0.14);
+}
+
+.ui-flow__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: rgba(14, 165, 233, 0.08);
+    border: 1px solid rgba(14, 165, 233, 0.16);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-glow-400);
+    margin-top: var(--space-2);
+    flex-shrink: 0;
+}
+
+.ui-flow__label {
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    line-height: var(--leading-snug);
+}
+
+.ui-flow__sub {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+}
+
+/* Connector arrow between cards */
+.ui-flow__arrow {
+    flex-shrink: 0;
+    width: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(56, 189, 248, 0.45);
+}
+
+.ui-flow__arrow svg {
+    display: block;
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 600px) {
+    .ui-flow {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ui-flow__card {
+        max-width: 280px;
+        width: 100%;
+    }
+
+    .ui-flow__arrow {
+        transform: rotate(90deg);
+        width: auto;
+        height: 2rem;
+    }
+}
+
+/* ============================================================
+   NODE FLOW — VERTICAL LEAD PIPELINE (homepage example)
+   ============================================================ */
+
+.node-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    max-width: 480px;
+    margin-inline: auto;
+}
+
+.node-flow__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.node-flow__node {
+    width: 100%;
+    background: rgba(3, 7, 18, 0.55);
+    border: 1px solid rgba(14, 165, 233, 0.18);
+    border-radius: var(--radius-md);
+    padding: var(--space-5) var(--space-6);
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    cursor: default;
+}
+
+.node-flow__node:hover {
+    border-color: rgba(14, 165, 233, 0.38);
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.09);
+}
+
+/* Accent left border pulse for "active" feel */
+.node-flow__node--active {
+    border-left: 2px solid rgba(56, 189, 248, 0.7);
+    box-shadow: inset 3px 0 12px rgba(14, 165, 233, 0.06);
+}
+
+.node-flow__icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    background: rgba(14, 165, 233, 0.08);
+    border: 1px solid rgba(14, 165, 233, 0.14);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-glow-400);
+    flex-shrink: 0;
+}
+
+.node-flow__text {
+    flex: 1;
+}
+
+.node-flow__label {
+    font-size: 0.9375rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    line-height: var(--leading-snug);
+}
+
+.node-flow__desc {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-top: 3px;
+    line-height: var(--leading-relaxed);
+}
+
+.node-flow__status {
+    font-size: 0.6875rem;
+    font-weight: var(--font-weight-semibold);
+    color: rgba(52, 211, 153, 0.85);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+/* Connector between nodes */
+.node-flow__connector {
+    width: 1px;
+    height: 2rem;
+    background: linear-gradient(to bottom, rgba(14, 165, 233, 0.35), rgba(14, 165, 233, 0.15));
+    position: relative;
+    flex-shrink: 0;
+}
+
+/* Arrowhead at bottom of connector */
+.node-flow__connector::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid rgba(14, 165, 233, 0.4);
+}
+
+/* Trigger status badge */
+.node-flow__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.6875rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-glow-400);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-4);
+    background: rgba(14, 165, 233, 0.07);
+    border: 1px solid rgba(14, 165, 233, 0.16);
+    border-radius: 999px;
+    padding: 4px 12px;
+}
+
+.node-flow__trigger-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-glow-400);
+    animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.45;
+        transform: scale(0.7);
+    }
+}
+
+/* Remove the old automation-visual-panel image styles */
+.automation-visual-panel__img {
+    display: none;
+}

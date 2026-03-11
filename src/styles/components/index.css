@@ -1,0 +1,23 @@
+/*
+ * ============================================================
+ * Component Index — Barrel import
+ * ============================================================
+ * Import this single file into any page to get all components.
+ *
+ * Usage in <head>:
+ *   <link rel="stylesheet" href="/src/styles/components/index.css" />
+ * ============================================================
+ */
+
+@import './buttons.css';
+@import './cards.css';
+@import './sections.css';
+@import './feature-grid.css';
+@import './cta-block.css';
+@import './nav.css';
+@import './footer.css';
+@import './hero.css';
+@import './form.css';
+@import './how-it-works.css';
+@import './ui-flows.css';
+@import './pricing.css';

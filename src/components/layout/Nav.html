@@ -1,0 +1,59 @@
+<!--
+  ============================================================
+  Nav — Navigation Component Placeholder
+  ============================================================
+  Structure:
+    - Logo (left)
+    - Menu items (centre)
+    - CTA button (right)
+
+  Styling will be applied in a later phase.
+  ============================================================
+-->
+
+<nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
+  <div class="container nav__inner">
+
+    <!-- Logo -->
+    <a href="/" class="nav__logo" aria-label="Flux Web Studio — Home">
+      <span class="nav__logo-text">Flux Web Studio</span>
+    </a>
+
+    <!-- Menu Items -->
+    <ul class="nav__menu" role="list">
+      <li class="nav__item">
+        <a href="/services" class="nav__link">Services</a>
+      </li>
+      <li class="nav__item">
+        <a href="/how-it-works" class="nav__link">How It Works</a>
+      </li>
+      <li class="nav__item">
+        <a href="/case-studies" class="nav__link">Case Studies</a>
+      </li>
+      <li class="nav__item">
+        <a href="/contact" class="nav__link">Contact</a>
+      </li>
+    </ul>
+
+    <!-- CTA -->
+    <div class="nav__cta">
+      <a href="/contact" class="btn btn--primary" id="nav-cta-btn">
+        Get Automation
+      </a>
+    </div>
+
+    <!-- Mobile Menu Toggle (placeholder — logic added later) -->
+    <button
+      class="nav__toggle"
+      id="nav-toggle"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="nav-menu"
+    >
+      <span class="nav__toggle-bar"></span>
+      <span class="nav__toggle-bar"></span>
+      <span class="nav__toggle-bar"></span>
+    </button>
+
+  </div>
+</nav>

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Automation Case Studies | Flux Web Studio</title>
+    <meta property="og:image" content="https://fluxwebstudio.com/assets/og-image.png" />
+    <meta name="twitter:image" content="https://fluxwebstudio.com/assets/og-image.png" />
+    <meta name="description"
+        content="Real automation workflow examples from Flux Web Studio. Lead response, email triage, client onboarding, and invoice processing — built with Make.com and AI." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://fluxwebstudio.com/case-studies" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://fluxwebstudio.com/case-studies" />
+    <meta property="og:title" content="Automation Case Studies | Flux Web Studio" />
+    <meta property="og:description" content="Practical AI automation workflow examples that remove manual work and improve response time." />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Automation Case Studies | Flux Web Studio" />
+    <meta name="twitter:description" content="Real automation workflows — lead response, email triage, client onboarding, and invoice processing." />
+
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/container.css" />
+    <link rel="stylesheet" href="./styles/components/index.css" />
+
+    <style>
+        /* ─── Page hero ─────────────────────────────────── */
+        .cs-hero {
+            padding-top: calc(var(--nav-height) + var(--space-20));
+            padding-bottom: var(--space-16);
+            text-align: center;
+        }
+
+        .cs-hero__label {
+            display: inline-block;
+            font-size: 0.8125rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-glow-400);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: var(--space-5);
+        }
+
+        .cs-hero__title {
+            font-size: clamp(2.25rem, 5vw, 3.5rem);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text-primary);
+            line-height: var(--leading-tight);
+            letter-spacing: -0.025em;
+            margin-bottom: var(--space-6);
+            max-width: 680px;
+            margin-inline: auto;
+        }
+
+        .cs-hero__sub {
+            font-size: var(--text-body);
+            color: var(--color-text-muted);
+            line-height: var(--leading-relaxed);
+            max-width: 500px;
+            margin-inline: auto;
+            margin-bottom: var(--space-9);
+        }
+
+        .cs-hero__actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-4);
+            flex-wrap: wrap;
+        }
+
+        /* ─── Case studies grid ─────────────────────────── */
+        .cs-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-8);
+        }
+
+        @media (min-width: 860px) {
+            .cs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* ─── Case study card ────────────────────────────── */
+        .cs-card {
+            background: var(--color-bg-surface);
+            border: 1px solid rgba(14, 165, 233, 0.1);
+            border-radius: var(--radius-lg);
+            padding: var(--space-9) var(--space-8);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-7);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cs-card:hover {
+            border-color: rgba(14, 165, 233, 0.25);
+            box-shadow: 0 0 40px rgba(14, 165, 233, 0.06);
+        }
+
+        .cs-card__header {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-4);
+        }
+
+        .cs-card__icon {
+            flex-shrink: 0;
+            width: 2.75rem;
+            height: 2.75rem;
+            background: rgba(14, 165, 233, 0.08);
+            border: 1px solid rgba(14, 165, 233, 0.16);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-glow-400);
+        }
+
+        .cs-card__meta {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-1);
+        }
+
+        .cs-card__number {
+            font-size: 0.75rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-glow-400);
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+        }
+
+        .cs-card__title {
+            font-size: 1.2rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            line-height: var(--leading-snug);
+        }
+
+        /* ─── Problem block ─────────────────────────────── */
+        .cs-card__problem {
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.12);
+            border-radius: var(--radius-md);
+            padding: var(--space-4) var(--space-5);
+        }
+
+        .cs-card__problem-label {
+            font-size: 0.7rem;
+            font-weight: var(--font-weight-semibold);
+            color: #fca5a5;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: var(--space-2);
+        }
+
+        .cs-card__problem-text {
+            font-size: var(--text-sm);
+            color: rgba(255, 255, 255, 0.65);
+            line-height: var(--leading-relaxed);
+        }
+
+        /* ─── Workflow steps ─────────────────────────────── */
+        .cs-card__flow-label {
+            font-size: 0.7rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: var(--space-3);
+        }
+
+        .cs-card__steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .cs-step {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            position: relative;
+        }
+
+        /* Vertical connector between steps */
+        .cs-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 0.875rem;
+            top: 2rem;
+            width: 1px;
+            height: calc(100% - 0.25rem);
+            background: rgba(14, 165, 233, 0.18);
+        }
+
+        .cs-step__dot {
+            flex-shrink: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            border: 1.5px solid rgba(14, 165, 233, 0.3);
+            background: rgba(14, 165, 233, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.125rem;
+            z-index: 1;
+        }
+
+        .cs-step__dot-inner {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--color-glow-400);
+            opacity: 0.75;
+        }
+
+        .cs-step__text {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            line-height: var(--leading-normal);
+            padding-bottom: var(--space-5);
+        }
+
+        /* ─── Outcome block ──────────────────────────────── */
+        .cs-card__outcome {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            background: rgba(14, 165, 233, 0.05);
+            border: 1px solid rgba(14, 165, 233, 0.16);
+            border-radius: var(--radius-md);
+            padding: var(--space-4) var(--space-5);
+        }
+
+        .cs-card__outcome-icon {
+            flex-shrink: 0;
+            color: var(--color-glow-400);
+            margin-top: 1px;
+        }
+
+
+
+        .cs-card__outcome-label {
+            font-size: 0.7rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-glow-400);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: var(--space-1);
+        }
+
+        .cs-card__outcome-text {
+            font-size: var(--text-sm);
+            color: var(--color-text-primary);
+            font-weight: var(--font-weight-medium);
+            line-height: var(--leading-normal);
+        }
+
+        /* ─── Final CTA ──────────────────────────────────── */
+        .cs-cta {
+            text-align: center;
+            max-width: 560px;
+            margin-inline: auto;
+        }
+
+        .cs-cta__eyebrow {
+            display: inline-block;
+            font-size: 0.8125rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-glow-400);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: var(--space-5);
+        }
+
+        .cs-cta__title {
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text-primary);
+            line-height: var(--leading-tight);
+            letter-spacing: -0.02em;
+            margin-bottom: var(--space-5);
+        }
+
+        .cs-cta__desc {
+            font-size: var(--text-body);
+            color: var(--color-text-muted);
+            line-height: var(--leading-relaxed);
+            margin-bottom: var(--space-8);
+        }
+
+        .cs-cta__actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-4);
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a class="skip-link" href="#cs-intro">Skip to main content</a>
+
+    <!-- ============================================================
+     NAVIGATION
+    ============================================================ -->
+    <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
+        <div class="container nav__inner">
+
+            <a href="index.html" class="nav__logo" aria-label="Flux Web Studio — Home">
+                <span class="nav__logo-text">Flux Web Studio</span>
+            </a>
+
+            <ul class="nav__menu" role="list">
+                <li class="nav__item"><a href="services.html"     class="nav__link">Services</a></li>
+                <li class="nav__item"><a href="how-it-works.html" class="nav__link">How It Works</a></li>
+                <li class="nav__item"><a href="case-studies.html" class="nav__link" aria-current="page">Case Studies</a></li>
+                <li class="nav__item"><a href="pricing.html"      class="nav__link">Pricing</a></li>
+                <li class="nav__item"><a href="contact.html"      class="nav__link">Contact</a></li>
+            </ul>
+
+            <div class="nav__cta">
+                <a href="automation-request.html" class="btn btn--primary" id="nav-cta-btn">Get Automation</a>
+            </div>
+
+            <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="nav__toggle-bar"></span>
+                <span class="nav__toggle-bar"></span>
+                <span class="nav__toggle-bar"></span>
+            </button>
+
+        </div>
+    </nav>
+
+
+    <!-- ============================================================
+     PAGE HERO
+    ============================================================ -->
+    <section class="cs-hero" id="cs-intro" aria-label="Case studies introduction">
+        <div class="container">
+
+            <span class="cs-hero__label">Case Studies</span>
+
+            <h1 class="cs-hero__title">
+                Real Automation Systems in Action
+            </h1>
+
+            <p class="cs-hero__sub">
+                Examples of practical automation workflows that reduce manual work and improve response time.
+            </p>
+
+            <div class="cs-hero__actions">
+                <a href="automation-request.html" class="btn btn--primary btn--lg" id="hero-cta">Start Automating</a>
+                <a href="services.html"           class="btn btn--secondary btn--lg" id="hero-services-link">View Services</a>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+     CASE STUDIES GRID
+    ============================================================ -->
+    <section class="section" id="case-studies-grid" aria-label="Automation case studies">
+        <div class="container">
+
+            <div class="cs-grid">
+
+                <!-- ── Case Study 1: Lead Response ── -->
+                <article class="cs-card" id="lead-response-case" aria-labelledby="cs1-title">
+
+                    <div class="cs-card__header">
+                        <div class="cs-card__icon" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.27 6.27l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                        </div>
+                        <div class="cs-card__meta">
+                            <span class="cs-card__number">Case 01</span>
+                            <h2 class="cs-card__title" id="cs1-title">Lead Response Automation</h2>
+                        </div>
+                    </div>
+
+                    <div class="cs-card__problem" role="note">
+                        <div class="cs-card__problem-label">Problem</div>
+                        <p class="cs-card__problem-text">
+                            Businesses manually respond to website enquiries, causing slow replies and lost leads
+                            before the prospect moves on.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="cs-card__flow-label">Automation Workflow</div>
+                        <ol class="cs-card__steps" role="list">
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">Form submission triggers automation in Make.com</span>
+                            </li>
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">AI classifies lead intent from form data</span>
+                            </li>
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">Personalised email response generated and sent</span>
+                            </li>
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">Lead contact stored automatically in CRM</span>
+                            </li>
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">Team notified with lead summary via Slack or email</span>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="cs-card__outcome" role="note">
+                        <div class="cs-card__outcome-icon" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </div>
+                        <div class="cs-card__outcome-content">
+                            <div class="cs-card__outcome-label">Outcome</div>
+                            <p class="cs-card__outcome-text">Replies sent in seconds instead of hours. No leads go cold.</p>
+                        </div>
+                    </div>
+
+                </article>
+
+                <!-- ── Case Study 2: Email Inbox Triage ── -->
+                <article class="cs-card" id="email-triage-case" aria-labelledby="cs2-title">
+
+                    <div class="cs-card__header">
+                        <div class="cs-card__icon" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <div class="cs-card__meta">
+                            <span class="cs-card__number">Case 02</span>
+                            <h2 class="cs-card__title" id="cs2-title">Email Inbox Triage Automation</h2>
+                        </div>
+                    </div>
+
+                    <div class="cs-card__problem" role="note">
+                        <div class="cs-card__problem-label">Problem</div>
+                        <p class="cs-card__problem-text">
+                            Customer support teams spend hours every day manually sorting and responding to
+                            incoming emails — a repetitive task that slows response times.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="cs-card__flow-label">Automation Workflow</div>
+                        <ol class="cs-card__steps" role="list">
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">New email detected in shared inbox</span>
+                            </li>
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">AI reads and categorises the request type</span>
+                            </li>
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">Email automatically routed to correct team or folder</span>
+                            </li>
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">AI-generated reply suggestion surfaced for agent review</span>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="cs-card__outcome" role="note">
+                        <div class="cs-card__outcome-icon" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </div>
+                        <div class="cs-card__outcome-content">
+                            <div class="cs-card__outcome-label">Outcome</div>
+                            <p class="cs-card__outcome-text">Email admin reduced significantly. Teams focus on decisions, not sorting.</p>
+                        </div>
+                    </div>
+
+                </article>
+
+                <!-- ── Case Study 3: Client Onboarding ── -->
+                <article class="cs-card" id="onboarding-case" aria-labelledby="cs3-title">
+
+                    <div class="cs-card__header">
+                        <div class="cs-card__icon" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <div class="cs-card__meta">
+                            <span class="cs-card__number">Case 03</span>
+                            <h2 class="cs-card__title" id="cs3-title">Client Onboarding Automation</h2>
+                        </div>
+                    </div>
+
+                    <div class="cs-card__problem" role="note">
+                        <div class="cs-card__problem-label">Problem</div>
+                        <p class="cs-card__problem-text">
+                            Manual onboarding processes create delays, missing documents, and inconsistent
+                            client experiences that require significant admin time.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="cs-card__flow-label">Automation Workflow</div>
+                        <ol class="cs-card__steps" role="list">
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">Client signup or payment triggers the sequence</span>
+                            </li>
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">Personalised welcome email sent immediately</span>
+                            </li>
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">Document requests collected via automated form</span>
+                            </li>
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">Internal tasks created in project management tool</span>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="cs-card__outcome" role="note">
+                        <div class="cs-card__outcome-icon" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </div>
+                        <div class="cs-card__outcome-content">
+                            <div class="cs-card__outcome-label">Outcome</div>
+                            <p class="cs-card__outcome-text">Faster onboarding and a smoother client experience with no missed steps.</p>
+                        </div>
+                    </div>
+
+                </article>
+
+                <!-- ── Case Study 4: Invoice Processing ── -->
+                <article class="cs-card" id="invoice-case" aria-labelledby="cs4-title">
+
+                    <div class="cs-card__header">
+                        <div class="cs-card__icon" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10 9 9 9 8 9"/>
+                            </svg>
+                        </div>
+                        <div class="cs-card__meta">
+                            <span class="cs-card__number">Case 04</span>
+                            <h2 class="cs-card__title" id="cs4-title">Invoice Processing Automation</h2>
+                        </div>
+                    </div>
+
+                    <div class="cs-card__problem" role="note">
+                        <div class="cs-card__problem-label">Problem</div>
+                        <p class="cs-card__problem-text">
+                            Finance teams manually process incoming invoices — reading, extracting data, and
+                            entering it into accounting software — consuming hours of repetitive work.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="cs-card__flow-label">Automation Workflow</div>
+                        <ol class="cs-card__steps" role="list">
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">Invoice email received in designated inbox</span>
+                            </li>
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">AI parses document to extract amounts, dates, and vendor</span>
+                            </li>
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">Structured data pushed to accounting software</span>
+                            </li>
+                            <li class="cs-step">
+                                <div class="cs-step__dot" aria-hidden="true"><span class="cs-step__dot-inner"></span></div>
+                                <span class="cs-step__text">Approval workflow triggered for finance team review</span>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="cs-card__outcome" role="note">
+                        <div class="cs-card__outcome-icon" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </div>
+                        <div class="cs-card__outcome-content">
+                            <div class="cs-card__outcome-label">Outcome</div>
+                            <p class="cs-card__outcome-text">Finance admin time drastically reduced. Processing happens in minutes, not hours.</p>
+                        </div>
+                    </div>
+
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+     FINAL CTA
+    ============================================================ -->
+    <section class="section section--sm section--alt-bg" id="cs-cta" aria-label="Start automating">
+        <div class="container">
+
+            <div class="cs-cta">
+
+                <span class="cs-cta__eyebrow">Ready to Build</span>
+
+                <h2 class="cs-cta__title">
+                    Want a System Like This?
+                </h2>
+
+                <p class="cs-cta__desc">
+                    Tell us which workflow you want to automate and we will design the right system for your business.
+                    Fixed price. Delivered fast. No retainer.
+                </p>
+
+                <div class="cs-cta__actions">
+                    <a href="automation-request.html" class="btn btn--primary btn--lg"   id="cta-start">Start Automating</a>
+                    <a href="services.html"           class="btn btn--secondary btn--lg" id="cta-services">View Services</a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+     FOOTER
+    ============================================================ -->
+    <footer class="footer" id="main-footer" role="contentinfo">
+        <div class="container footer__inner">
+
+            <div class="footer__brand">
+                <a href="index.html" class="footer__logo">Flux Web Studio</a>
+                <p class="footer__tagline">AI automation systems for modern businesses.</p>
+            </div>
+
+            <nav class="footer__column" aria-label="Services navigation">
+                <h3 class="footer__heading">Services</h3>
+                <ul class="footer__links" role="list">
+                    <li><a href="services.html#lead-response"     class="footer__link">Lead Response Automation</a></li>
+                    <li><a href="services.html#email-assistant"   class="footer__link">Email AI Assistant</a></li>
+                    <li><a href="services.html#client-onboarding" class="footer__link">Client Onboarding Automation</a></li>
+                </ul>
+            </nav>
+
+            <nav class="footer__column" aria-label="Company navigation">
+                <h3 class="footer__heading">Company</h3>
+                <ul class="footer__links" role="list">
+                    <li><a href="how-it-works.html"  class="footer__link">How It Works</a></li>
+                    <li><a href="pricing.html"        class="footer__link">Pricing</a></li>
+                    <li><a href="contact.html"        class="footer__link">Contact</a></li>
+                </ul>
+            </nav>
+
+        </div>
+
+        <div class="footer__bottom">
+            <div class="container footer__bottom-inner">
+                <p class="footer__copyright">
+                    &copy; <span id="footer-year">2026</span> Flux Web Studio. All rights reserved.
+                </p>
+                <ul class="footer__legal" role="list">
+                    <li><a href="privacy.html" class="footer__link">Privacy Policy</a></li>
+                    <li><a href="terms.html"   class="footer__link">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="./utils/index.js" defer></script>
+
+</body>
+
+</html>

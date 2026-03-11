@@ -1,0 +1,91 @@
+/*
+ * ============================================================
+ * Buttons — Primary & Secondary
+ * ============================================================
+ * Usage:
+ *   <a href="..." class="btn btn--primary">Get Automation</a>
+ *   <a href="..." class="btn btn--secondary">See How It Works</a>
+ * ============================================================
+ */
+
+/* --------------------------------------------------
+ * BASE — Shared across all button variants
+ * -------------------------------------------------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 0.75rem 1.75rem;
+    font-family: var(--font-primary);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    border-radius: var(--radius-full);
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+        background var(--transition-base),
+        box-shadow var(--transition-base),
+        border-color var(--transition-base),
+        color var(--transition-base);
+}
+
+/* --------------------------------------------------
+ * PRIMARY — Ocean blue gradient CTA
+ * -------------------------------------------------- */
+.btn--primary {
+    background: var(--gradient-brand);
+    color: var(--color-text-primary);
+    border-color: transparent;
+    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
+}
+
+.btn--primary:hover {
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    box-shadow: var(--glow-brand);
+    color: var(--color-text-primary);
+}
+
+.btn--primary:active {
+    transform: translateY(1px);
+    box-shadow: var(--glow-subtle);
+}
+
+/* --------------------------------------------------
+ * SECONDARY — Ghost / outline style
+ * -------------------------------------------------- */
+.btn--secondary {
+    background: transparent;
+    color: var(--color-text-primary);
+    border-color: var(--color-glow-400);
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+}
+
+.btn--secondary:hover {
+    background: rgba(56, 189, 248, 0.08);
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.18);
+    color: var(--color-glow-400);
+    border-color: var(--color-glow-400);
+}
+
+.btn--secondary:active {
+    transform: translateY(1px);
+}
+
+/* --------------------------------------------------
+ * SIZE VARIANTS
+ * -------------------------------------------------- */
+.btn--sm {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.8125rem;
+}
+
+.btn--lg {
+    padding: 1rem 2.25rem;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+}
