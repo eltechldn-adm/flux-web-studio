@@ -20,20 +20,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (toggle && navMenu) {
 
+    // 1. Dynamically create the mobile panel wrapper
+    const mobilePanel = document.createElement('div');
+    mobilePanel.classList.add('nav__mobile-panel');
+    
+    // Move menu and CTA inside the new panel
+    if (navMenu) mobilePanel.appendChild(navMenu);
+    if (navCta) mobilePanel.appendChild(navCta);
+    
+    // Append the panel to the main nav container
+    const navInner = nav.querySelector('.nav__inner');
+    if (navInner) navInner.appendChild(mobilePanel);
+
     function openNav() {
-      navMenu.classList.add('nav__menu--open');
-      if (navCta) navCta.classList.add('nav__cta--open');
+      mobilePanel.classList.add('nav__mobile-panel--open');
       toggle.setAttribute('aria-expanded', 'true');
       toggle.classList.add('nav__toggle--open');
-      document.body.style.overflow = 'hidden';
     }
 
     function closeNav() {
-      navMenu.classList.remove('nav__menu--open');
-      if (navCta) navCta.classList.remove('nav__cta--open');
+      mobilePanel.classList.remove('nav__mobile-panel--open');
       toggle.setAttribute('aria-expanded', 'false');
       toggle.classList.remove('nav__toggle--open');
-      document.body.style.overflow = '';
     }
 
     toggle.addEventListener('click', () => {
@@ -46,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.key === 'Escape') closeNav();
     });
 
-    // Close when a nav link is clicked (SPA-style navigation)
+    // Close when a nav link is clicked
     navMenu.querySelectorAll('.nav__link').forEach(link => {
       link.addEventListener('click', closeNav);
     });
