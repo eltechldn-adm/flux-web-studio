@@ -17,9 +17,6 @@ export async function onRequestPost({ request }) {
     // Forward the payload to the dedicated Cloudflare Email Worker natively
     const workerUrl = "https://fws-email-worker.eltechldn.workers.dev";
     
-    console.log(`[API] Attempting worker dispatch to: ${workerUrl}`);
-    console.log(`[API] Payload:`, JSON.stringify(payload));
-
     const payload = {
       fullName,
       email,
@@ -29,6 +26,9 @@ export async function onRequestPost({ request }) {
       workflowDescription,
       urgency
     };
+
+    console.log(`[API] Attempting worker dispatch to: ${workerUrl}`);
+    console.log(`[API] Payload:`, JSON.stringify(payload));
 
     // Invoke the bound service safely via public ingress
     const workerResponse = await fetch(workerUrl, {
