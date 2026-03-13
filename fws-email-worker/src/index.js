@@ -108,7 +108,11 @@ export default {
       const internalDisplayName = "Flux Web Studio Leads";
       const fromFormatted = `"${internalDisplayName}" <${senderAddr}>`;
 
-      // 6. Dispatch Internal Alert via PROBER LOOP
+      // 6. Dispatch Results Tracking & PROBER LOOP
+      let internalLeadSent = false;
+      let customerReceiptSent = false;
+      let dispatchError = null;
+
       const candidates = [
         "hello@fluxwebstudio.com", 
         "eltechldn@gmail.com", 
