@@ -1,5 +1,11 @@
 {
   "name": "flux-web-studio",
   "compatibility_date": "2024-03-20",
-  "pages_build_output_dir": "src"
-}
+  "pages_build_output_dir": "src",
+  "services": [
+    {
+      "binding": "EMAIL_WORKER",
+      "service": "fws-email-worker",
+      "environment": "production"
+    }
+  ]

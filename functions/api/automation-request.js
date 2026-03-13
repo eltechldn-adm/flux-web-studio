@@ -1,4 +1,4 @@
-export async function onRequestPost({ request }) {
+export async function onRequestPost({ request, env }) {
   try {
     const formData = await request.formData();
 
@@ -14,55 +14,41 @@ export async function onRequestPost({ request }) {
       return new Response('Missing required fields', { status: 400 });
     }
 
-    // Exact email format requested
-    const msgText = `New Automation Request
-Name: ${fullName}
-Email: ${email}
-Company: ${companyName}
-Automation Needed: ${automationInterest}
-Workflow Description:
-${workflowDescription}
-Urgency Level: ${urgency}`;
-
-    // Cloudflare Pages integration using MailChannels API 
-    // This allows sending emails natively without using the unsupported `send_email` wrangler binding
+    // Forward the payload to the dedicated Cloudflare Email Worker natively
     const payload = {
-      personalizations: [
-        {
-          to: [{ email: "hello@fluxwebstudio.com", name: "Flux Web Studio" }],
-        },
-      ],
-      from: {
-        email: "no-reply@fluxwebstudio.com",
-        name: "Flux Web Studio System",
-      },
-      subject: `New Automation Request: ${fullName}`,
-      content: [
-        {
-          type: "text/plain",
-          value: msgText,
-        },
-      ],
+      fullName,
+      email,
+      companyName,
+      businessType: formData.get('businessType') || 'N/A',
+      automationInterest,
+      workflowDescription,
+      urgency
     };
 
-    const mailResponse = await fetch("https://api.mailchannels.net/tx/v1/send", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
+    // Invoke the bound service natively
+    const workerResponse = await env.EMAIL_WORKER.fetch(
+      "http://internal", // A valid dummy URL string is required by the standardized Request API signature 
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      }
+    );
 
-    if (!mailResponse.ok) {
-      console.error("MailChannels Error:", mailResponse.status, await mailResponse.text());
-      // Proceeding to redirect anyway so UX doesn't crash on email deliverability issues
+    if (workerResponse.ok) {
+      // Success triggers the UI success state
+      return Response.redirect(new URL('/automation-request?success=1', request.url), 303);
+    } else {
+      // Explicitly return a 500 block to prevent the false success redirect
+      const errorData = await workerResponse.text();
+      console.error("Email Worker Error:", workerResponse.status, errorData);
+      return new Response('Internal Server Error: Failed to dispatch emails.', { status: 500 });
     }
 
-    // Redirect user to success state natively
-    return Response.redirect(new URL('/automation-request?success=1', request.url), 303);
-
   } catch (error) {
-    console.error("Error processing request:", error);
-    return new Response('Server Error', { status: 500 });
+    console.error("Function Execution Error:", error);
+    return new Response('Internal Server Error', { status: 500 });
   }
 }
