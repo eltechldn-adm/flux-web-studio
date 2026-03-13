@@ -49,61 +49,64 @@ export default {
       const internalRecipient = "eltechldn@gmail.com"; // Verified destination inbox
       const publicAlias = "hello@fluxwebstudio.com";  // Public facing address
 
-      // 4. Construct Internal Lead Email (A)
-      console.log(`[Worker] Constructing internal MIME message for ${internalRecipient}...`);
-      const internalSubject = `New Automation Request: ${fullName} at ${companyName || 'Unknown Company'}`;
-      const internalBody = `
-New Lead Notification
+      // 5. Construct Branded HTML Internal Lead Email (A)
+      const internalSubject = `New Lead: ${fullName} (${companyName || 'Lead'})`;
+      
+      const htmlBody = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            .email-container { font-family: 'Inter', sans-serif; color: #1f2937; max-width: 600px; margin: 0 auto; line-height: 1.5; }
+            .header { padding: 24px; background-color: #030712; color: #ffffff; border-radius: 8px 8px 0 0; }
+            .content { padding: 32px; border: 1px solid #e5e7eb; border-top: none; }
+            .footer { padding: 24px; text-align: center; font-size: 12px; color: #6b7280; }
+            .field-label { font-weight: 600; color: #0ea5e9; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+            .field-value { margin-bottom: 24px; font-size: 16px; }
+            .section-title { border-bottom: 1px solid #f3f4f6; padding-bottom: 8px; margin-bottom: 20px; font-weight: 700; }
+            .btn { display: inline-block; padding: 12px 24px; background: #0ea5e9; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; margin-top: 10px; }
+          </style>
+        </head>
+        <body>
+          <div class="email-container">
+            <div class="header">
+              <h2 style="margin:0; font-size: 20px;">Flux Web Studio</h2>
+              <p style="margin:0; font-size: 14px; opacity: 0.8;">New Automation Request Received</p>
+            </div>
+            <div class="content">
+              <div class="section-title">Lead Information</div>
+              <div class="field-label">Full Name</div>
+              <div class="field-value">${fullName}</div>
+              
+              <div class="field-label">Email</div>
+              <div class="field-value">${email}</div>
+              
+              <div class="field-label">Company</div>
+              <div class="field-value">${companyName || 'Not provided'}</div>
 
-Name: ${fullName}
-Email: ${email}
-Company: ${companyName || 'Not provided'}
-Business Type: ${businessType || 'Not provided'}
-Automation Needed: ${automationInterest}
-Workflow Description: 
-${workflowDescription}
+              <div class="section-title">Project Details</div>
+              <div class="field-label">Automation Interest</div>
+              <div class="field-value">${automationInterest}</div>
+              
+              <div class="field-label">Workflow Description</div>
+              <div class="field-value">${workflowDescription.replace(/\n/g, '<br>')}</div>
+              
+              <div class="field-label">Urgency</div>
+              <div class="field-value">${urgency || 'Standard'}</div>
 
-Urgency: ${urgency || 'Not provided'}
-Submitted: ${timestamp}
+              <a href="mailto:${email}" class="btn">Reply to Lead</a>
+            </div>
+            <div class="footer">
+              Flux Web Studio &bull; <a href="https://fluxwebstudio.com" style="color: #6b7280;">fluxwebstudio.com</a><br>
+              Generating this alert automatically via Cloudflare Workers.
+            </div>
+          </div>
+        </body>
+        </html>
       `.trim();
 
-      const internalMimeMessage = createMimeMessage(
-        senderAddr, 
-        internalRecipient, 
-        internalSubject, 
-        internalBody,
-        `Reply-To: ${email}` // So hitting reply responds to the lead
-      );
-
-      const msgA = new EmailMessage(senderAddr, internalRecipient, internalMimeMessage);
-
-
-      // 5. Construct Customer Confirmation Email (B) - Logic remains but send is disabled
-      const customerSubject = "Thanks for contacting Flux Web Studio";
-      const customerBody = `
-Hi ${fullName.split(' ')[0]},
-
-Thank you for your automation request. We have received your submission and will review it shortly. A member of our team will get back to you soon.
-
-Best,
-The Flux Web Studio Team
-https://fluxwebstudio.com
-      `.trim();
-
-      const customerMimeMessage = createMimeMessage(
-        senderAddr,
-        email,
-        customerSubject,
-        customerBody
-      );
-
-      const msgB = new EmailMessage(senderAddr, email, customerMimeMessage);
-
-
-      // 6. Dispatch Results Tracking
-      let internalLeadSent = false;
-      let customerReceiptSent = false;
-      let dispatchError = null;
+      const internalDisplayName = "Flux Web Studio Leads";
+      const fromFormatted = `"${internalDisplayName}" <${senderAddr}>`;
 
       // 6. Dispatch Internal Alert via PROBER LOOP
       const candidates = [
@@ -115,13 +118,13 @@ https://fluxwebstudio.com
       for (const recipient of candidates) {
         try {
           console.log(`[Worker] PROBE: Attempting send to ${recipient}...`);
-          const probeMime = createMimeMessage(senderAddr, recipient, internalSubject, internalBody, `Reply-To: ${email}`);
+          // Use HTML mime creator
+          const probeMime = createHtmlMime(fromFormatted, recipient, internalSubject, htmlBody, `Reply-To: ${email}`);
           const probeMsg = new EmailMessage(senderAddr, recipient, probeMime);
           
           await env.FWS_EMAIL.send(probeMsg);
           
           internalLeadSent = true;
-          const actualRecipientUsed = recipient; // Track the winner
           console.log(`[Worker] PROBE SUCCESS: Recipient ${recipient} accepted the message.`);
           break; // Stop at first success
         } catch (sendError) {
@@ -131,7 +134,7 @@ https://fluxwebstudio.com
       }
 
       // 7. Dispatch Customer Receipt (Disabled but logged as skipped)
-      console.log(`[Worker] Customer receipt (msgB) is currently DISABLED to prevent destination restrictions.`);
+      console.log(`[Worker] Customer receipt is currently DISABLED.`);
 
       // 8. Truthful Success Result
       const isActuallySuccessful = internalLeadSent === true;
@@ -140,7 +143,7 @@ https://fluxwebstudio.com
         console.log(`[Worker] Task complete. Internal lead confirmed. Returning success.`);
         return new Response(JSON.stringify({ 
           success: true, 
-          message: "Internal lead notification sent successfully.",
+          message: "Lead notification dispatched.",
           internalLeadSent: true,
           customerReceiptSent: false
         }), {
@@ -148,13 +151,12 @@ https://fluxwebstudio.com
           headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
         });
       } else {
-        console.error(`[Worker] Dispatch failed. Internal lead notification was NOT sent.`);
+        console.error(`[Worker] Dispatch failed.`);
         return new Response(JSON.stringify({ 
           success: false, 
-          error: "Failed to dispatch internal lead notification.",
+          error: "Failed to dispatch lead notification.",
           details: dispatchError,
-          internalLeadSent: false,
-          customerReceiptSent: false
+          internalLeadSent: false
         }), {
           status: 500,
           headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
@@ -172,9 +174,9 @@ https://fluxwebstudio.com
 };
 
 /**
- * Helper: Creates a standard RFC 822 MIME plain-text email string
+ * Helper: Creates a standard RFC 822 MIME HTML email string
  */
-function createMimeMessage(from, to, subject, body, extraHeader = "") {
+function createHtmlMime(from, to, subject, htmlBody, extraHeader = "") {
   const messageId = `<${crypto.randomUUID()}@fluxwebstudio.com>`;
   const dateHeader = new Date().toUTCString();
 
@@ -186,8 +188,9 @@ function createMimeMessage(from, to, subject, body, extraHeader = "") {
   if (extraHeader) {
     msg += `${extraHeader}\r\n`;
   }
-  msg += `Content-Type: text/plain; charset="utf-8"\r\n`;
+  msg += `MIME-Version: 1.0\r\n`;
+  msg += `Content-Type: text/html; charset="utf-8"\r\n`;
   msg += `\r\n`;
-  msg += `${body}\r\n`;
+  msg += `${htmlBody}\r\n`;
   return msg;
 }
