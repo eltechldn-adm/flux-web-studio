@@ -1,4 +1,4 @@
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost({ request }) {
   try {
     const formData = await request.formData();
 
@@ -15,6 +15,8 @@ export async function onRequestPost({ request, env }) {
     }
 
     // Forward the payload to the dedicated Cloudflare Email Worker natively
+    const workerUrl = "https://fws-email-worker.eltechldn.workers.dev";
+
     const payload = {
       fullName,
       email,
@@ -25,17 +27,14 @@ export async function onRequestPost({ request, env }) {
       urgency
     };
 
-    // Invoke the bound service natively
-    const workerResponse = await env.EMAIL_WORKER.fetch(
-      "http://internal", // A valid dummy URL string is required by the standardized Request API signature 
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      }
-    );
+    // Invoke the bound service safely via public ingress
+    const workerResponse = await fetch(workerUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
 
     if (workerResponse.ok) {
       // Success triggers the UI success state
