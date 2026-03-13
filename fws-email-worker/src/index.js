@@ -24,6 +24,7 @@ export default {
     try {
       // 3. Parse and Validate JSON Payload
       const data = await request.json();
+      console.log(`[Worker] Received request for: ${data.fullName}`);
       
       const {
         fullName,
@@ -36,6 +37,7 @@ export default {
       } = data;
 
       if (!fullName || !email || !automationInterest || !workflowDescription) {
+        console.warn(`[Worker] Validation failed: missing fields.`);
         return new Response(JSON.stringify({ error: "Missing required fields." }), {
           status: 400,
           headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
@@ -47,6 +49,7 @@ export default {
       const internalRecipient = "hello@fluxwebstudio.com";
 
       // 4. Construct Internal Lead Email (A)
+      console.log(`[Worker] Constructing internal MIME message for ${internalRecipient}...`);
       const internalSubject = `New Automation Request: ${fullName} at ${companyName || 'Unknown Company'}`;
       const internalBody = `
 New Lead Notification
@@ -74,7 +77,7 @@ Submitted: ${timestamp}
       const msgA = new EmailMessage(senderAddr, internalRecipient, internalMimeMessage);
 
 
-      // 5. Construct Customer Confirmation Email (B)
+      // 5. Construct Customer Confirmation Email (B) - Logic remains but send is disabled
       const customerSubject = "Thanks for contacting Flux Web Studio";
       const customerBody = `
 Hi ${fullName.split(' ')[0]},
@@ -98,10 +101,12 @@ https://fluxwebstudio.com
 
       // 6. Dispatch Internal Alert via Native Binding
       try {
+        console.log(`[Worker] Attempting Cloudflare send_email for internal alert...`);
         await env.FWS_EMAIL.send(msgA);
+        console.log(`[Worker] Internal alert (msgA) dispatched successfully.`);
         // await env.FWS_EMAIL.send(msgB); // Disabled: Cloudflare routing blocks unverified arbitrary outbound destinations
       } catch (sendError) {
-        console.error("Cloudflare send_email binding failed:", sendError);
+        console.error(`[Worker] Cloudflare send_email FAILED:`, sendError.message);
         return new Response(JSON.stringify({ error: "Failed to dispatch email via Cloudflare.", details: sendError.message }), {
           status: 500,
           headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
@@ -109,6 +114,7 @@ https://fluxwebstudio.com
       }
 
       // 7. Success
+      console.log(`[Worker] All active tasks complete. Returning success.`);
       return new Response(JSON.stringify({ success: true, message: "Emails dispatched successfully." }), {
         status: 200,
         headers: { ...CORS_HEADERS, "Content-Type": "application/json" }

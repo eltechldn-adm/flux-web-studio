@@ -16,6 +16,9 @@ export async function onRequestPost({ request }) {
 
     // Forward the payload to the dedicated Cloudflare Email Worker natively
     const workerUrl = "https://fws-email-worker.eltechldn.workers.dev";
+    
+    console.log(`[API] Attempting worker dispatch to: ${workerUrl}`);
+    console.log(`[API] Payload:`, JSON.stringify(payload));
 
     const payload = {
       fullName,
@@ -36,13 +39,22 @@ export async function onRequestPost({ request }) {
       body: JSON.stringify(payload)
     });
 
+    console.log(`[API] Worker Response Status: ${workerResponse.status}`);
+    
     if (workerResponse.ok) {
-      // Success triggers the UI success state
-      return Response.redirect(new URL('/automation-request?success=1', request.url), 303);
+      const responseBody = await workerResponse.json();
+      console.log(`[API] Worker Response Body:`, JSON.stringify(responseBody));
+
+      if (responseBody.success === true) {
+        console.log(`[API] Dispatch verified. Redirecting to success.`);
+        return Response.redirect(new URL('/automation-request?success=1', request.url), 303);
+      } else {
+        console.error(`[API] Worker returned 200 but success=false:`, responseBody.error);
+        return new Response(`Error: ${responseBody.error || 'Failed to dispatch email.'}`, { status: 500 });
+      }
     } else {
-      // Explicitly return a 500 block to prevent the false success redirect
-      const errorData = await workerResponse.text();
-      console.error("Email Worker Error:", workerResponse.status, errorData);
+      const errorText = await workerResponse.text();
+      console.error(`[API] Worker failed with status ${workerResponse.status}:`, errorText);
       return new Response('Internal Server Error: Failed to dispatch emails.', { status: 500 });
     }
 
