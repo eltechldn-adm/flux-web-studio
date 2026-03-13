@@ -5,4 +5,4 @@ compatibility_date = "2024-03-01"
 # Bind the native Cloudflare Email Routing service
 [[send_email]]
 name = "FWS_EMAIL"
-destination_address = "hello@fluxwebstudio.com"
+destination_address = "eltechldn@gmail.com"

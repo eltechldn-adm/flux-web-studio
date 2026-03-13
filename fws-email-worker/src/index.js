@@ -46,7 +46,8 @@ export default {
 
       const timestamp = new Date().toISOString();
       const senderAddr = "no-reply@fluxwebstudio.com";
-      const internalRecipient = "hello@fluxwebstudio.com";
+      const internalRecipient = "eltechldn@gmail.com"; // Verified destination inbox
+      const publicAlias = "hello@fluxwebstudio.com";  // Public facing address
 
       // 4. Construct Internal Lead Email (A)
       console.log(`[Worker] Constructing internal MIME message for ${internalRecipient}...`);
