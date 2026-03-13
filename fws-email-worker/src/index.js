@@ -105,22 +105,29 @@ https://fluxwebstudio.com
       let customerReceiptSent = false;
       let dispatchError = null;
 
-      // 6. Dispatch Internal Alert via Native Binding
-      try {
-        const messageIdMatch = internalMimeMessage.match(/Message-ID:\s*(<[^>]+>)/i);
-        const logMessageId = messageIdMatch ? messageIdMatch[1] : "unknown";
+      // 6. Dispatch Internal Alert via PROBER LOOP
+      const candidates = [
+        "hello@fluxwebstudio.com", 
+        "eltechldn@gmail.com", 
+        "elainamarriott@gmail.com"
+      ];
 
-        console.log(`[Worker] TRACE: Attempting Cloudflare send_email`);
-        console.log(`[Worker] TRACE: From: ${senderAddr}`);
-        console.log(`[Worker] TRACE: To: ${internalRecipient}`);
-        console.log(`[Worker] TRACE: Message-ID: ${logMessageId}`);
-        
-        await env.FWS_EMAIL.send(msgA);
-        internalLeadSent = true;
-        console.log(`[Worker] TRACE: Dispatch confirmed by Cloudflare (Message-ID: ${logMessageId}).`);
-      } catch (sendError) {
-        console.error(`[Worker] TRACE FAILED:`, sendError.message);
-        dispatchError = sendError.message;
+      for (const recipient of candidates) {
+        try {
+          console.log(`[Worker] PROBE: Attempting send to ${recipient}...`);
+          const probeMime = createMimeMessage(senderAddr, recipient, internalSubject, internalBody, `Reply-To: ${email}`);
+          const probeMsg = new EmailMessage(senderAddr, recipient, probeMime);
+          
+          await env.FWS_EMAIL.send(probeMsg);
+          
+          internalLeadSent = true;
+          const actualRecipientUsed = recipient; // Track the winner
+          console.log(`[Worker] PROBE SUCCESS: Recipient ${recipient} accepted the message.`);
+          break; // Stop at first success
+        } catch (sendError) {
+          console.error(`[Worker] PROBE FAILED for ${recipient}:`, sendError.message);
+          dispatchError = sendError.message;
+        }
       }
 
       // 7. Dispatch Customer Receipt (Disabled but logged as skipped)
