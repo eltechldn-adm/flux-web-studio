@@ -99,26 +99,55 @@ https://fluxwebstudio.com
       const msgB = new EmailMessage(senderAddr, email, customerMimeMessage);
 
 
+      // 6. Dispatch Results Tracking
+      let internalLeadSent = false;
+      let customerReceiptSent = false;
+      let dispatchError = null;
+
       // 6. Dispatch Internal Alert via Native Binding
       try {
         console.log(`[Worker] Attempting Cloudflare send_email for internal alert...`);
+        console.log(`[Worker] Sender: ${senderAddr}, Recipient: ${internalRecipient}`);
+        console.log(`[Worker] First 100 chars of MIME:\n${internalMimeMessage.substring(0, 100)}...`);
+        
         await env.FWS_EMAIL.send(msgA);
-        console.log(`[Worker] Internal alert (msgA) dispatched successfully.`);
-        // await env.FWS_EMAIL.send(msgB); // Disabled: Cloudflare routing blocks unverified arbitrary outbound destinations
+        internalLeadSent = true;
+        console.log(`[Worker] Internal alert (msgA) DISPATCHED SUCCESSFULLY.`);
       } catch (sendError) {
-        console.error(`[Worker] Cloudflare send_email FAILED:`, sendError.message);
-        return new Response(JSON.stringify({ error: "Failed to dispatch email via Cloudflare.", details: sendError.message }), {
+        console.error(`[Worker] Internal alert (msgA) FAILED:`, sendError.message);
+        dispatchError = sendError.message;
+      }
+
+      // 7. Dispatch Customer Receipt (Disabled but logged as skipped)
+      console.log(`[Worker] Customer receipt (msgB) is currently DISABLED to prevent destination restrictions.`);
+
+      // 8. Truthful Success Result
+      const isActuallySuccessful = internalLeadSent === true;
+
+      if (isActuallySuccessful) {
+        console.log(`[Worker] Task complete. Internal lead confirmed. Returning success.`);
+        return new Response(JSON.stringify({ 
+          success: true, 
+          message: "Internal lead notification sent successfully.",
+          internalLeadSent: true,
+          customerReceiptSent: false
+        }), {
+          status: 200,
+          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+        });
+      } else {
+        console.error(`[Worker] Dispatch failed. Internal lead notification was NOT sent.`);
+        return new Response(JSON.stringify({ 
+          success: false, 
+          error: "Failed to dispatch internal lead notification.",
+          details: dispatchError,
+          internalLeadSent: false,
+          customerReceiptSent: false
+        }), {
           status: 500,
           headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
         });
       }
-
-      // 7. Success
-      console.log(`[Worker] All active tasks complete. Returning success.`);
-      return new Response(JSON.stringify({ success: true, message: "Emails dispatched successfully." }), {
-        status: 200,
-        headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
-      });
 
     } catch (err) {
       console.error("Worker Execution Error:", err);
