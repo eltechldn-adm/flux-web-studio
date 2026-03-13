@@ -106,15 +106,19 @@ https://fluxwebstudio.com
 
       // 6. Dispatch Internal Alert via Native Binding
       try {
-        console.log(`[Worker] Attempting Cloudflare send_email for internal alert...`);
-        console.log(`[Worker] Sender: ${senderAddr}, Recipient: ${internalRecipient}`);
-        console.log(`[Worker] First 100 chars of MIME:\n${internalMimeMessage.substring(0, 100)}...`);
+        const messageIdMatch = internalMimeMessage.match(/Message-ID:\s*(<[^>]+>)/i);
+        const logMessageId = messageIdMatch ? messageIdMatch[1] : "unknown";
+
+        console.log(`[Worker] TRACE: Attempting Cloudflare send_email`);
+        console.log(`[Worker] TRACE: From: ${senderAddr}`);
+        console.log(`[Worker] TRACE: To: ${internalRecipient}`);
+        console.log(`[Worker] TRACE: Message-ID: ${logMessageId}`);
         
         await env.FWS_EMAIL.send(msgA);
         internalLeadSent = true;
-        console.log(`[Worker] Internal alert (msgA) DISPATCHED SUCCESSFULLY.`);
+        console.log(`[Worker] TRACE: Dispatch confirmed by Cloudflare (Message-ID: ${logMessageId}).`);
       } catch (sendError) {
-        console.error(`[Worker] Internal alert (msgA) FAILED:`, sendError.message);
+        console.error(`[Worker] TRACE FAILED:`, sendError.message);
         dispatchError = sendError.message;
       }
 
