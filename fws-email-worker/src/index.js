@@ -86,79 +86,16 @@ export default {
       const internalRecipient = "eltechldn@gmail.com"; // Verified destination inbox
       const publicAlias = "hello@fluxwebstudio.com";  // Public facing address
 
-      // 5. Construct Branded HTML Internal Lead Email
+      // 5. Select Template based on type
       const isWebsite = type === 'website_enquiry';
       const emailTitle = isWebsite ? "New Website Enquiry" : "New Automation Request";
       const internalSubject = isWebsite 
-        ? `Website Enquiry: ${fullName} (${companyName || 'Lead'})`
+        ? `New Website Enquiry — Flux Web Studio`
         : `New Lead: ${fullName} (${companyName || 'Lead'})`;
       
-      const htmlBody = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <style>
-            .email-container { font-family: 'Inter', sans-serif; color: #1f2937; max-width: 600px; margin: 0 auto; line-height: 1.5; }
-            .header { padding: 24px; background-color: #030712; color: #ffffff; border-radius: 8px 8px 0 0; }
-            .content { padding: 32px; border: 1px solid #e5e7eb; border-top: none; }
-            .footer { padding: 24px; text-align: center; font-size: 12px; color: #6b7280; }
-            .field-label { font-weight: 600; color: #0ea5e9; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
-            .field-value { margin-bottom: 24px; font-size: 16px; }
-            .section-title { border-bottom: 1px solid #f3f4f6; padding-bottom: 8px; margin-bottom: 20px; font-weight: 700; }
-            .btn { display: inline-block; padding: 12px 24px; background: #0ea5e9; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; margin-top: 10px; }
-          </style>
-        </head>
-        <body>
-          <div class="email-container">
-            <div class="header">
-              <h2 style="margin:0; font-size: 20px;">Flux Web Studio</h2>
-              <p style="margin:0; font-size: 14px; opacity: 0.8;">${emailTitle}</p>
-            </div>
-            <div class="content">
-              <div class="section-title">Lead Information</div>
-              <div class="field-label">Full Name</div>
-              <div class="field-value">${fullName}</div>
-              
-              <div class="field-label">Email</div>
-              <div class="field-value">${email}</div>
-              
-              <div class="field-label">Company</div>
-              <div class="field-value">${companyName || 'N/A'}</div>
-
-              <div class="section-title">Project Details</div>
-              ${isWebsite ? `
-                <div class="field-label">Website</div>
-                <div class="field-value">${website || 'N/A'}</div>
-                
-                <div class="field-label">Project Budget</div>
-                <div class="field-value">${budget || 'N/A'}</div>
-
-                <div class="field-label">Subject</div>
-                <div class="field-value">${subject || 'General Enquiry'}</div>
-                
-                <div class="field-label">Message</div>
-                <div class="field-value" style="white-space: pre-wrap;">${message}</div>
-              ` : `
-                <div class="field-label">Automation Interest</div>
-                <div class="field-value">${automationInterest}</div>
-                
-                <div class="field-label">Workflow Description</div>
-                <div class="field-value" style="white-space: pre-wrap;">${workflowDescription}</div>
-                
-                <div class="field-label">Urgency</div>
-                <div class="field-value">${urgency || 'Standard'}</div>
-              `}
-
-              <a href="mailto:${email}" class="btn">Reply to Lead</a>
-            </div>
-            <div class="footer">
-              Flux Web Studio &bull; <a href="https://fluxwebstudio.co.uk" style="color: #6b7280;">fluxwebstudio.co.uk</a><br>
-              Generating this alert automatically via Cloudflare Workers.
-            </div>
-          </div>
-        </body>
-        </html>
-      `.trim();
+      const htmlBody = isWebsite 
+        ? getWebsiteTemplate(data, timestamp)
+        : getAutomationTemplate(data, emailTitle, timestamp);
 
       const internalDisplayName = "Flux Web Studio Leads";
       const fromFormatted = `"${internalDisplayName}" <${senderAddr}>`;
@@ -231,6 +168,132 @@ export default {
     }
   }
 };
+
+/**
+ * Template Path: Website Enquiry
+ * Matches fields from fluxwebstudio.co.uk contact form
+ */
+function getWebsiteTemplate(data, timestamp) {
+  const { fullName, email, companyName, website, budget, subject, message } = data;
+  
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        .em-c { font-family: 'Inter', sans-serif; color: #1f2937; max-width: 600px; margin: 0 auto; line-height: 1.5; }
+        .head { padding: 32px; background-color: #030712; color: #ffffff; border-radius: 8px 8px 0 0; }
+        .body { padding: 40px; border: 1px solid #e5e7eb; border-top: none; }
+        .foot { padding: 24px; text-align: center; font-size: 12px; color: #9ca3af; }
+        .lbl { font-weight: 700; color: #0ea5e9; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+        .val { margin-bottom: 24px; font-size: 16px; color: #374151; }
+        .sec { border-bottom: 1px solid #f3f4f6; padding-bottom: 8px; margin-bottom: 20px; font-weight: 700; color: #111827; }
+        .btn { display: inline-block; padding: 14px 28px; background: #0ea5e9; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: 600; }
+      </style>
+    </head>
+    <body class="em-c">
+      <div class="head">
+        <h2 style="margin:0; font-size: 22px;">Flux Web Studio</h2>
+        <p style="margin:8px 0 0; font-size: 14px; opacity: 0.8;">New Website Enquiry Received</p>
+      </div>
+      <div class="body">
+        <div class="sec">Lead Information</div>
+        <div class="lbl">Full Name</div>
+        <div class="val">${fullName}</div>
+        
+        <div class="lbl">Email Address</div>
+        <div class="val">${email}</div>
+        
+        <div class="lbl">Company Name</div>
+        <div class="val">${companyName || 'N/A'}</div>
+
+        <div class="lbl">Website URL</div>
+        <div class="val">${website || 'N/A'}</div>
+        
+        <div class="lbl">Project Budget</div>
+        <div class="val">${budget || 'N/A'}</div>
+
+        <div class="sec">Project Enquiry</div>
+        <div class="lbl">Subject</div>
+        <div class="val">${subject || 'General Enquiry'}</div>
+        
+        <div class="lbl">Message</div>
+        <div class="val" style="white-space: pre-wrap;">${message}</div>
+
+        <div style="margin-top: 40px; text-align: center;">
+          <a href="mailto:${email}" class="btn">Reply to Enquirer</a>
+        </div>
+      </div>
+      <div class="foot">
+        Submitted from &bull; fluxwebstudio.co.uk<br>
+        ${timestamp}<br><br>
+        &copy; 2024 Flux Web Studio
+      </div>
+    </body>
+    </html>
+  `.trim();
+}
+
+/**
+ * Template Path: Automation Enquiry
+ * Matches fields from fluxautomate.com
+ */
+function getAutomationTemplate(data, emailTitle, timestamp) {
+  const { fullName, email, companyName, automationInterest, workflowDescription, urgency } = data;
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        .email-container { font-family: 'Inter', sans-serif; color: #1f2937; max-width: 600px; margin: 0 auto; line-height: 1.5; }
+        .header { padding: 24px; background-color: #030712; color: #ffffff; border-radius: 8px 8px 0 0; }
+        .content { padding: 32px; border: 1px solid #e5e7eb; border-top: none; }
+        .footer { padding: 24px; text-align: center; font-size: 12px; color: #6b7280; }
+        .field-label { font-weight: 600; color: #0ea5e9; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+        .field-value { margin-bottom: 24px; font-size: 16px; }
+        .section-title { border-bottom: 1px solid #f3f4f6; padding-bottom: 8px; margin-bottom: 20px; font-weight: 700; }
+        .btn { display: inline-block; padding: 12px 24px; background: #0ea5e9; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: 600; margin-top: 10px; }
+      </style>
+    </head>
+    <body>
+      <div class="email-container">
+        <div class="header">
+          <h2 style="margin:0; font-size: 20px;">Flux Web Studio</h2>
+          <p style="margin:0; font-size: 14px; opacity: 0.8;">${emailTitle}</p>
+        </div>
+        <div class="content">
+          <div class="section-title">Lead Information</div>
+          <div class="field-label">Full Name</div>
+          <div class="field-value">${fullName}</div>
+          
+          <div class="field-label">Email</div>
+          <div class="field-value">${email}</div>
+          
+          <div class="field-label">Company</div>
+          <div class="field-value">${companyName || 'N/A'}</div>
+
+          <div class="section-title">Project Details</div>
+          <div class="field-label">Automation Interest</div>
+          <div class="field-value">${automationInterest}</div>
+          
+          <div class="field-label">Workflow Description</div>
+          <div class="field-value" style="white-space: pre-wrap;">${workflowDescription}</div>
+          
+          <div class="field-label">Urgency</div>
+          <div class="field-value">${urgency || 'Standard'}</div>
+
+          <a href="mailto:${email}" class="btn">Reply to Lead</a>
+        </div>
+        <div class="footer">
+          Flux Web Studio &bull; Generated Automatically via Cloudflare Workers.<br>
+          ${timestamp}
+        </div>
+      </div>
+    </body>
+    </html>
+  `.trim();
+}
 
 /**
  * Helper: Creates a standard RFC 822 MIME HTML email string
