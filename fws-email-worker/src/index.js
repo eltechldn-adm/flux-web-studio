@@ -27,21 +27,39 @@ export default {
       console.log(`[Worker] Received request for: ${data.fullName}`);
       
       const {
+        type, // 'automation' or 'website_enquiry'
         fullName,
         email,
         companyName,
         businessType,
         automationInterest,
         workflowDescription,
-        urgency
+        urgency,
+        // Website enquiry specific
+        website,
+        budget,
+        subject,
+        message
       } = data;
 
-      if (!fullName || !email || !automationInterest || !workflowDescription) {
-        console.warn(`[Worker] Validation failed: missing fields.`);
-        return new Response(JSON.stringify({ error: "Missing required fields." }), {
-          status: 400,
-          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
-        });
+      // Validation based on type
+      if (type === 'website_enquiry') {
+        if (!fullName || !email || !message) {
+          console.warn(`[Worker] Validation failed: missing website_enquiry fields.`);
+          return new Response(JSON.stringify({ error: "Missing required fields." }), {
+            status: 400,
+            headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+          });
+        }
+      } else {
+        // Default to automation validation if not specified for safety
+        if (!fullName || !email || !automationInterest || !workflowDescription) {
+          console.warn(`[Worker] Validation failed: missing automation fields.`);
+          return new Response(JSON.stringify({ error: "Missing required fields." }), {
+            status: 400,
+            headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+          });
+        }
       }
 
       const timestamp = new Date().toISOString();
@@ -49,8 +67,12 @@ export default {
       const internalRecipient = "eltechldn@gmail.com"; // Verified destination inbox
       const publicAlias = "hello@fluxwebstudio.com";  // Public facing address
 
-      // 5. Construct Branded HTML Internal Lead Email (A)
-      const internalSubject = `New Lead: ${fullName} (${companyName || 'Lead'})`;
+      // 5. Construct Branded HTML Internal Lead Email
+      const isWebsite = type === 'website_enquiry';
+      const emailTitle = isWebsite ? "New Website Enquiry" : "New Automation Request";
+      const internalSubject = isWebsite 
+        ? `Website Enquiry: ${fullName} (${companyName || 'Lead'})`
+        : `New Lead: ${fullName} (${companyName || 'Lead'})`;
       
       const htmlBody = `
         <!DOCTYPE html>
@@ -71,7 +93,7 @@ export default {
           <div class="email-container">
             <div class="header">
               <h2 style="margin:0; font-size: 20px;">Flux Web Studio</h2>
-              <p style="margin:0; font-size: 14px; opacity: 0.8;">New Automation Request Received</p>
+              <p style="margin:0; font-size: 14px; opacity: 0.8;">${emailTitle}</p>
             </div>
             <div class="content">
               <div class="section-title">Lead Information</div>
@@ -82,22 +104,36 @@ export default {
               <div class="field-value">${email}</div>
               
               <div class="field-label">Company</div>
-              <div class="field-value">${companyName || 'Not provided'}</div>
+              <div class="field-value">${companyName || 'N/A'}</div>
 
               <div class="section-title">Project Details</div>
-              <div class="field-label">Automation Interest</div>
-              <div class="field-value">${automationInterest}</div>
-              
-              <div class="field-label">Workflow Description</div>
-              <div class="field-value">${workflowDescription.replace(/\n/g, '<br>')}</div>
-              
-              <div class="field-label">Urgency</div>
-              <div class="field-value">${urgency || 'Standard'}</div>
+              ${isWebsite ? `
+                <div class="field-label">Website</div>
+                <div class="field-value">${website || 'N/A'}</div>
+                
+                <div class="field-label">Project Budget</div>
+                <div class="field-value">${budget || 'N/A'}</div>
+
+                <div class="field-label">Subject</div>
+                <div class="field-value">${subject || 'General Enquiry'}</div>
+                
+                <div class="field-label">Message</div>
+                <div class="field-value" style="white-space: pre-wrap;">${message}</div>
+              ` : `
+                <div class="field-label">Automation Interest</div>
+                <div class="field-value">${automationInterest}</div>
+                
+                <div class="field-label">Workflow Description</div>
+                <div class="field-value" style="white-space: pre-wrap;">${workflowDescription}</div>
+                
+                <div class="field-label">Urgency</div>
+                <div class="field-value">${urgency || 'Standard'}</div>
+              `}
 
               <a href="mailto:${email}" class="btn">Reply to Lead</a>
             </div>
             <div class="footer">
-              Flux Web Studio &bull; <a href="https://fluxwebstudio.com" style="color: #6b7280;">fluxwebstudio.com</a><br>
+              Flux Web Studio &bull; <a href="https://fluxwebstudio.co.uk" style="color: #6b7280;">fluxwebstudio.co.uk</a><br>
               Generating this alert automatically via Cloudflare Workers.
             </div>
           </div>
