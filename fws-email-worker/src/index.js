@@ -42,11 +42,22 @@ export default {
         message
       } = data;
 
+      // 4. Diagnostic Logging
+      console.log(`[Worker] Payload Type: ${type}`);
+      console.log(`[Worker] Received Fields:`, Object.keys(data).join(', '));
+
       // Validation based on type
       if (type === 'website_enquiry') {
         if (!fullName || !email || !message) {
-          console.warn(`[Worker] Validation failed: missing website_enquiry fields.`);
-          return new Response(JSON.stringify({ error: "Missing required fields." }), {
+          const missing = [];
+          if (!fullName) missing.push('fullName');
+          if (!email) missing.push('email');
+          if (!message) missing.push('message');
+          console.warn(`[Worker] Validation failed: missing website_enquiry fields: ${missing.join(', ')}`);
+          return new Response(JSON.stringify({ 
+            error: "Missing required fields.", 
+            details: `Missing: ${missing.join(', ')}` 
+          }), {
             status: 400,
             headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
           });
@@ -54,8 +65,16 @@ export default {
       } else {
         // Default to automation validation if not specified for safety
         if (!fullName || !email || !automationInterest || !workflowDescription) {
-          console.warn(`[Worker] Validation failed: missing automation fields.`);
-          return new Response(JSON.stringify({ error: "Missing required fields." }), {
+          const missing = [];
+          if (!fullName) missing.push('fullName');
+          if (!email) missing.push('email');
+          if (!automationInterest) missing.push('automationInterest');
+          if (!workflowDescription) missing.push('workflowDescription');
+          console.warn(`[Worker] Validation failed: missing automation fields: ${missing.join(', ')}`);
+          return new Response(JSON.stringify({ 
+            error: "Missing required fields.", 
+            details: `Missing: ${missing.join(', ')} (Type: ${type || 'unset'})`
+          }), {
             status: 400,
             headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
           });
