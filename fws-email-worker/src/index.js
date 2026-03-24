@@ -31,10 +31,13 @@ export default {
         fullName,
         email,
         companyName,
+        companyWebsite, // Added
         businessType,
         automationInterest,
         workflowDescription,
         urgency,
+        leadQuality, // Added
+        flaggedLowQuality, // Added
         // Website enquiry specific
         website,
         budget,
@@ -43,42 +46,55 @@ export default {
       } = data;
 
       // 4. Diagnostic Logging
-      console.log(`[Worker] Payload Type: ${type}`);
-      console.log(`[Worker] Received Fields:`, Object.keys(data).join(', '));
+      console.log(`[Worker] Detected Type: ${type}`);
+      console.log(`[Worker] Fields:`, Object.keys(data).join(', '));
 
       // Validation based on type
       if (type === 'website_enquiry') {
-        if (!fullName || !email || !message) {
+        // Required for website: fullName, email, subject, message
+        if (!fullName || !email || !subject || !message) {
           const missing = [];
           if (!fullName) missing.push('fullName');
           if (!email) missing.push('email');
+          if (!subject) missing.push('subject');
           if (!message) missing.push('message');
-          console.warn(`[Worker] Validation failed: missing website_enquiry fields: ${missing.join(', ')}`);
+          
+          console.warn(`[Worker] Validation failed (website_enquiry). Missing: ${missing.join(', ')}`);
           return new Response(JSON.stringify({ 
             error: "Missing required fields.", 
-            details: `Missing: ${missing.join(', ')}` 
+            details: `Missing: ${missing.join(', ')} (Enquiry Type: website_enquiry)` 
           }), {
             status: 400,
             headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
           });
         }
-      } else {
-        // Default to automation validation if not specified for safety
+      } else if (type === 'automation' || !type) {
+        // Required for automation: fullName, email, automationInterest, workflowDescription
         if (!fullName || !email || !automationInterest || !workflowDescription) {
           const missing = [];
           if (!fullName) missing.push('fullName');
           if (!email) missing.push('email');
           if (!automationInterest) missing.push('automationInterest');
           if (!workflowDescription) missing.push('workflowDescription');
-          console.warn(`[Worker] Validation failed: missing automation fields: ${missing.join(', ')}`);
+          
+          console.warn(`[Worker] Validation failed (automation). Missing: ${missing.join(', ')}`);
           return new Response(JSON.stringify({ 
             error: "Missing required fields.", 
-            details: `Missing: ${missing.join(', ')} (Type: ${type || 'unset'})`
+            details: `Missing: ${missing.join(', ')} (Enquiry Type: ${type || 'default/automation'})`
           }), {
             status: 400,
             headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
           });
         }
+      } else {
+        // Unknown type
+        return new Response(JSON.stringify({ 
+          error: "Invalid enquiry type.", 
+          details: `Type '${type}' is not recognized.`
+        }), {
+          status: 400,
+          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+        });
       }
 
       const timestamp = new Date().toISOString();
@@ -89,13 +105,85 @@ export default {
       // 5. Select Template based on type
       const isWebsite = type === 'website_enquiry';
       const emailTitle = isWebsite ? "New Website Enquiry" : "New Automation Request";
-      const internalSubject = isWebsite 
-        ? `New Website Enquiry — Flux Web Studio`
-        : `New Lead: ${fullName} (${companyName || 'Lead'})`;
       
-      const htmlBody = isWebsite 
+      // 5. Construct Branded HTML Internal Lead Email (A)
+      const internalSubject = flaggedLowQuality
+        ? `[Low Quality] New Lead: ${fullName} (${companyName || 'Lead'})`
+        : `New Lead: ${fullName} (${companyName || 'Lead'})`;
+
+      // Quality badge styling
+      const qualityBadgeStyle = {
+        High:   'background:#0c4a6e; color:#38bdf8; border:1px solid rgba(56,189,248,0.4);',
+        Medium: 'background:#451a03; color:#fcd34d; border:1px solid rgba(252,211,77,0.4);',
+        Low:    'background:#450a0a; color:#fca5a5; border:1px solid rgba(252,165,165,0.4);',
+      };
+      const qualityLabel = leadQuality || 'Unknown';
+      const badgeStyle = qualityBadgeStyle[qualityLabel] || qualityBadgeStyle.Low;
+
+      const lowQualityBanner = flaggedLowQuality
+        ? `<div style="margin-bottom:24px; padding:12px 16px; background:rgba(239,68,68,0.08); border:1px solid rgba(252,165,165,0.3); border-radius:6px; color:#fca5a5; font-size:14px;">
+             ⚠️ <strong>Potential Low Quality Lead</strong> — Review before responding. This submission scored low on quality signals.
+           </div>`
+        : '';
+
+      const htmlBody = isWebsite
         ? getWebsiteTemplate(data, timestamp)
-        : getAutomationTemplate(data, emailTitle, timestamp);
+        : `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            .email-container { font-family: 'Inter', sans-serif; color: #1f2937; max-width: 600px; margin: 0 auto; line-height: 1.5; }
+            .header { padding: 24px; background-color: #030712; color: #ffffff; border-radius: 8px 8px 0 0; }
+            .content { padding: 32px; border: 1px solid #e5e7eb; border-top: none; }
+            .footer { padding: 24px; text-align: center; font-size: 12px; color: #6b7280; }
+            .field-label { font-weight: 600; color: #0ea5e9; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+            .field-value { margin-bottom: 24px; font-size: 16px; }
+            .section-title { border-bottom: 1px solid #f3f4f6; padding-bottom: 8px; margin-bottom: 20px; font-weight: 700; }
+            .btn { display: inline-block; padding: 12px 24px; background: #0ea5e9; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; margin-top: 10px; }
+            .quality-badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: 600; margin-left: 10px; vertical-align: middle; }
+          </style>
+        </head>
+        <body>
+          <div class="email-container">
+            <div class="header">
+              <h2 style="margin:0; font-size: 20px;">Flux Web Studio</h2>
+              <p style="margin:0; font-size: 14px; opacity: 0.8;">New Automation Request Received &nbsp;
+                <span class="quality-badge" style="${badgeStyle}">${qualityLabel}</span>
+              </p>
+            </div>
+            <div class="content">
+              ${lowQualityBanner}
+              <div class="section-title">Lead Information</div>
+              <div class="field-label">Full Name</div>
+              <div class="field-value">${fullName}</div>
+              
+              <div class="field-label">Email</div>
+              <div class="field-value">${email}</div>
+              
+              <div class="field-label">Company</div>
+              <div class="field-value">${companyName || 'Not provided'}${companyWebsite ? ` &mdash; <a href="${companyWebsite}" style="color:#0ea5e9;">${companyWebsite}</a>` : ''}</div>
+
+              <div class="section-title">Project Details</div>
+              <div class="field-label">Automation Interest</div>
+              <div class="field-value">${automationInterest}</div>
+              
+              <div class="field-label">Workflow Description</div>
+              <div class="field-value">${workflowDescription.replace(/\n/g, '<br>')}</div>
+              
+              <div class="field-label">Urgency</div>
+              <div class="field-value">${urgency || 'Standard'}</div>
+
+              <a href="mailto:${email}" class="btn">Reply to Lead</a>
+            </div>
+            <div class="footer">
+              Flux Web Studio &bull; <a href="https://fluxwebstudio.com" style="color: #6b7280;">fluxwebstudio.com</a><br>
+              Generating this alert automatically via Cloudflare Workers.
+            </div>
+          </div>
+        </body>
+        </html>
+      `.trim();
 
       const internalDisplayName = "Flux Web Studio Leads";
       const fromFormatted = `"${internalDisplayName}" <${senderAddr}>`;

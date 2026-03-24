@@ -29,6 +29,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
+    <!-- Cloudflare Turnstile — Bot protection -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
     <!-- Design System -->
     <link rel="stylesheet" href="./styles/global.css" />
     <link rel="stylesheet" href="./styles/container.css" />
@@ -248,27 +251,31 @@
                                 <div class="form-group">
                                     <label class="form-label form-label--required" for="full-name">Full Name</label>
                                     <input class="form-input" type="text" id="full-name" name="fullName"
-                                        placeholder="Jane Smith" autocomplete="name" required />
+                                        placeholder="Jane Smith" autocomplete="name" required
+                                        minlength="3" maxlength="80" />
+                                    <span class="form-error-msg" id="error-full-name" role="alert">Please enter your full name.</span>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label form-label--required" for="email">Email Address</label>
                                     <input class="form-input" type="email" id="email" name="email"
                                         placeholder="jane@company.com" autocomplete="email" required />
+                                    <span class="form-error-msg" id="error-email" role="alert">Please enter a valid email address.</span>
                                 </div>
                             </div>
 
                             <!-- Row 2: Company + Business Type -->
                             <div class="form__row">
                                 <div class="form-group">
-                                    <label class="form-label" for="company-name">Company Name</label>
+                                    <label class="form-label form-label--required" for="company-name">Company Name</label>
                                     <input class="form-input" type="text" id="company-name" name="companyName"
-                                        placeholder="Acme Ltd" autocomplete="organization" />
+                                        placeholder="Acme Ltd" autocomplete="organization" required
+                                        minlength="2" maxlength="100" />
+                                    <span class="form-error-msg" id="error-company-name" role="alert">Please enter your company name.</span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="form-label form-label--required" for="business-type">Business
-                                        Type</label>
+                                    <label class="form-label form-label--required" for="business-type">Business Type</label>
                                     <select class="form-select" id="business-type" name="businessType" required>
                                         <option value="" disabled selected>Select business type</option>
                                         <option value="consultant">Consultant</option>
@@ -277,13 +284,23 @@
                                         <option value="startup">Startup</option>
                                         <option value="other">Other</option>
                                     </select>
+                                    <span class="form-error-msg" id="error-business-type" role="alert">Please select a business type.</span>
                                 </div>
+                            </div>
+
+                            <!-- Company Website (optional) -->
+                            <div class="form-group">
+                                <label class="form-label" for="company-website">Company Website
+                                    <span style="font-weight: 400; opacity: 0.55;">(optional)</span>
+                                </label>
+                                <input class="form-input" type="url" id="company-website" name="companyWebsite"
+                                    placeholder="https://yourcompany.com" autocomplete="url" />
+                                <span class="form-error-msg" id="error-company-website" role="alert">Please enter a valid URL (e.g. https://yourcompany.com).</span>
                             </div>
 
                             <!-- Automation Interest -->
                             <div class="form-group">
-                                <label class="form-label form-label--required" for="automation-interest">Automation
-                                    Interest</label>
+                                <label class="form-label form-label--required" for="automation-interest">Automation Interest</label>
                                 <select class="form-select" id="automation-interest" name="automationInterest" required>
                                     <option value="" disabled selected>Which automation are you interested in?</option>
                                     <option value="lead-response">Lead Response Automation</option>
@@ -291,41 +308,48 @@
                                     <option value="client-onboarding">Client Onboarding Automation</option>
                                     <option value="not-sure">Not Sure Yet</option>
                                 </select>
+                                <span class="form-error-msg" id="error-automation-interest" role="alert">Please select an automation area.</span>
                             </div>
 
                             <!-- Workflow Description -->
                             <div class="form-group">
-                                <label class="form-label form-label--required" for="workflow-description">Workflow
-                                    Description</label>
+                                <label class="form-label form-label--required" for="workflow-description">Workflow Description</label>
                                 <textarea class="form-textarea" id="workflow-description" name="workflowDescription"
-                                    placeholder="Describe the repetitive workflow you want to automate. For example: we manually reply to every website lead — this takes 30 minutes per day and leads sometimes go cold."
-                                    rows="5" required></textarea>
-                                <p class="form-hint">Be as specific as possible — this helps us design the right system.
-                                </p>
+                                    placeholder="Describe the manual task, tools involved, and the outcome you want to automate. For example: we manually follow up with every website enquiry via email — this takes around an hour each day and leads sometimes go quiet before we respond."
+                                    rows="6" required maxlength="2000"></textarea>
+                                <p class="form-hint">Describe the manual task, tools involved, and the outcome you want. The more detail you give, the better the proposal we can prepare.</p>
+                                <div class="form-char-counter" id="desc-counter" aria-live="polite">0 / 2000</div>
+                                <span class="form-error-msg" id="error-workflow" role="alert">Please describe the workflow in at least a few sentences (30 characters minimum).</span>
                             </div>
 
                             <!-- Urgency -->
                             <div class="form-group">
                                 <span class="form-label" id="urgency-label">Estimated Urgency</span>
                                 <div class="form-radio-group" role="radiogroup" aria-labelledby="urgency-label">
-
                                     <div class="form-radio-option">
-                                        <input type="radio" id="urgency-exploring" name="urgency" value="exploring"
-                                            checked />
+                                        <input type="radio" id="urgency-exploring" name="urgency" value="exploring" checked />
                                         <label class="form-radio-label" for="urgency-exploring">Just Exploring</label>
                                     </div>
-
                                     <div class="form-radio-option">
                                         <input type="radio" id="urgency-30days" name="urgency" value="30days" />
                                         <label class="form-radio-label" for="urgency-30days">Within 30 Days</label>
                                     </div>
-
                                     <div class="form-radio-option">
                                         <input type="radio" id="urgency-asap" name="urgency" value="asap" />
                                         <label class="form-radio-label" for="urgency-asap">ASAP</label>
                                     </div>
-
                                 </div>
+                            </div>
+
+                            <!-- Cloudflare Turnstile — bot protection -->
+                            <div class="turnstile-container">
+                                <div class="cf-turnstile"
+                                    data-sitekey="YOUR_TURNSTILE_SITE_KEY"
+                                    data-theme="dark"
+                                    data-size="normal"
+                                    id="cf-turnstile-widget">
+                                </div>
+                                <span class="form-error-msg" id="error-turnstile" role="alert">Please complete the security check before submitting.</span>
                             </div>
 
                             <!-- Submit -->
@@ -335,21 +359,22 @@
                                 </button>
                             </div>
 
-                            <!-- Error banner (hidden) -->
+                            <!-- Global error banner (hidden) -->
                             <div id="form-error" role="alert" aria-live="assertive" style="
-                display: none;
-                padding: var(--space-4) var(--space-6);
-                background: rgba(239, 68, 68, 0.08);
-                border: 1px solid rgba(239, 68, 68, 0.3);
-                border-radius: var(--radius-md);
-                font-size: var(--text-sm);
-                color: #fca5a5;
-              ">
-                                Please fill in all required fields before submitting.
+                                display: none;
+                                padding: var(--space-4) var(--space-6);
+                                background: rgba(239, 68, 68, 0.08);
+                                border: 1px solid rgba(239, 68, 68, 0.3);
+                                border-radius: var(--radius-md);
+                                font-size: var(--text-sm);
+                                color: #fca5a5;
+                            ">
+                                Please correct the errors above before submitting.
                             </div>
 
                         </form>
                     </div>
+
                 </div>
 
                 <!-- === SIDEBAR === -->
@@ -472,72 +497,136 @@
      SCRIPTS
 ============================================================ -->
     <script src="./utils/index.js" defer></script>
+    <script src="./utils/validate.js"></script>
 
     <script>
         (function () {
             'use strict';
 
-            const form = document.getElementById('automation-request-form');
-            const formCard = document.getElementById('form-wrapper');
-            const success = document.getElementById('form-success');
+            const form       = document.getElementById('automation-request-form');
+            const formCard   = document.getElementById('form-wrapper');
+            const success    = document.getElementById('form-success');
             const errorBanner = document.getElementById('form-error');
-            const submitBtn = document.getElementById('submit-btn');
+            const submitBtn  = document.getElementById('submit-btn');
+            const descTextarea = document.getElementById('workflow-description');
+            const descCounter  = document.getElementById('desc-counter');
 
-            // ── Handle redirect success state ──────────
+            // ── Success redirect (from ?success=1) ────────────
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('success') === '1') {
                 if (formCard) formCard.style.display = 'none';
                 if (success) {
                     success.classList.add('is-visible');
                     success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    // Clean URL
                     window.history.replaceState({}, document.title, window.location.pathname);
                 }
             }
 
             if (!form) return;
 
+            const V = window.FWSValidate;
+
+            // ── Field mapping (id → validator fn) ─────────────
+            const FIELD_VALIDATORS = [
+                { id: 'full-name',           errorId: 'error-full-name',           fn: v => V.validateFullName(v) },
+                { id: 'email',               errorId: 'error-email',               fn: v => V.validateEmail(v) },
+                { id: 'company-name',        errorId: 'error-company-name',        fn: v => V.validateCompany(v) },
+                { id: 'business-type',       errorId: 'error-business-type',       fn: v => V.validateBusinessType(v) },
+                { id: 'company-website',     errorId: 'error-company-website',     fn: v => V.validateWebsite(v) },
+                { id: 'automation-interest', errorId: 'error-automation-interest', fn: v => V.validateAutomationInterest(v) },
+                { id: 'workflow-description',errorId: 'error-workflow',            fn: v => V.validateWorkflowDescription(v) },
+            ];
+
+            function getFieldEl(id)  { return document.getElementById(id); }
+            function getErrorEl(id)  { return document.getElementById(id); }
+
+            function showFieldError(fieldEl, errorEl, message) {
+                const errorClass = fieldEl.tagName === 'TEXTAREA' ? 'form-textarea--error'
+                                 : fieldEl.tagName === 'SELECT'   ? 'form-select--error'
+                                 : 'form-input--error';
+                fieldEl.classList.add(errorClass);
+                fieldEl.setAttribute('aria-invalid', 'true');
+                if (errorEl) {
+                    errorEl.textContent = message || 'This field has an error.';
+                    errorEl.classList.add('is-visible');
+                }
+            }
+
+            function clearFieldError(fieldEl, errorEl) {
+                fieldEl.classList.remove('form-input--error', 'form-select--error', 'form-textarea--error');
+                fieldEl.removeAttribute('aria-invalid');
+                if (errorEl) errorEl.classList.remove('is-visible');
+            }
+
+            function validateField(def) {
+                const fieldEl = getFieldEl(def.id);
+                const errorEl = getErrorEl(def.errorId);
+                if (!fieldEl) return true;
+                const result = def.fn(fieldEl.value);
+                if (!result.valid) {
+                    showFieldError(fieldEl, errorEl, result.message);
+                    return false;
+                }
+                clearFieldError(fieldEl, errorEl);
+                return true;
+            }
+
+            // ── Blur-time validation per field ────────────────
+            FIELD_VALIDATORS.forEach(def => {
+                const fieldEl = getFieldEl(def.id);
+                if (!fieldEl) return;
+                fieldEl.addEventListener('blur', () => validateField(def));
+                fieldEl.addEventListener('input', () => {
+                    // Clear error state as soon as user starts correcting
+                    const errorEl = getErrorEl(def.errorId);
+                    clearFieldError(fieldEl, errorEl);
+                    if (errorBanner.style.display !== 'none') errorBanner.style.display = 'none';
+                });
+            });
+
+            // ── Character counter for textarea ────────────────
+            if (descTextarea && descCounter) {
+                const MAX = 2000;
+                descTextarea.addEventListener('input', () => {
+                    const len = descTextarea.value.length;
+                    descCounter.textContent = `${len} / ${MAX}`;
+                    descCounter.classList.toggle('is-near-limit', len >= MAX * 0.85 && len < MAX);
+                    descCounter.classList.toggle('is-over-limit', len >= MAX);
+                });
+            }
+
+            // ── Form submit ───────────────────────────────────
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
 
-                // ── Simple client-side validation ──────────
-                const required = form.querySelectorAll('[required]');
-                let valid = true;
-
-                required.forEach(function (field) {
-                    // Clear previous invalid state
-                    field.style.borderColor = '';
-                    if (!field.value.trim()) {
-                        valid = false;
-                        field.style.borderColor = 'rgba(239, 68, 68, 0.6)';
-                    }
+                // Validate all fields
+                let allValid = true;
+                FIELD_VALIDATORS.forEach(def => {
+                    if (!validateField(def)) allValid = false;
                 });
 
-                if (!valid) {
+                // Check Turnstile token
+                const turnstileInput = form.querySelector('[name="cf-turnstile-response"]');
+                const turnstileErrorEl = document.getElementById('error-turnstile');
+                if (!turnstileInput || !turnstileInput.value) {
+                    if (turnstileErrorEl) turnstileErrorEl.classList.add('is-visible');
+                    allValid = false;
+                } else {
+                    if (turnstileErrorEl) turnstileErrorEl.classList.remove('is-visible');
+                }
+
+                if (!allValid) {
                     errorBanner.style.display = 'block';
-                    // scroll to first invalid field
-                    const firstInvalid = form.querySelector('[required][style*="rgb(239"]');
+                    // Focus first invalid field
+                    const firstInvalid = form.querySelector('[aria-invalid="true"]');
                     if (firstInvalid) firstInvalid.focus();
                     return;
                 }
 
                 errorBanner.style.display = 'none';
-
-                // ── Submit to production endpoint ──────────
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Submitting…';
                 form.submit();
-            });
-
-            // ── Clear individual field error highlight on input
-            form.addEventListener('input', function (e) {
-                if (e.target.style.borderColor) {
-                    e.target.style.borderColor = '';
-                }
-                // Hide global error banner once any field is corrected
-                if (errorBanner.style.display !== 'none') {
-                    errorBanner.style.display = 'none';
-                }
             });
 
         })();
