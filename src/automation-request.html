@@ -16,11 +16,13 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://fluxwebstudio.com/automation-request" />
     <meta property="og:title" content="Request Automation | Flux Web Studio" />
-    <meta property="og:description" content="Tell us what workflow you want to automate and we will design the right AI automation system for your business." />
+    <meta property="og:description"
+        content="Tell us what workflow you want to automate and we will design the right AI automation system for your business." />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Request Automation | Flux Web Studio" />
-    <meta name="twitter:description" content="Tell us what you want to automate. We will review and send a fixed-price proposal." />
+    <meta name="twitter:description"
+        content="Tell us what you want to automate. We will review and send a fixed-price proposal." />
 
     <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
 
@@ -190,11 +192,11 @@
             </a>
 
             <ul class="nav__menu" role="list">
-                <li class="nav__item"><a href="services.html"          class="nav__link">Services</a></li>
+                <li class="nav__item"><a href="services.html" class="nav__link">Services</a></li>
                 <li class="nav__item"><a href="how-it-works.html" class="nav__link">How It Works</a></li>
                 <li class="nav__item"><a href="case-studies.html" class="nav__link">Case Studies</a></li>
                 <li class="nav__item"><a href="pricing.html" class="nav__link">Pricing</a></li>
-                <li class="nav__item"><a href="contact.html"           class="nav__link">Contact</a></li>
+                <li class="nav__item"><a href="contact.html" class="nav__link">Contact</a></li>
             </ul>
 
             <div class="nav__cta">
@@ -237,45 +239,53 @@
                         <div class="form-success__icon" aria-hidden="true">✓</div>
                         <h2 class="form-success__title">Thank You — Your Request is Received</h2>
                         <p class="form-success__message">
-                            We have received your automation workflow details. Our team will review your requirements and a member of Flux Web Studio will reply to you shortly from <strong>hello@fluxwebstudio.com</strong>.
+                            We have received your automation workflow details. Our team will review your requirements
+                            and a member of Flux Web Studio will reply to you shortly from
+                            <strong>hello@fluxwebstudio.com</strong>.
                         </p>
                         <a href="index.html" class="btn btn--secondary form-success__back">Back to Homepage</a>
                     </div>
 
                     <!-- Request Form -->
                     <div class="form-card" id="form-wrapper">
-                        <form class="form" action="/api/automation-request" method="POST" id="automation-request-form" novalidate aria-label="Automation request form">
+                        <form class="form" action="/api/automation-request" method="POST" id="automation-request-form"
+                            novalidate aria-label="Automation request form">
 
                             <!-- Row 1: Name + Email -->
                             <div class="form__row">
                                 <div class="form-group">
                                     <label class="form-label form-label--required" for="full-name">Full Name</label>
                                     <input class="form-input" type="text" id="full-name" name="fullName"
-                                        placeholder="Jane Smith" autocomplete="name" required
-                                        minlength="3" maxlength="80" />
-                                    <span class="form-error-msg" id="error-full-name" role="alert">Please enter your full name.</span>
+                                        placeholder="Jane Smith" autocomplete="name" required minlength="3"
+                                        maxlength="80" />
+                                    <span class="form-error-msg" id="error-full-name" role="alert">Please enter your
+                                        full name.</span>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label form-label--required" for="email">Email Address</label>
                                     <input class="form-input" type="email" id="email" name="email"
                                         placeholder="jane@company.com" autocomplete="email" required />
-                                    <span class="form-error-msg" id="error-email" role="alert">Please enter a valid email address.</span>
+                                    <span class="form-error-msg" id="error-email" role="alert">Please enter a valid
+                                        email address.</span>
                                 </div>
                             </div>
 
                             <!-- Row 2: Company + Business Type -->
                             <div class="form__row">
                                 <div class="form-group">
-                                    <label class="form-label form-label--required" for="company-name">Company Name</label>
+                                    <label class="form-label form-label--required" for="company-name">Company
+                                        Name</label>
                                     <input class="form-input" type="text" id="company-name" name="companyName"
-                                        placeholder="Acme Ltd" autocomplete="organization" required
-                                        minlength="2" maxlength="100" />
-                                    <span class="form-error-msg" id="error-company-name" role="alert">Please enter your company name.</span>
+                                        placeholder="Acme Ltd" autocomplete="organization" required minlength="2"
+                                        maxlength="100" />
+                                    <span class="form-error-msg" id="error-company-name" role="alert">Please enter your
+                                        company name.</span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="form-label form-label--required" for="business-type">Business Type</label>
+                                    <label class="form-label form-label--required" for="business-type">Business
+                                        Type</label>
                                     <select class="form-select" id="business-type" name="businessType" required>
                                         <option value="" disabled selected>Select business type</option>
                                         <option value="consultant">Consultant</option>
@@ -284,7 +294,8 @@
                                         <option value="startup">Startup</option>
                                         <option value="other">Other</option>
                                     </select>
-                                    <span class="form-error-msg" id="error-business-type" role="alert">Please select a business type.</span>
+                                    <span class="form-error-msg" id="error-business-type" role="alert">Please select a
+                                        business type.</span>
                                 </div>
                             </div>
 
@@ -295,12 +306,14 @@
                                 </label>
                                 <input class="form-input" type="url" id="company-website" name="companyWebsite"
                                     placeholder="https://yourcompany.com" autocomplete="url" />
-                                <span class="form-error-msg" id="error-company-website" role="alert">Please enter a valid URL (e.g. https://yourcompany.com).</span>
+                                <span class="form-error-msg" id="error-company-website" role="alert">Please enter a
+                                    valid URL (e.g. https://yourcompany.com).</span>
                             </div>
 
                             <!-- Automation Interest -->
                             <div class="form-group">
-                                <label class="form-label form-label--required" for="automation-interest">Automation Interest</label>
+                                <label class="form-label form-label--required" for="automation-interest">Automation
+                                    Interest</label>
                                 <select class="form-select" id="automation-interest" name="automationInterest" required>
                                     <option value="" disabled selected>Which automation are you interested in?</option>
                                     <option value="lead-response">Lead Response Automation</option>
@@ -308,18 +321,22 @@
                                     <option value="client-onboarding">Client Onboarding Automation</option>
                                     <option value="not-sure">Not Sure Yet</option>
                                 </select>
-                                <span class="form-error-msg" id="error-automation-interest" role="alert">Please select an automation area.</span>
+                                <span class="form-error-msg" id="error-automation-interest" role="alert">Please select
+                                    an automation area.</span>
                             </div>
 
                             <!-- Workflow Description -->
                             <div class="form-group">
-                                <label class="form-label form-label--required" for="workflow-description">Workflow Description</label>
+                                <label class="form-label form-label--required" for="workflow-description">Workflow
+                                    Description</label>
                                 <textarea class="form-textarea" id="workflow-description" name="workflowDescription"
                                     placeholder="Describe the manual task, tools involved, and the outcome you want to automate. For example: we manually follow up with every website enquiry via email — this takes around an hour each day and leads sometimes go quiet before we respond."
                                     rows="6" required maxlength="2000"></textarea>
-                                <p class="form-hint">Describe the manual task, tools involved, and the outcome you want. The more detail you give, the better the proposal we can prepare.</p>
+                                <p class="form-hint">Describe the manual task, tools involved, and the outcome you want.
+                                    The more detail you give, the better the proposal we can prepare.</p>
                                 <div class="form-char-counter" id="desc-counter" aria-live="polite">0 / 2000</div>
-                                <span class="form-error-msg" id="error-workflow" role="alert">Please describe the workflow in at least a few sentences (30 characters minimum).</span>
+                                <span class="form-error-msg" id="error-workflow" role="alert">Please describe the
+                                    workflow in at least a few sentences (30 characters minimum).</span>
                             </div>
 
                             <!-- Urgency -->
@@ -327,7 +344,8 @@
                                 <span class="form-label" id="urgency-label">Estimated Urgency</span>
                                 <div class="form-radio-group" role="radiogroup" aria-labelledby="urgency-label">
                                     <div class="form-radio-option">
-                                        <input type="radio" id="urgency-exploring" name="urgency" value="exploring" checked />
+                                        <input type="radio" id="urgency-exploring" name="urgency" value="exploring"
+                                            checked />
                                         <label class="form-radio-label" for="urgency-exploring">Just Exploring</label>
                                     </div>
                                     <div class="form-radio-option">
@@ -343,13 +361,11 @@
 
                             <!-- Cloudflare Turnstile — bot protection -->
                             <div class="turnstile-container">
-                                <div class="cf-turnstile"
-                                    data-sitekey="YOUR_TURNSTILE_SITE_KEY"
-                                    data-theme="dark"
-                                    data-size="normal"
-                                    id="cf-turnstile-widget">
+                                <div class="cf-turnstile" data-sitekey="0x4AAAAAACvgP5eACTdYTAsM" data-theme="dark"
+                                    data-size="normal" id="cf-turnstile-widget">
                                 </div>
-                                <span class="form-error-msg" id="error-turnstile" role="alert">Please complete the security check before submitting.</span>
+                                <span class="form-error-msg" id="error-turnstile" role="alert">Please complete the
+                                    security check before submitting.</span>
                             </div>
 
                             <!-- Submit -->
@@ -391,19 +407,35 @@
                         <h2 class="sidebar-card__title">What happens next</h2>
                         <ul class="sidebar-list">
                             <li class="sidebar-list__item">
-                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg></span>
                                 We review your workflow within 1 business day
                             </li>
                             <li class="sidebar-list__item">
-                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg></span>
                                 We confirm whether automation is a strong fit
                             </li>
                             <li class="sidebar-list__item">
-                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg></span>
                                 We send a proposal with timeline and price
                             </li>
                             <li class="sidebar-list__item">
-                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg></span>
                                 Build starts when you approve
                             </li>
                         </ul>
@@ -414,19 +446,35 @@
                         <h2 class="sidebar-card__title">Included in every build</h2>
                         <ul class="sidebar-list">
                             <li class="sidebar-list__item">
-                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg></span>
                                 Full automation setup and testing
                             </li>
                             <li class="sidebar-list__item">
-                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg></span>
                                 Clear documentation for your team
                             </li>
                             <li class="sidebar-list__item">
-                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg></span>
                                 Integration with your existing tools
                             </li>
                             <li class="sidebar-list__item">
-                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                <span class="sidebar-list__icon" aria-hidden="true"><svg width="13" height="13"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg></span>
                                 No retainer — one-time delivery
                             </li>
                         </ul>
@@ -503,13 +551,13 @@
         (function () {
             'use strict';
 
-            const form       = document.getElementById('automation-request-form');
-            const formCard   = document.getElementById('form-wrapper');
-            const success    = document.getElementById('form-success');
+            const form = document.getElementById('automation-request-form');
+            const formCard = document.getElementById('form-wrapper');
+            const success = document.getElementById('form-success');
             const errorBanner = document.getElementById('form-error');
-            const submitBtn  = document.getElementById('submit-btn');
+            const submitBtn = document.getElementById('submit-btn');
             const descTextarea = document.getElementById('workflow-description');
-            const descCounter  = document.getElementById('desc-counter');
+            const descCounter = document.getElementById('desc-counter');
 
             // ── Success redirect (from ?success=1) ────────────
             const urlParams = new URLSearchParams(window.location.search);
@@ -528,22 +576,22 @@
 
             // ── Field mapping (id → validator fn) ─────────────
             const FIELD_VALIDATORS = [
-                { id: 'full-name',           errorId: 'error-full-name',           fn: v => V.validateFullName(v) },
-                { id: 'email',               errorId: 'error-email',               fn: v => V.validateEmail(v) },
-                { id: 'company-name',        errorId: 'error-company-name',        fn: v => V.validateCompany(v) },
-                { id: 'business-type',       errorId: 'error-business-type',       fn: v => V.validateBusinessType(v) },
-                { id: 'company-website',     errorId: 'error-company-website',     fn: v => V.validateWebsite(v) },
+                { id: 'full-name', errorId: 'error-full-name', fn: v => V.validateFullName(v) },
+                { id: 'email', errorId: 'error-email', fn: v => V.validateEmail(v) },
+                { id: 'company-name', errorId: 'error-company-name', fn: v => V.validateCompany(v) },
+                { id: 'business-type', errorId: 'error-business-type', fn: v => V.validateBusinessType(v) },
+                { id: 'company-website', errorId: 'error-company-website', fn: v => V.validateWebsite(v) },
                 { id: 'automation-interest', errorId: 'error-automation-interest', fn: v => V.validateAutomationInterest(v) },
-                { id: 'workflow-description',errorId: 'error-workflow',            fn: v => V.validateWorkflowDescription(v) },
+                { id: 'workflow-description', errorId: 'error-workflow', fn: v => V.validateWorkflowDescription(v) },
             ];
 
-            function getFieldEl(id)  { return document.getElementById(id); }
-            function getErrorEl(id)  { return document.getElementById(id); }
+            function getFieldEl(id) { return document.getElementById(id); }
+            function getErrorEl(id) { return document.getElementById(id); }
 
             function showFieldError(fieldEl, errorEl, message) {
                 const errorClass = fieldEl.tagName === 'TEXTAREA' ? 'form-textarea--error'
-                                 : fieldEl.tagName === 'SELECT'   ? 'form-select--error'
-                                 : 'form-input--error';
+                    : fieldEl.tagName === 'SELECT' ? 'form-select--error'
+                        : 'form-input--error';
                 fieldEl.classList.add(errorClass);
                 fieldEl.setAttribute('aria-invalid', 'true');
                 if (errorEl) {
