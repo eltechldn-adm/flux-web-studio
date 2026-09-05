@@ -45,13 +45,13 @@
 }
 
 .nav__logo:hover {
-    color: var(--color-glow-400);
+    color: var(--color-primary);
 }
 
 .nav__logo-text {
     background: linear-gradient(135deg,
             var(--color-text-primary),
-            var(--color-glow-400));
+            var(--color-primary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -152,7 +152,7 @@
         top: calc(100% + var(--space-2));
         left: var(--space-4);
         right: var(--space-4);
-        background: var(--color-bg-surface);
+        background: var(--color-white);
         border: 1px solid var(--border-subtle);
         border-radius: var(--radius-xl);
         padding: var(--space-6);
@@ -191,7 +191,7 @@
 
     .nav__link:hover,
     .nav__link[aria-current="page"] {
-        color: var(--color-glow-400);
+        color: var(--color-primary);
         background: rgba(255, 255, 255, 0.04);
     }
 

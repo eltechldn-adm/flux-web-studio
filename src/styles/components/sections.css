@@ -42,7 +42,7 @@
     display: inline-block;
     font-size: 0.8125rem;
     font-weight: var(--font-weight-semibold);
-    color: var(--color-glow-400);
+    color: var(--color-primary);
     letter-spacing: 0.09em;
     text-transform: uppercase;
     margin-bottom: var(--space-5);

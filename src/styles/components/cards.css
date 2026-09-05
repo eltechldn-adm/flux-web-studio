@@ -9,7 +9,7 @@
  */
 
 .card {
-    background: var(--color-bg-surface);
+    background: var(--color-white);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
     padding: var(--space-8);
@@ -31,7 +31,7 @@
     inset: 0;
     border-radius: inherit;
     background: linear-gradient(135deg,
-            rgba(14, 165, 233, 0.04),
+            rgba(255, 107, 74, 0.04),
             transparent 60%);
     opacity: 0;
     transition: opacity var(--transition-base);
@@ -39,7 +39,7 @@
 }
 
 .card--hover:hover {
-    border-color: rgba(14, 165, 233, 0.25);
+    border-color: rgba(255, 107, 74, 0.25);
     box-shadow: var(--glow-subtle);
 }
 
@@ -56,11 +56,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(14, 165, 233, 0.1);
-    border: 1px solid rgba(14, 165, 233, 0.2);
+    background: rgba(255, 107, 74, 0.1);
+    border: 1px solid rgba(255, 107, 74, 0.2);
     border-radius: var(--radius-md);
     margin-bottom: var(--space-6);
-    color: var(--color-glow-400);
+    color: var(--color-primary);
     font-size: 1.25rem;
     flex-shrink: 0;
 }

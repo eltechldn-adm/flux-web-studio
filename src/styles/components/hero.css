@@ -112,7 +112,7 @@
     width: min(900px, 120vw);
     height: min(520px, 60vw);
     background: radial-gradient(ellipse at 50% 80%,
-            rgba(14, 165, 233, 0.18) 0%,
+            rgba(255, 107, 74, 0.18) 0%,
             rgba(2, 132, 199, 0.09) 35%,
             rgba(3, 105, 161, 0.04) 60%,
             transparent 80%);
@@ -132,7 +132,7 @@
     height: min(320px, 38vw);
     background: radial-gradient(ellipse at 50% 75%,
             rgba(56, 189, 248, 0.28) 0%,
-            rgba(14, 165, 233, 0.16) 30%,
+            rgba(255, 107, 74, 0.16) 30%,
             rgba(2, 132, 199, 0.06) 60%,
             transparent 80%);
     border-radius: 50%;
@@ -152,7 +152,7 @@
     height: min(200px, 28vw);
     background: radial-gradient(ellipse at 50% 70%,
             rgba(56, 189, 248, 0.55) 0%,
-            rgba(14, 165, 233, 0.38) 20%,
+            rgba(255, 107, 74, 0.38) 20%,
             rgba(2, 132, 199, 0.18) 45%,
             transparent 70%);
     border-radius: 50%;
@@ -172,7 +172,7 @@
     background: radial-gradient(ellipse at 50% 60%,
             rgba(186, 230, 253, 0.7) 0%,
             rgba(56, 189, 248, 0.55) 18%,
-            rgba(14, 165, 233, 0.3) 40%,
+            rgba(255, 107, 74, 0.3) 40%,
             transparent 65%);
     border-radius: 50%;
     filter: blur(2px);
@@ -191,11 +191,11 @@
     height: 1px;
     background: linear-gradient(to right,
             transparent 0%,
-            rgba(14, 165, 233, 0.12) 20%,
+            rgba(255, 107, 74, 0.12) 20%,
             rgba(56, 189, 248, 0.45) 45%,
             rgba(56, 189, 248, 0.65) 50%,
             rgba(56, 189, 248, 0.45) 55%,
-            rgba(14, 165, 233, 0.12) 80%,
+            rgba(255, 107, 74, 0.12) 80%,
             transparent 100%);
     pointer-events: none;
     animation: coreShimmer 7s ease-in-out infinite;
@@ -226,12 +226,12 @@
     align-items: center;
     gap: var(--space-2);
     padding: 0.375rem 1rem;
-    background: rgba(14, 165, 233, 0.08);
+    background: rgba(255, 107, 74, 0.08);
     border: 1px solid rgba(56, 189, 248, 0.22);
     border-radius: var(--radius-full);
     font-size: 0.8125rem;
     font-weight: var(--font-weight-medium);
-    color: var(--color-glow-400);
+    color: var(--color-primary);
     letter-spacing: 0.02em;
     animation: fadeUp 0.6s ease both;
     animation-delay: 0.1s;
@@ -240,10 +240,10 @@
 .hero__badge-dot {
     width: 6px;
     height: 6px;
-    background: var(--color-glow-400);
+    background: var(--color-primary);
     border-radius: 50%;
     flex-shrink: 0;
-    box-shadow: 0 0 6px var(--color-glow-400);
+    box-shadow: 0 0 6px var(--color-primary);
 }
 
 /* --------------------------------------------------
@@ -263,8 +263,8 @@
 /* Gradient accent on last line / highlighted word */
 .hero__headline mark {
     background: linear-gradient(135deg,
-            var(--color-glow-400),
-            var(--color-glow-600));
+            var(--color-primary),
+            var(--color-primary-hover));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

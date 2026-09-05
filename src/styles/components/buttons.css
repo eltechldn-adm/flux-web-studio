@@ -17,12 +17,12 @@
     justify-content: center;
     gap: var(--space-2);
     padding: 0.75rem 1.75rem;
-    font-family: var(--font-primary);
+    font-family: var(--font-body);
     font-size: var(--text-sm);
     font-weight: var(--font-weight-semibold);
     line-height: 1;
     letter-spacing: 0.01em;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-md);
     border: 1px solid transparent;
     cursor: pointer;
     text-decoration: none;
@@ -31,28 +31,30 @@
         background var(--transition-base),
         box-shadow var(--transition-base),
         border-color var(--transition-base),
-        color var(--transition-base);
+        color var(--transition-base),
+        transform var(--transition-fast);
 }
 
 /* --------------------------------------------------
- * PRIMARY — Ocean blue gradient CTA
+ * PRIMARY — Coral CTA
  * -------------------------------------------------- */
 .btn--primary {
-    background: var(--gradient-brand);
-    color: var(--color-text-primary);
+    background: var(--color-primary);
+    color: var(--color-white);
     border-color: transparent;
-    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
+    box-shadow: var(--shadow-md);
 }
 
 .btn--primary:hover {
-    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-    box-shadow: var(--glow-brand);
-    color: var(--color-text-primary);
+    background: var(--color-primary-hover);
+    box-shadow: var(--shadow-lg);
+    color: var(--color-white);
+    transform: translateY(-1px);
 }
 
 .btn--primary:active {
     transform: translateY(1px);
-    box-shadow: var(--glow-subtle);
+    box-shadow: var(--shadow-sm);
 }
 
 /* --------------------------------------------------
@@ -61,19 +63,43 @@
 .btn--secondary {
     background: transparent;
     color: var(--color-text-primary);
-    border-color: var(--color-glow-400);
-    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+    border-color: var(--border-subtle);
+    box-shadow: none;
 }
 
 .btn--secondary:hover {
-    background: rgba(56, 189, 248, 0.08);
-    box-shadow: 0 0 16px rgba(56, 189, 248, 0.18);
-    color: var(--color-glow-400);
-    border-color: var(--color-glow-400);
+    background: rgba(17, 19, 24, 0.04);
+    color: var(--color-text-primary);
+    border-color: rgba(17, 19, 24, 0.12);
 }
 
 .btn--secondary:active {
     transform: translateY(1px);
+}
+
+/* --------------------------------------------------
+ * INVERSE (For dark backgrounds)
+ * -------------------------------------------------- */
+.btn--inverse {
+    background: var(--color-white);
+    color: var(--color-obsidian);
+    border-color: transparent;
+}
+
+.btn--inverse:hover {
+    background: var(--color-warm-ivory);
+    transform: translateY(-1px);
+}
+
+.btn--inverse-outline {
+    background: transparent;
+    color: var(--color-white);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn--inverse-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 /* --------------------------------------------------

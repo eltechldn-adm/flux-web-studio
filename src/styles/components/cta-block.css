@@ -14,7 +14,7 @@
 .cta-block {
     text-align: center;
     padding: var(--space-20) var(--space-8);
-    background: var(--color-bg-surface);
+    background: var(--color-white);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
     position: relative;
@@ -27,7 +27,7 @@
     position: absolute;
     inset: 0;
     background: radial-gradient(ellipse 70% 50% at 50% 100%,
-            rgba(14, 165, 233, 0.1),
+            rgba(255, 107, 74, 0.1),
             transparent 70%);
     pointer-events: none;
 }
@@ -39,7 +39,7 @@
     display: inline-block;
     font-size: 0.8125rem;
     font-weight: var(--font-weight-semibold);
-    color: var(--color-glow-400);
+    color: var(--color-primary);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     margin-bottom: var(--space-4);

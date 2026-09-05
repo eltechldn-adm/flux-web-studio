@@ -28,7 +28,7 @@
     width: 600px;
     height: 300px;
     background: radial-gradient(ellipse at 50% 0%,
-            rgba(14, 165, 233, 0.09) 0%,
+            rgba(255, 107, 74, 0.09) 0%,
             transparent 70%);
     pointer-events: none;
 }
@@ -37,7 +37,7 @@
     display: inline-block;
     font-size: 0.8125rem;
     font-weight: var(--font-weight-semibold);
-    color: var(--color-glow-400);
+    color: var(--color-primary);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     margin-bottom: var(--space-5);
@@ -81,7 +81,7 @@
 }
 
 .service-block {
-    background: var(--color-bg-surface);
+    background: var(--color-white);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius-lg);
     padding: var(--space-10) var(--space-10);
@@ -95,7 +95,7 @@
 }
 
 .service-block:hover {
-    border-color: rgba(14, 165, 233, 0.2);
+    border-color: rgba(255, 107, 74, 0.2);
 }
 
 /* Alternate right-to-left on even blocks */
@@ -131,8 +131,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(14, 165, 233, 0.08);
-    border: 1px solid rgba(14, 165, 233, 0.18);
+    background: rgba(255, 107, 74, 0.08);
+    border: 1px solid rgba(255, 107, 74, 0.18);
     border-radius: var(--radius-md);
     font-size: 1.5rem;
     flex-shrink: 0;
@@ -141,7 +141,7 @@
 .service-block__number {
     font-size: 0.75rem;
     font-weight: var(--font-weight-bold);
-    color: var(--color-glow-400);
+    color: var(--color-primary);
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
@@ -166,7 +166,7 @@
     gap: var(--space-2);
     font-size: 0.875rem;
     font-weight: var(--font-weight-medium);
-    color: var(--color-glow-400);
+    color: var(--color-primary);
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     padding-top: var(--space-4);
     margin-top: var(--space-2);
@@ -200,7 +200,7 @@
     right: 0;
     height: 120px;
     background: radial-gradient(ellipse at 50% 100%,
-            rgba(14, 165, 233, 0.07),
+            rgba(255, 107, 74, 0.07),
             transparent 70%);
     pointer-events: none;
 }
@@ -253,7 +253,7 @@
 .service-block__metric-value {
     font-size: 0.875rem;
     font-weight: var(--font-weight-semibold);
-    color: var(--color-glow-400);
+    color: var(--color-primary);
 }
 
 .service-block__metric-value--positive {
@@ -294,7 +294,7 @@
 .product-proof__eyebrow {
     font-size: 0.8125rem;
     font-weight: var(--font-weight-semibold);
-    color: var(--color-glow-400);
+    color: var(--color-primary);
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
@@ -322,13 +322,13 @@
 
 /* Premium panel — clean wrapper, no fake OS chrome */
 .flow-panel {
-    background: var(--color-bg-surface);
-    border: 1px solid rgba(14, 165, 233, 0.18);
+    background: var(--color-white);
+    border: 1px solid rgba(255, 107, 74, 0.18);
     border-radius: var(--radius-lg);
     padding: var(--space-8);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 48px rgba(14, 165, 233, 0.07), 0 4px 24px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 48px rgba(255, 107, 74, 0.07), 0 4px 24px rgba(0, 0, 0, 0.35);
 }
 
 /* Subtle top accent line */
@@ -342,9 +342,9 @@
     background: linear-gradient(
         to right,
         transparent,
-        rgba(14, 165, 233, 0.45) 30%,
+        rgba(255, 107, 74, 0.45) 30%,
         rgba(56, 189, 248, 0.6) 50%,
-        rgba(14, 165, 233, 0.45) 70%,
+        rgba(255, 107, 74, 0.45) 70%,
         transparent
     );
     pointer-events: none;
@@ -373,7 +373,7 @@
 .flow-panel__header-label {
     font-size: 0.75rem;
     font-weight: var(--font-weight-semibold);
-    color: var(--color-glow-400);
+    color: var(--color-primary);
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
@@ -421,7 +421,7 @@
 }
 
 .flow-panel__step:hover {
-    background: rgba(14, 165, 233, 0.04);
+    background: rgba(255, 107, 74, 0.04);
 }
 
 .flow-panel__step-num {
@@ -433,9 +433,9 @@
     justify-content: center;
     font-size: 0.75rem;
     font-weight: var(--font-weight-bold);
-    color: var(--color-glow-400);
-    background: rgba(14, 165, 233, 0.08);
-    border: 1px solid rgba(14, 165, 233, 0.2);
+    color: var(--color-primary);
+    background: rgba(255, 107, 74, 0.08);
+    border: 1px solid rgba(255, 107, 74, 0.2);
     flex-shrink: 0;
     position: relative;
     z-index: 1;
@@ -460,7 +460,7 @@
     width: 1px;
     height: 100%;
     background: linear-gradient(to bottom,
-            rgba(14, 165, 233, 0.3),
+            rgba(255, 107, 74, 0.3),
             rgba(56, 189, 248, 0.5));
 }
 
@@ -483,9 +483,9 @@
 }
 
 .flow-panel__step-badge--ai {
-    color: var(--color-glow-400);
-    background: rgba(14, 165, 233, 0.1);
-    border: 1px solid rgba(14, 165, 233, 0.2);
+    color: var(--color-primary);
+    background: rgba(255, 107, 74, 0.1);
+    border: 1px solid rgba(255, 107, 74, 0.2);
 }
 
 /* Ambient panel glow */
@@ -498,7 +498,7 @@
     width: 70%;
     height: 80px;
     background: radial-gradient(ellipse at 50% 100%,
-            rgba(14, 165, 233, 0.14),
+            rgba(255, 107, 74, 0.14),
             transparent 70%);
     pointer-events: none;
 }
@@ -530,7 +530,7 @@
     align-items: flex-start;
     gap: var(--space-4);
     padding: var(--space-6);
-    background: var(--color-bg-surface);
+    background: var(--color-white);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-md);
 }
@@ -577,11 +577,11 @@
 }
 
 .pricing-note a {
-    color: var(--color-glow-400);
+    color: var(--color-primary);
     text-decoration: underline;
     text-underline-offset: 3px;
 }
 
 .pricing-note a:hover {
-    color: var(--color-glow-highlight);
+    color: var(--color-electric-lime);
 }

@@ -24,7 +24,7 @@
 }
 
 .problem-card {
-    background: var(--color-bg-surface);
+    background: var(--color-white);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-lg);
     padding: var(--space-8);
@@ -41,7 +41,7 @@
     bottom: var(--space-8);
     width: 2px;
     background: linear-gradient(to bottom,
-            rgba(14, 165, 233, 0.6),
+            rgba(255, 107, 74, 0.6),
             rgba(3, 105, 161, 0.2));
     border-radius: 2px;
 }
@@ -52,11 +52,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(14, 165, 233, 0.07);
-    border: 1px solid rgba(14, 165, 233, 0.15);
+    background: rgba(255, 107, 74, 0.07);
+    border: 1px solid rgba(255, 107, 74, 0.15);
     border-radius: var(--radius-md);
     margin-bottom: var(--space-5);
-    color: var(--color-glow-400);
+    color: var(--color-primary);
     flex-shrink: 0;
 }
 
@@ -90,7 +90,7 @@
 }
 
 .service-card {
-    background: var(--color-bg-surface);
+    background: var(--color-white);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius-lg);
     padding: var(--space-8);
@@ -103,8 +103,8 @@
 }
 
 .service-card:hover {
-    border-color: rgba(14, 165, 233, 0.28);
-    box-shadow: 0 0 32px rgba(14, 165, 233, 0.08);
+    border-color: rgba(255, 107, 74, 0.28);
+    box-shadow: 0 0 32px rgba(255, 107, 74, 0.08);
 }
 
 .service-card__icon {
@@ -113,8 +113,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(14, 165, 233, 0.1);
-    border: 1px solid rgba(14, 165, 233, 0.18);
+    background: rgba(255, 107, 74, 0.1);
+    border: 1px solid rgba(255, 107, 74, 0.18);
     border-radius: var(--radius-md);
     font-size: 1.375rem;
     flex-shrink: 0;
@@ -127,7 +127,7 @@
     border-radius: var(--radius-md);
     overflow: hidden;
     background: rgba(3, 7, 18, 0.8);
-    border: 1px solid rgba(14, 165, 233, 0.12);
+    border: 1px solid rgba(255, 107, 74, 0.12);
     position: relative;
 }
 
@@ -161,7 +161,7 @@
 .service-card__outcome {
     font-size: 0.8125rem;
     font-weight: var(--font-weight-medium);
-    color: var(--color-glow-400);
+    color: var(--color-primary);
     padding-top: var(--space-4);
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     display: flex;
@@ -195,9 +195,9 @@
     height: 1px;
     background: linear-gradient(to right,
             transparent,
-            rgba(14, 165, 233, 0.3) 20%,
+            rgba(255, 107, 74, 0.3) 20%,
             rgba(56, 189, 248, 0.4) 50%,
-            rgba(14, 165, 233, 0.3) 80%,
+            rgba(255, 107, 74, 0.3) 80%,
             transparent);
     pointer-events: none;
 }
@@ -228,17 +228,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-bg-surface);
-    border: 1px solid rgba(14, 165, 233, 0.35);
+    background: var(--color-white);
+    border: 1px solid rgba(255, 107, 74, 0.35);
     border-radius: 50%;
     font-size: 1rem;
     font-weight: var(--font-weight-bold);
-    color: var(--color-glow-400);
+    color: var(--color-primary);
     margin-bottom: var(--space-6);
     position: relative;
     z-index: 1;
     flex-shrink: 0;
-    box-shadow: 0 0 16px rgba(14, 165, 233, 0.12);
+    box-shadow: 0 0 16px rgba(255, 107, 74, 0.12);
 }
 
 .step__title {
@@ -262,12 +262,12 @@
 .automation-visual-panel {
     max-width: 860px;
     margin-inline: auto;
-    background: var(--color-bg-surface);
-    border: 1px solid rgba(14, 165, 233, 0.18);
+    background: var(--color-white);
+    border: 1px solid rgba(255, 107, 74, 0.18);
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow:
-        0 0 60px rgba(14, 165, 233, 0.07),
+        0 0 60px rgba(255, 107, 74, 0.07),
         0 4px 32px rgba(0, 0, 0, 0.4);
 }
 
@@ -345,7 +345,7 @@
 }
 
 .pricing-card {
-    background: var(--color-bg-surface);
+    background: var(--color-white);
     border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: var(--radius-lg);
     padding: var(--space-8);
@@ -360,21 +360,21 @@
 
 /* Featured / middle card */
 .pricing-card--featured {
-    border-color: rgba(14, 165, 233, 0.35);
-    box-shadow: 0 0 40px rgba(14, 165, 233, 0.1);
+    border-color: rgba(255, 107, 74, 0.35);
+    box-shadow: 0 0 40px rgba(255, 107, 74, 0.1);
     background: linear-gradient(160deg,
-            rgba(14, 165, 233, 0.05) 0%,
-            var(--color-bg-surface) 60%);
+            rgba(255, 107, 74, 0.05) 0%,
+            var(--color-white) 60%);
 }
 
 .pricing-card--featured:hover {
     border-color: rgba(56, 189, 248, 0.5);
-    box-shadow: 0 0 48px rgba(14, 165, 233, 0.16);
+    box-shadow: 0 0 48px rgba(255, 107, 74, 0.16);
 }
 
 .pricing-card:not(.pricing-card--featured):hover {
-    border-color: rgba(14, 165, 233, 0.2);
-    box-shadow: 0 0 24px rgba(14, 165, 233, 0.06);
+    border-color: rgba(255, 107, 74, 0.2);
+    box-shadow: 0 0 24px rgba(255, 107, 74, 0.06);
 }
 
 /* Featured badge */
@@ -443,7 +443,7 @@
 
 .pricing-card__feature::before {
     content: '✓';
-    color: var(--color-glow-400);
+    color: var(--color-primary);
     font-weight: var(--font-weight-bold);
     font-size: 0.875rem;
     flex-shrink: 0;

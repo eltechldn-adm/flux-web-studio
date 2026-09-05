@@ -8,7 +8,7 @@
  * ============================================================
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&display=swap');
 @import './tokens.css';
 
 /* --------------------------------------------------
@@ -37,7 +37,7 @@ html {
  * BODY
  * -------------------------------------------------- */
 body {
-    font-family: var(--font-primary);
+    font-family: var(--font-body);
     font-size: var(--text-body);
     font-weight: var(--font-weight-regular);
     line-height: var(--leading-normal);
@@ -55,10 +55,11 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: var(--font-primary);
+    font-family: var(--font-display);
     font-weight: var(--font-weight-bold);
     line-height: var(--leading-tight);
     color: var(--color-text-primary);
+    letter-spacing: -0.02em;
 }
 
 p {
@@ -73,7 +74,7 @@ a {
 }
 
 a:hover {
-    color: var(--color-glow-400);
+    color: var(--color-primary);
 }
 
 /* --------------------------------------------------
@@ -98,7 +99,7 @@ svg {
  * BUTTONS — Base Reset
  * -------------------------------------------------- */
 button {
-    font-family: var(--font-primary);
+    font-family: var(--font-body);
     cursor: pointer;
     border: none;
     background: none;
@@ -110,7 +111,7 @@ button {
 input,
 textarea,
 select {
-    font-family: var(--font-primary);
+    font-family: var(--font-body);
     font-size: var(--text-body);
     border: none;
     outline: none;
@@ -137,7 +138,7 @@ select {
  * FOCUS VISIBLE
  * -------------------------------------------------- */
 :focus-visible {
-    outline: 2px solid var(--color-glow-400);
+    outline: 2px solid var(--color-primary);
     outline-offset: 3px;
     border-radius: var(--radius-sm);
 }
@@ -151,8 +152,8 @@ select {
     left: var(--space-4);
     z-index: 9999;
     padding: var(--space-3) var(--space-6);
-    background: var(--color-glow-400);
-    color: var(--color-bg-base);
+    background: var(--color-primary);
+    color: var(--color-white);
     font-size: var(--text-sm);
     font-weight: var(--font-weight-semibold);
     border-radius: var(--radius-md);

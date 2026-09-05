@@ -1,0 +1,14 @@
+{
+  "name": "flux-web-studio",
+  "version": "1.0.0",
+  "description": "Flux Web Studio — AI Automation Systems for Businesses",
+  "scripts": {
+    "dev": "wrangler pages dev src",
+    "dev:live": "wrangler pages dev src --live-reload",
+    "dev:worker": "npm run dev --prefix fws-email-worker",
+    "deploy": "wrangler pages deploy src"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

@@ -1,0 +1,101 @@
+/*
+ * ============================================================
+ * Build Explorer (Interactive UI)
+ * ============================================================
+ */
+
+.build-explorer {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    box-shadow: var(--shadow-lg);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+}
+
+@media (min-width: 900px) {
+    .build-explorer {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.be-section-title {
+    font-size: var(--text-h3);
+    margin-bottom: var(--space-4);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-obsidian);
+}
+
+.be-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.be-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4);
+    background: var(--color-warm-ivory);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-weight: var(--font-weight-medium);
+}
+
+.be-option:hover {
+    border-color: var(--color-primary);
+    transform: translateX(4px);
+}
+
+.be-option.is-selected {
+    background: var(--color-obsidian);
+    color: var(--color-white);
+    border-color: var(--color-obsidian);
+}
+
+.be-results {
+    background: var(--color-warm-ivory);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.be-result-card {
+    background: var(--color-white);
+    border: 1px solid var(--border-subtle);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    animation: fadeIn var(--transition-base) forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.be-result-title {
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+}
+
+.be-result-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3);
+}
+
+.be-empty {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-style: italic;
+    padding: var(--space-8) 0;
+}

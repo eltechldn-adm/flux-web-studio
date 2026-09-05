@@ -137,10 +137,10 @@ export default {
             .header { padding: 24px; background-color: #030712; color: #ffffff; border-radius: 8px 8px 0 0; }
             .content { padding: 32px; border: 1px solid #e5e7eb; border-top: none; }
             .footer { padding: 24px; text-align: center; font-size: 12px; color: #6b7280; }
-            .field-label { font-weight: 600; color: #0ea5e9; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+            .field-label { font-weight: 600; color: #FF6B4A; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
             .field-value { margin-bottom: 24px; font-size: 16px; }
             .section-title { border-bottom: 1px solid #f3f4f6; padding-bottom: 8px; margin-bottom: 20px; font-weight: 700; }
-            .btn { display: inline-block; padding: 12px 24px; background: #0ea5e9; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; margin-top: 10px; }
+            .btn { display: inline-block; padding: 12px 24px; background: #FF6B4A; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; margin-top: 10px; }
             .quality-badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: 600; margin-left: 10px; vertical-align: middle; }
           </style>
         </head>
@@ -273,10 +273,10 @@ function getWebsiteTemplate(data, timestamp) {
         .head { padding: 32px; background-color: #030712; color: #ffffff; border-radius: 8px 8px 0 0; }
         .body { padding: 40px; border: 1px solid #e5e7eb; border-top: none; }
         .foot { padding: 24px; text-align: center; font-size: 12px; color: #9ca3af; }
-        .lbl { font-weight: 700; color: #0ea5e9; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+        .lbl { font-weight: 700; color: #FF6B4A; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
         .val { margin-bottom: 24px; font-size: 16px; color: #374151; }
         .sec { border-bottom: 1px solid #f3f4f6; padding-bottom: 8px; margin-bottom: 20px; font-weight: 700; color: #111827; }
-        .btn { display: inline-block; padding: 14px 28px; background: #0ea5e9; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: 600; }
+        .btn { display: inline-block; padding: 14px 28px; background: #FF6B4A; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: 600; }
       </style>
     </head>
     <body class="em-c">
@@ -338,10 +338,10 @@ function getAutomationTemplate(data, emailTitle, timestamp) {
         .header { padding: 24px; background-color: #030712; color: #ffffff; border-radius: 8px 8px 0 0; }
         .content { padding: 32px; border: 1px solid #e5e7eb; border-top: none; }
         .footer { padding: 24px; text-align: center; font-size: 12px; color: #6b7280; }
-        .field-label { font-weight: 600; color: #0ea5e9; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+        .field-label { font-weight: 600; color: #FF6B4A; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
         .field-value { margin-bottom: 24px; font-size: 16px; }
         .section-title { border-bottom: 1px solid #f3f4f6; padding-bottom: 8px; margin-bottom: 20px; font-weight: 700; }
-        .btn { display: inline-block; padding: 12px 24px; background: #0ea5e9; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: 600; margin-top: 10px; }
+        .btn { display: inline-block; padding: 12px 24px; background: #FF6B4A; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: 600; margin-top: 10px; }
       </style>
     </head>
     <body>

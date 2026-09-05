@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Start a Project | Flux Web Studio</title>
+    <meta name="description" content="Submit a brief for your custom software, AI application, or automation project." />
+    
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/container.css" />
+    <link rel="stylesheet" href="./styles/components/index.css" />
+    
+    <!-- Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    
+    <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
+        <div class="container nav__inner">
+            <a href="index.html" class="nav__logo" aria-label="Flux Web Studio — Home">
+                <span class="nav__logo-text">Flux Web Studio</span>
+            </a>
+            <ul class="nav__menu" role="list">
+                <li class="nav__item"><a href="what-we-build.html" class="nav__link">What We Build</a></li>
+                <li class="nav__item"><a href="how-it-works.html" class="nav__link">How It Works</a></li>
+                <li class="nav__item"><a href="pricing.html" class="nav__link">Pricing</a></li>
+                <li class="nav__item"><a href="work.html" class="nav__link">Work</a></li>
+                <li class="nav__item"><a href="about.html" class="nav__link">About</a></li>
+            </ul>
+            <div class="nav__cta">
+                <a href="project-brief.html" class="btn btn--primary" id="nav-cta-btn">Start Your Project</a>
+            </div>
+            <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="nav__toggle-bar"></span>
+                <span class="nav__toggle-bar"></span>
+                <span class="nav__toggle-bar"></span>
+            </button>
+        </div>
+    </nav>
+    
+    <main id="main-content">
+        <section class="section" style="padding-top: 6rem; background: var(--color-white); min-height: 80vh;">
+            <div class="container" style="max-width: 600px;">
+                <div style="margin-bottom: 3rem;">
+                    <h1 class="hero__headline" style="font-size: clamp(2rem, 4vw, 3rem); color: var(--color-obsidian); margin-bottom: 1rem;">Project Brief</h1>
+                    <p style="font-size: 1.125rem; color: var(--color-text-muted);">
+                        Tell us about the problem you want to solve. We'll review your brief and get back to you within 24 hours to schedule a scoping call.
+                    </p>
+                </div>
+                
+                <form id="project-brief-form" class="form" action="/api/project-brief" method="POST">
+                    
+                    <!-- Honeypot -->
+                    <div style="display:none;" aria-hidden="true">
+                        <label for="website_url">Leave this field blank</label>
+                        <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off" />
+                    </div>
+                    
+                    <div class="form__group">
+                        <label class="form__label" for="name">Name</label>
+                        <input class="form__input" type="text" id="name" name="name" required />
+                    </div>
+                    
+                    <div class="form__group">
+                        <label class="form__label" for="email">Work Email</label>
+                        <input class="form__input" type="email" id="email" name="email" required />
+                    </div>
+                    
+                    <div class="form__group">
+                        <label class="form__label" for="company">Company (Optional)</label>
+                        <input class="form__input" type="text" id="company" name="company" />
+                    </div>
+                    
+                    <div class="form__group">
+                        <label class="form__label" for="project_type">Project Type</label>
+                        <select class="form__input" id="project_type" name="project_type" required>
+                            <option value="">Please select...</option>
+                            <option value="business-operations">Internal Business App (CRM, Dashboard, etc.)</option>
+                            <option value="saas">SaaS or Customer Platform</option>
+                            <option value="ai">AI Tool or Assistant</option>
+                            <option value="automation">Workflow Automation</option>
+                            <option value="analytics">Analytics & Data</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form__group">
+                        <label class="form__label" for="budget">Approximate Budget</label>
+                        <select class="form__input" id="budget" name="budget" required>
+                            <option value="">Please select...</option>
+                            <option value="1k-3k">£1,995 - £3,000</option>
+                            <option value="3k-5k">£3,000 - £5,000</option>
+                            <option value="5k-10k">£5,000 - £10,000</option>
+                            <option value="10k+">£10,000+</option>
+                            <option value="unsure">Unsure / Need scoping</option>
+                        </select>
+                    </div>
+
+                    <div class="form__group">
+                        <label class="form__label" for="description">Tell us about the problem or idea</label>
+                        <textarea class="form__input" id="description" name="description" rows="5" required placeholder="E.g., We currently use 5 spreadsheets to track inventory and we want a custom app to manage it..."></textarea>
+                    </div>
+                    
+                    <!-- Turnstile Widget -->
+                    <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" style="margin-bottom: 1.5rem;"></div>
+                    
+                    <button type="submit" class="btn btn--primary btn--lg" style="width: 100%;" id="submit-btn">
+                        Submit Brief
+                    </button>
+                    
+                    <div id="form-status" class="form__status" style="margin-top: 1rem; display: none; padding: 1rem; border-radius: var(--radius-md);"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer" role="contentinfo">
+        <div class="container footer__inner">
+            <div class="footer__brand">
+                <a href="index.html" class="footer__logo">Flux Web Studio</a>
+                <p class="footer__tagline">Custom software, AI and automation for modern businesses.</p>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2026 Flux Web Studio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="./utils/mobile-nav.js"></script>
+    <script>
+        // Auto-select category from URL params if present
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const category = params.get('category');
+            if (category) {
+                const select = document.getElementById('project_type');
+                if (select) {
+                    const options = Array.from(select.options);
+                    const option = options.find(o => o.value === category);
+                    if (option) {
+                        option.selected = true;
+                    }
+                }
+            }
+        });
+
+        // Form submission handling
+        const form = document.getElementById('project-brief-form');
+        const statusDiv = document.getElementById('form-status');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Honeypot check
+            if (document.getElementById('website_url').value !== '') {
+                // Silently ignore bot submission
+                statusDiv.textContent = 'Brief submitted successfully.';
+                statusDiv.style.display = 'block';
+                statusDiv.style.backgroundColor = '#f0fdf4';
+                statusDiv.style.color = '#15803d';
+                form.reset();
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            statusDiv.style.display = 'none';
+
+            try {
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+                
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    statusDiv.textContent = 'Brief submitted successfully. We will be in touch soon.';
+                    statusDiv.style.display = 'block';
+                    statusDiv.style.backgroundColor = '#f0fdf4';
+                    statusDiv.style.color = '#15803d';
+                    form.reset();
+                } else {
+                    const errData = await response.json().catch(() => ({}));
+                    statusDiv.textContent = errData.error || 'There was a problem submitting your brief. Please try again.';
+                    statusDiv.style.display = 'block';
+                    statusDiv.style.backgroundColor = '#fff0ed';
+                    statusDiv.style.color = '#b91c1c';
+                    turnstile.reset();
+                }
+            } catch (err) {
+                statusDiv.textContent = 'Network error. Please try again.';
+                statusDiv.style.display = 'block';
+                statusDiv.style.backgroundColor = '#fff0ed';
+                statusDiv.style.color = '#b91c1c';
+                turnstile.reset();
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Brief';
+            }
+        });
+    </script>
+</body>
+</html>
