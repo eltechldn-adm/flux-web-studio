@@ -7,11 +7,24 @@
  * ============================================================
  */
 
-export async function onRequestGet({ env }) {
-  // If no production sitekey is configured, fall back to the public testing sitekey.
-  const turnstileSitekey = env.TURNSTILE_SITEKEY || "1x00000000000000000000AA";
-  
-  return new Response(JSON.stringify({ turnstileSitekey }), {
+export async function onRequestGet({ request, env }) {
+  const url = new URL(request.url);
+  const isPreview = url.hostname.endsWith('.pages.dev') || url.hostname.includes('localhost') || url.hostname.includes('127.0.0.1');
+
+  if (!env.TURNSTILE_SITEKEY) {
+    if (isPreview) {
+      return new Response(JSON.stringify({ turnstileSitekey: "1x00000000000000000000AA" }), {
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } else {
+      return new Response(JSON.stringify({ error: "Configuration Error: TURNSTILE_SITEKEY missing in production." }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+  }
+
+  return new Response(JSON.stringify({ turnstileSitekey: env.TURNSTILE_SITEKEY }), {
     headers: { 'Content-Type': 'application/json' }
   });
 }

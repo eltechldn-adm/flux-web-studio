@@ -50,8 +50,40 @@ export default {
 
       // Ensure strict email validation to prevent header injection in Reply-To
       const safeEmail = (email || '').trim().toLowerCase();
-      if (!/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(safeEmail)) {
+      if (!/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(safeEmail) || /[\r\n]/.test(safeEmail)) {
         return new Response(JSON.stringify({ error: "Invalid email structure." }), {
+          status: 400,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
+
+      if (subject && /[\r\n]/.test(subject)) {
+        return new Response(JSON.stringify({ error: "Invalid characters in subject." }), {
+          status: 400,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
+
+      const checkStrLen = (val, max) => !val || (typeof val === 'string' && val.length <= max);
+      if (!checkStrLen(fullName, 100) || !checkStrLen(safeEmail, 150) || 
+          !checkStrLen(companyName, 150) || !checkStrLen(companyWebsite, 300) || 
+          !checkStrLen(automationInterest, 100) || !checkStrLen(workflowDescription, 5000) || 
+          !checkStrLen(urgency, 100) || !checkStrLen(subject, 200) || !checkStrLen(message, 5000)) {
+        return new Response(JSON.stringify({ error: "A field exceeds its maximum allowed length." }), {
+          status: 400,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
+
+      if (leadQuality !== undefined && leadQuality !== null && !['High', 'Medium', 'Low'].includes(leadQuality)) {
+        return new Response(JSON.stringify({ error: "Invalid leadQuality value." }), {
+          status: 400,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
+
+      if (flaggedLowQuality !== undefined && typeof flaggedLowQuality !== 'boolean') {
+        return new Response(JSON.stringify({ error: "Invalid flaggedLowQuality value. Must be boolean." }), {
           status: 400,
           headers: { "Content-Type": "application/json" }
         });
@@ -202,8 +234,8 @@ export default {
         internalLeadSent = true;
         console.log(`[Worker] SUCCESS: Accepted for delivery.`);
       } catch (sendError) {
-        console.error(`[Worker] SEND FAILED:`, sendError.message);
-        dispatchError = sendError.message;
+        console.error(`[Worker] SEND FAILED. Upstream provider or internal configuration error.`);
+        dispatchError = "Provider Error";
       }
 
       // 7. Dispatch Customer Receipt (Disabled but logged as skipped)
