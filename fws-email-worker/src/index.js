@@ -24,7 +24,7 @@ export default {
     try {
       // 3. Parse and Validate JSON Payload
       const data = await request.json();
-      console.log(`[Worker] Received request for: ${data.fullName}`);
+      console.log(`[Worker] Received incoming request.`);
       
       const {
         type, // 'automation' or 'website_enquiry'

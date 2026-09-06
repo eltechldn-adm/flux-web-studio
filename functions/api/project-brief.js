@@ -97,7 +97,16 @@ export async function onRequestPost({ request, env }) {
     const company        = sanitize(bodyData.company);
     const website        = sanitize(bodyData.website);
     
-    // Note: Honeypot is handled strictly frontend for now, or you could read bodyData.honeypot_website here if sent.
+    const honeypot       = bodyData.honeypot_website || '';
+
+    // ── 1.5. Server-side Honeypot Check ────────────────────────────
+    if (honeypot) {
+      // Bots that fill this out should be silently discarded with a success message
+      return new Response(JSON.stringify({ ok: true, message: "Honeypot filled." }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
 
     // ── 2. Turnstile Verification ──────────────────────────────────
     const turnstileSecret = env.TURNSTILE_SECRET_KEY;

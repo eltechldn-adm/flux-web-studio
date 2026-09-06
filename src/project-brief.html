@@ -542,16 +542,17 @@
                     document.getElementById('turnstileToken').value = tsResponse;
                 }
 
-                const data = {
-                    projectType: document.querySelector('input[name="projectType"]:checked').value,
-                    problem: document.getElementById('problem').value,
-                    budget: document.getElementById('budget').value, // Optional
-                    timeframe: document.getElementById('timeframe').value,
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    company: document.getElementById('company').value, // Optional
-                    turnstileToken: document.getElementById('turnstileToken').value
-                };
+                    const data = {
+                        projectType: document.querySelector('input[name="projectType"]:checked').value,
+                        problem: document.getElementById('problem').value,
+                        budget: document.getElementById('budget').value, // Optional
+                        timeframe: document.getElementById('timeframe').value,
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        company: document.getElementById('company').value, // Optional
+                        turnstileToken: document.getElementById('turnstileToken').value,
+                        honeypot_website: document.getElementById('honeypot_website').value
+                    };
                 
                 const response = await fetch(form.action, {
                     method: 'POST',

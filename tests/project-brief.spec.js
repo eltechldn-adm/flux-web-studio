@@ -125,6 +125,81 @@ test.describe('Project Brief Form E2E', () => {
     await expect(page.locator('#error-turnstileToken')).toBeVisible();
   });
 
+  test('Failed Turnstile (server side) returns error', async ({ page }) => {
+    await page.route('/api/project-brief', route => {
+      route.fulfill({
+        status: 400,
+        contentType: 'application/json',
+        body: JSON.stringify({ fieldErrors: { turnstileToken: 'Security verification failed.' } })
+      });
+    });
+
+    await page.click('.radio-card:has-text("Custom Business App")');
+    await page.fill('#problem', 'Valid problem description');
+    await page.selectOption('#timeframe', '1–2 months');
+    await page.fill('#name', 'Test User');
+    await page.fill('#email', 'test@example.com');
+    
+    await page.evaluate(() => {
+      document.getElementById('turnstileToken').value = '1x00000000000000000000AA';
+    });
+
+    await page.click('#submit-btn');
+    await expect(page.locator('#error-turnstileToken')).toBeVisible();
+    await expect(page.locator('#error-turnstileToken')).toContainText('Security verification failed');
+  });
+
+  test('Honeypot submission is silently discarded', async ({ page }) => {
+    let apiCalled = false;
+    await page.route('/api/project-brief', route => {
+      apiCalled = true;
+      route.fulfill({ status: 200, body: JSON.stringify({ success: true }) });
+    });
+
+    await page.click('.radio-card:has-text("Custom Business App")');
+    await page.fill('#problem', 'Valid problem description');
+    await page.selectOption('#timeframe', '1–2 months');
+    await page.fill('#name', 'Test User');
+    await page.fill('#email', 'test@example.com');
+    
+    // Fill honeypot
+    await page.evaluate(() => {
+      document.getElementById('honeypot_website').value = 'spam';
+      document.getElementById('turnstileToken').value = '1x00000000000000000000AA';
+    });
+
+    await page.click('#submit-btn');
+
+    // Should show success panel without calling API
+    await expect(page.locator('#success-panel')).toBeVisible();
+    expect(apiCalled).toBe(false);
+  });
+
+  test('Double-submit prevention disables button', async ({ page }) => {
+    await page.route('/api/project-brief', async route => {
+      // Delay response to check button state
+      await new Promise(resolve => setTimeout(resolve, 500));
+      route.fulfill({ status: 200, body: JSON.stringify({ success: true }) });
+    });
+
+    await page.click('.radio-card:has-text("Custom Business App")');
+    await page.fill('#problem', 'Valid problem description');
+    await page.selectOption('#timeframe', '1–2 months');
+    await page.fill('#name', 'Test User');
+    await page.fill('#email', 'test@example.com');
+    
+    await page.evaluate(() => {
+      document.getElementById('turnstileToken').value = '1x00000000000000000000AA';
+    });
+
+    await page.click('#submit-btn');
+    
+    // Button should be disabled and show 'Submitting...'
+    const btn = page.locator('#submit-btn');
+    await expect(btn).toBeDisabled();
+    await expect(btn).toContainText('Submitting...');
+  });
+
   test('Layout remains stable during Turnstile load', async ({ page }) => {
     // Record initial position of the submit button
     const btn = page.locator('#submit-btn');

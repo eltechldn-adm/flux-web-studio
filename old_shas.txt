@@ -1,0 +1,6 @@
+7e8ffb25b4e6d20d853d5de68d4b149a24b001bb36d168683b9ac416653fa855  src/assets/visuals/ai-application.webp
+610c5a8e8888d47b809e0be94f57162ab5391a5350f701cf2baa01f6ed0abf7f  src/assets/visuals/saas-product.webp
+5f2206b4e1858939fe0e11babfff4eca48639d2bd1cf5d7b15f318bf69eda862  src/assets/visuals/automation-system.webp
+dddb206ff900b00d081d9f709c08617e9e2654d9dc325f20b6cefa57f6dd7c5a  src/assets/visuals/analytics-platform.webp
+d72674ccf513251ccb9d3aa6cfb34c741a6ae0ad2d2b4a541157459ba680c78d  src/assets/visuals/category-digital-products.webp
+9d41101b0b744c6f1ab0558ae9741acbbda87134a33db66312925b08086f4f7b  src/assets/visuals/category-ai-automation.webp

@@ -1,0 +1,3 @@
+7e8ffb25b4e6d20d853d5de68d4b149a24b001bb36d168683b9ac416653fa855  src/assets/visuals/ai-application.webp
+610c5a8e8888d47b809e0be94f57162ab5391a5350f701cf2baa01f6ed0abf7f  src/assets/visuals/saas-product.webp
+5f2206b4e1858939fe0e11babfff4eca48639d2bd1cf5d7b15f318bf69eda862  src/assets/visuals/automation-system.webp
