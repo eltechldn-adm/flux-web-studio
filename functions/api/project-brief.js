@@ -113,34 +113,56 @@ export async function onRequestPost({ request, env }) {
     if (!turnstileToken) {
       return jsonFieldError('turnstileToken', 'Security check not completed. Please try again.');
     }
+    if (!turnstileSecret) {
+      console.error('[API] Missing TURNSTILE_SECRET_KEY environment variable.');
+      return jsonError('Internal server configuration error.', 500);
+    }
 
-    if (turnstileSecret) {
-      const tsResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          secret: turnstileSecret,
-          response: turnstileToken,
-          remoteip: request.headers.get('CF-Connecting-IP') || ''
-        })
-      });
-      const tsResult = await tsResponse.json();
-      if (!tsResult.success) {
-        return jsonFieldError('turnstileToken', 'Security verification failed. Please refresh and try again.');
-      }
+    const tsResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        secret: turnstileSecret,
+        response: turnstileToken,
+        remoteip: request.headers.get('CF-Connecting-IP') || ''
+      })
+    });
+    const tsResult = await tsResponse.json();
+    if (!tsResult.success) {
+      return jsonFieldError('turnstileToken', 'Security verification failed. Please refresh and try again.');
     }
 
     // ── 3. Server-side Field Validation ────────────────────────────
     const fieldErrors = {};
 
-    if (!projectType) fieldErrors.projectType = "Please select a project type.";
+    const validProjectTypes = new Set([
+      'Custom Business App', 'SaaS / Product Idea', 'AI Application', 
+      'Dashboard / Analytics', 'Automation / Integration', 
+      'Customer Portal', 'Something Else', "I'm Not Sure"
+    ]);
+    if (!projectType || !validProjectTypes.has(projectType)) {
+      fieldErrors.projectType = "Please select a valid project type.";
+    }
     
     if (!problem || problem.length < 20 || problem.length > 5000) {
       fieldErrors.problem = "Description must be between 20 and 5000 characters.";
     }
 
-    if (!timeframe) fieldErrors.timeframe = "Please select a timeframe.";
-    if (!budget) fieldErrors.budget = "Please select a budget range.";
+    const validTimeframes = new Set([
+      'As soon as practical', '1–2 months', '3–6 months', 
+      'Just exploring', 'Not sure yet'
+    ]);
+    if (!timeframe || !validTimeframes.has(timeframe)) {
+      fieldErrors.timeframe = "Please select a valid timeframe.";
+    }
+
+    const validBudgets = new Set([
+      'Under £2,000', '£2,000–£5,000', '£5,000–£10,000', 
+      '£10,000+', 'Not sure yet'
+    ]);
+    if (budget && !validBudgets.has(budget)) {
+      fieldErrors.budget = "Please select a valid budget range.";
+    }
 
     if (!name || name.length < 2 || name.length > 100) {
       fieldErrors.name = "Please enter a valid name (2-100 characters).";
@@ -189,33 +211,34 @@ export async function onRequestPost({ request, env }) {
       businessType: projectType,
       automationInterest: projectType,
       workflowDescription: problem + (existingTools ? `\n\nExisting tools: ${existingTools}` : ''),
-      urgency: timeframe + ' | ' + budget,
+      urgency: timeframe + (budget ? ` | ${budget}` : ''),
       leadQuality: quality,
       flaggedLowQuality: flagged,
     };
 
-    let workerResponse;
-    if (env.EMAIL_WORKER) {
-      workerResponse = await env.EMAIL_WORKER.fetch(new Request('https://fws-email-worker.eltechldn.workers.dev', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }));
-    } else {
-      const workerUrl = 'https://fws-email-worker.eltechldn.workers.dev';
-      workerResponse = await fetch(workerUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+    if (!env.EMAIL_WORKER) {
+      console.error('[API] Missing EMAIL_WORKER service binding configuration.');
+      return jsonError('Internal server configuration error.', 500);
     }
+
+    const isPreview = new URL(request.url).hostname.endsWith('.pages.dev');
+    if (isPreview) {
+      console.log('[API] Preview environment detected. Skipping email dispatch.');
+      return new Response(JSON.stringify({ ok: true }), { headers: { 'Content-Type': 'application/json' }});
+    }
+
+    const workerResponse = await env.EMAIL_WORKER.fetch(new Request('http://email-worker/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }));
 
     if (workerResponse.ok) {
       const responseBody = await workerResponse.json();
       if (responseBody.success === true) {
         return new Response(JSON.stringify({ ok: true }), { headers: { 'Content-Type': 'application/json' }});
       } else {
-        return jsonError(responseBody.error || 'Failed to dispatch email.', 500);
+        return jsonError('Failed to dispatch email.', 500);
       }
     } else {
       return jsonError('Internal server error. Please try again shortly.', 500);

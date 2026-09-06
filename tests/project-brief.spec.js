@@ -2,6 +2,13 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Project Brief Form E2E', () => {
   test.beforeEach(async ({ page }) => {
+    await page.route('/api/config', route => {
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ turnstileSitekey: '1x00000000000000000000AA' })
+      });
+    });
     await page.goto('/project-brief.html');
   });
 

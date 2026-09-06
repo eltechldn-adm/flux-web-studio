@@ -16,7 +16,34 @@
     <link rel="stylesheet" href="./styles/components/index.css" />
     
     <!-- Cloudflare Turnstile -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" defer></script>
+    <script>
+        // Form state
+        let isTurnstileVerified = false;
+        let tsResponse = '';
+
+        // Turnstile callback
+        window.onTurnstileSuccess = function(token) {
+            isTurnstileVerified = true;
+            tsResponse = token;
+            const hiddenToken = document.getElementById('turnstileToken');
+            if (hiddenToken) hiddenToken.value = token;
+            document.getElementById('error-turnstileToken').style.display = 'none';
+        };
+
+        window.onloadTurnstileCallback = async function () {
+            try {
+                const res = await fetch('/api/config');
+                const config = await res.json();
+                turnstile.render('#turnstile-container', {
+                    sitekey: config.turnstileSitekey,
+                    callback: window.onTurnstileSuccess
+                });
+            } catch (e) {
+                console.error('Failed to load Turnstile configuration');
+            }
+        };
+    </script>
     <style>
         .form-card {
             background: #fafaf9; /* warm white / ivory */
@@ -385,9 +412,9 @@
                             <div class="error-message" id="error-company"></div>
                         </div>
 
-                        <!-- Turnstile Widget -->
-                        <div class="form__group" style="margin-bottom: 2rem;">
-                            <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" id="turnstile-container" style="min-height: 65px;"></div>
+                        <!-- Turnstile Security Check -->
+                        <div class="form__group" style="margin-bottom: 2rem; margin-top: 2rem;">
+                            <div id="turnstile-container" style="min-height: 65px;"></div>
                             <div class="error-message" id="error-turnstileToken">Please complete the security check.</div>
                             <input type="hidden" id="turnstileToken" name="turnstileToken" />
                         </div>
@@ -414,18 +441,6 @@
     </footer>
     <script src="./utils/index.js"></script>
     <script>
-        // Store Turnstile token in hidden field when solved
-        window.onload = function() {
-            if (typeof turnstile !== 'undefined') {
-                turnstile.render('#turnstile-container', {
-                    sitekey: '1x00000000000000000000AA',
-                    callback: function(token) {
-                        document.getElementById('turnstileToken').value = token;
-                    }
-                });
-            }
-        };
-
         const form = document.getElementById('project-brief-form');
         const successPanel = document.getElementById('success-panel');
         const submitBtn = document.getElementById('submit-btn');

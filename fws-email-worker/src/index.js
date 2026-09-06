@@ -1,23 +1,22 @@
 import { EmailMessage } from "cloudflare:email";
 
-const CORS_HEADERS = {
-  "Access-Control-Allow-Origin": "*", // Or restrict to "https://fluxwebstudio.com"
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type"
-};
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
 
 export default {
   async fetch(request, env, ctx) {
-    // 1. Handle CORS Preflight Requests
-    if (request.method === "OPTIONS") {
-      return new Response(null, { headers: CORS_HEADERS });
-    }
-
-    // 2. Only accept POST requests
+    // 1. Only accept POST requests
     if (request.method !== "POST") {
       return new Response(JSON.stringify({ error: "Method not allowed. Use POST." }), {
         status: 405,
-        headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" }
       });
     }
 
@@ -49,67 +48,67 @@ export default {
       console.log(`[Worker] Detected Type: ${type}`);
       console.log(`[Worker] Fields:`, Object.keys(data).join(', '));
 
-      // Validation based on type
-      if (type === 'website_enquiry') {
-        // Required for website: fullName, email, subject, message
-        if (!fullName || !email || !subject || !message) {
-          const missing = [];
-          if (!fullName) missing.push('fullName');
-          if (!email) missing.push('email');
-          if (!subject) missing.push('subject');
-          if (!message) missing.push('message');
-          
-          console.warn(`[Worker] Validation failed (website_enquiry). Missing: ${missing.join(', ')}`);
-          return new Response(JSON.stringify({ 
-            error: "Missing required fields.", 
-            details: `Missing: ${missing.join(', ')} (Enquiry Type: website_enquiry)` 
-          }), {
-            status: 400,
-            headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
-          });
-        }
-      } else if (type === 'automation' || !type) {
-        // Required for automation: fullName, email, automationInterest, workflowDescription
-        if (!fullName || !email || !automationInterest || !workflowDescription) {
-          const missing = [];
-          if (!fullName) missing.push('fullName');
-          if (!email) missing.push('email');
-          if (!automationInterest) missing.push('automationInterest');
-          if (!workflowDescription) missing.push('workflowDescription');
-          
-          console.warn(`[Worker] Validation failed (automation). Missing: ${missing.join(', ')}`);
-          return new Response(JSON.stringify({ 
-            error: "Missing required fields.", 
-            details: `Missing: ${missing.join(', ')} (Enquiry Type: ${type || 'default/automation'})`
-          }), {
-            status: 400,
-            headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
-          });
-        }
-      } else {
-        // Unknown type
-        return new Response(JSON.stringify({ 
-          error: "Invalid enquiry type.", 
-          details: `Type '${type}' is not recognized.`
-        }), {
+      // Ensure strict email validation to prevent header injection in Reply-To
+      const safeEmail = (email || '').trim().toLowerCase();
+      if (!/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(safeEmail)) {
+        return new Response(JSON.stringify({ error: "Invalid email structure." }), {
           status: 400,
-          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+          headers: { "Content-Type": "application/json" }
         });
       }
 
+      // Validation based on type
+      if (type === 'website_enquiry') {
+        if (!fullName || !safeEmail || !subject || !message) {
+          return new Response(JSON.stringify({ error: "Missing required fields." }), {
+            status: 400,
+            headers: { "Content-Type": "application/json" }
+          });
+        }
+      } else if (type === 'automation' || !type) {
+        if (!fullName || !safeEmail || !automationInterest || !workflowDescription) {
+          return new Response(JSON.stringify({ error: "Missing required fields." }), {
+            status: 400,
+            headers: { "Content-Type": "application/json" }
+          });
+        }
+      } else {
+        return new Response(JSON.stringify({ error: "Invalid enquiry type." }), {
+          status: 400,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
+      
+      // Escape all data before templating
+      const eFullName = escapeHtml(fullName).substring(0, 100);
+      const eEmail = escapeHtml(safeEmail);
+      const eCompanyName = escapeHtml(companyName).substring(0, 150);
+      const eCompanyWebsite = escapeHtml(companyWebsite).substring(0, 300);
+      const eAutomationInterest = escapeHtml(automationInterest).substring(0, 100);
+      const eWorkflowDescription = escapeHtml(workflowDescription).substring(0, 5000);
+      const eUrgency = escapeHtml(urgency).substring(0, 100);
+      const eSubject = escapeHtml(subject).substring(0, 200);
+      const eMessage = escapeHtml(message).substring(0, 5000);
+
       const timestamp = new Date().toISOString();
       const senderAddr = "no-reply@fluxwebstudio.com";
-      const internalRecipient = "eltechldn@gmail.com"; // Verified destination inbox
-      const publicAlias = "hello@fluxwebstudio.com";  // Public facing address
+      const internalRecipient = env.DESTINATION_EMAIL; // Configured in Wrangler/Dashboard
+      
+      if (!internalRecipient) {
+        console.error('[Worker] Missing DESTINATION_EMAIL environment variable');
+        return new Response(JSON.stringify({ error: "Server misconfiguration." }), {
+          status: 500,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
 
       // 5. Select Template based on type
       const isWebsite = type === 'website_enquiry';
-      const emailTitle = isWebsite ? "New Website Enquiry" : "New Automation Request";
       
       // 5. Construct Branded HTML Internal Lead Email (A)
       const internalSubject = flaggedLowQuality
-        ? `[Low Quality] New Lead: ${fullName} (${companyName || 'Lead'})`
-        : `New Lead: ${fullName} (${companyName || 'Lead'})`;
+        ? `[Low Quality] New Lead: ${eFullName} (${eCompanyName || 'Lead'})`
+        : `New Lead: ${eFullName} (${eCompanyName || 'Lead'})`;
 
       // Quality badge styling
       const qualityBadgeStyle = {
@@ -127,7 +126,7 @@ export default {
         : '';
 
       const htmlBody = isWebsite
-        ? getWebsiteTemplate(data, timestamp)
+        ? getWebsiteTemplate({ fullName: eFullName, email: eEmail, companyName: eCompanyName, website: eCompanyWebsite, budget: eUrgency, subject: eSubject, message: eMessage }, timestamp)
         : `
         <!DOCTYPE html>
         <html>
@@ -156,25 +155,25 @@ export default {
               ${lowQualityBanner}
               <div class="section-title">Lead Information</div>
               <div class="field-label">Full Name</div>
-              <div class="field-value">${fullName}</div>
+              <div class="field-value">${eFullName}</div>
               
               <div class="field-label">Email</div>
-              <div class="field-value">${email}</div>
+              <div class="field-value">${eEmail}</div>
               
               <div class="field-label">Company</div>
-              <div class="field-value">${companyName || 'Not provided'}${companyWebsite ? ` &mdash; <a href="${companyWebsite}" style="color:#0ea5e9;">${companyWebsite}</a>` : ''}</div>
+              <div class="field-value">${eCompanyName || 'Not provided'}${eCompanyWebsite ? ` &mdash; <a href="${eCompanyWebsite}" style="color:#0ea5e9;">${eCompanyWebsite}</a>` : ''}</div>
 
               <div class="section-title">Project Details</div>
               <div class="field-label">Automation Interest</div>
-              <div class="field-value">${automationInterest}</div>
+              <div class="field-value">${eAutomationInterest}</div>
               
               <div class="field-label">Workflow Description</div>
-              <div class="field-value">${workflowDescription.replace(/\n/g, '<br>')}</div>
+              <div class="field-value">${eWorkflowDescription.replace(/\n/g, '<br>')}</div>
               
               <div class="field-label">Urgency</div>
-              <div class="field-value">${urgency || 'Standard'}</div>
+              <div class="field-value">${eUrgency || 'Standard'}</div>
 
-              <a href="mailto:${email}" class="btn">Reply to Lead</a>
+              <a href="mailto:${eEmail}" class="btn">Reply to Lead</a>
             </div>
             <div class="footer">
               Flux Web Studio &bull; <a href="https://fluxwebstudio.com" style="color: #6b7280;">fluxwebstudio.com</a><br>
@@ -188,33 +187,23 @@ export default {
       const internalDisplayName = "Flux Web Studio Leads";
       const fromFormatted = `"${internalDisplayName}" <${senderAddr}>`;
 
-      // 6. Dispatch Results Tracking & PROBER LOOP
+      // 6. Dispatch
       let internalLeadSent = false;
-      let customerReceiptSent = false;
       let dispatchError = null;
 
-      const candidates = [
-        "hello@fluxwebstudio.com", 
-        "eltechldn@gmail.com", 
-        "elainamarriott@gmail.com"
-      ];
-
-      for (const recipient of candidates) {
-        try {
-          console.log(`[Worker] PROBE: Attempting send to ${recipient}...`);
-          // Use HTML mime creator
-          const probeMime = createHtmlMime(fromFormatted, recipient, internalSubject, htmlBody, `Reply-To: ${email}`);
-          const probeMsg = new EmailMessage(senderAddr, recipient, probeMime);
-          
-          await env.FWS_EMAIL.send(probeMsg);
-          
-          internalLeadSent = true;
-          console.log(`[Worker] PROBE SUCCESS: Recipient ${recipient} accepted the message.`);
-          break; // Stop at first success
-        } catch (sendError) {
-          console.error(`[Worker] PROBE FAILED for ${recipient}:`, sendError.message);
-          dispatchError = sendError.message;
-        }
+      try {
+        console.log(`[Worker] Attempting send to internal destination...`);
+        // Use HTML mime creator
+        const probeMime = createHtmlMime(fromFormatted, internalRecipient, internalSubject, htmlBody, `Reply-To: ${eEmail}`);
+        const probeMsg = new EmailMessage(senderAddr, internalRecipient, probeMime);
+        
+        await env.FWS_EMAIL.send(probeMsg);
+        
+        internalLeadSent = true;
+        console.log(`[Worker] SUCCESS: Accepted for delivery.`);
+      } catch (sendError) {
+        console.error(`[Worker] SEND FAILED:`, sendError.message);
+        dispatchError = sendError.message;
       }
 
       // 7. Dispatch Customer Receipt (Disabled but logged as skipped)
@@ -226,32 +215,27 @@ export default {
       if (isActuallySuccessful) {
         console.log(`[Worker] Task complete. Internal lead confirmed. Returning success.`);
         return new Response(JSON.stringify({ 
-          success: true, 
-          message: "Lead notification dispatched.",
-          internalLeadSent: true,
-          customerReceiptSent: false
+          success: true
         }), {
           status: 200,
-          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+          headers: { "Content-Type": "application/json" }
         });
       } else {
         console.error(`[Worker] Dispatch failed.`);
         return new Response(JSON.stringify({ 
           success: false, 
-          error: "Failed to dispatch lead notification.",
-          details: dispatchError,
-          internalLeadSent: false
+          error: "Failed to dispatch lead notification."
         }), {
           status: 500,
-          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+          headers: { "Content-Type": "application/json" }
         });
       }
 
     } catch (err) {
       console.error("Worker Execution Error:", err);
-      return new Response(JSON.stringify({ error: "Internal Server Error", details: err.message }), {
+      return new Response(JSON.stringify({ error: "Internal Server Error" }), {
         status: 500,
-        headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" }
       });
     }
   }
