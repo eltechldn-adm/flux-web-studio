@@ -15,8 +15,10 @@
     <link rel="stylesheet" href="./styles/global.css" />
     <link rel="stylesheet" href="./styles/container.css" />
     <link rel="stylesheet" href="./styles/components/index.css" />
+
 </head>
 <body>
+    <header>
     <a class="skip-link" href="#main-content">Skip to main content</a>
     
     <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
@@ -25,14 +27,14 @@
                 <span class="nav__logo-text">Flux Web Studio</span>
             </a>
             <ul class="nav__menu" role="list">
-                <li class="nav__item"><a href="what-we-build.html" class="nav__link">What We Build</a></li>
+                <li class="nav__item"><a href="what-we-build.html" class="nav__link" aria-current="page">What We Build</a></li>
                 <li class="nav__item"><a href="how-it-works.html" class="nav__link">How It Works</a></li>
                 <li class="nav__item"><a href="pricing.html" class="nav__link">Pricing</a></li>
                 <li class="nav__item"><a href="work.html" class="nav__link">Work</a></li>
                 <li class="nav__item"><a href="about.html" class="nav__link">About</a></li>
             </ul>
             <div class="nav__cta">
-                <a href="project-brief.html" class="btn btn--primary" id="nav-cta-btn">Start Your Project</a>
+                <a href="project-brief.html" class="btn btn--primary" id="nav-cta-btn">Discuss Your Idea</a>
             </div>
             <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
                 <span class="nav__toggle-bar"></span>
@@ -41,6 +43,7 @@
             </button>
         </div>
     </nav>
+    </header>
     
     <main id="main-content">
         <section class="section" style="padding-top: 6rem; background: var(--color-white);">
@@ -52,90 +55,132 @@
                     </p>
                 </div>
                 
-                <!-- Category 1 -->
+                <!-- Category 1: BUSINESS SYSTEMS -->
                 <div style="margin-bottom: 5rem;">
-                    <h2 style="font-size: 2rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 2rem; color: var(--color-obsidian);">Business Operations</h2>
+                    <h2 style="font-size: 2rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 2rem; color: var(--color-obsidian);">Business Systems</h2>
+                    <div style="margin-bottom: 2rem; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-subtle);">
+                        <img src="./assets/visuals/category-business-systems.webp" alt="Business Systems Architecture" style="width: 100%; height: auto; display: block;" loading="lazy" />
+                    </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
                         <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">Admin Dashboards</h3>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Admin Dashboards</h3>
                             <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Centralize your data into one secure, searchable interface for your team.</p>
                         </div>
                         <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">Inventory Systems</h3>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Inventory Systems</h3>
                             <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Track stock, equipment, or digital assets across multiple locations in real-time.</p>
                         </div>
                         <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">CRM Systems</h3>
-                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">A customer database stripped of bloat, customized exactly to your sales pipeline.</p>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">CRM Systems</h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">A customer database stripped of bloat, customised exactly to your sales pipeline.</p>
                         </div>
                         <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">Booking Systems</h3>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Booking Systems</h3>
                             <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Schedule resources, staff, or appointments with deep API calendar integrations.</p>
                         </div>
                         <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">Helpdesk</h3>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Helpdesk / Ticket Systems</h3>
                             <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Ticket management portals that route and track requests across your company.</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Customer Portals</h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Secure accounts for multiple customers to view reports, pay invoices, and submit data securely.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Category 2 -->
+                <!-- Category 2: SAAS & DIGITAL PRODUCTS -->
                 <div style="margin-bottom: 5rem;">
-                    <h2 style="font-size: 2rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 2rem; color: var(--color-obsidian);">SaaS & Customer Products</h2>
+                    <h2 style="font-size: 2rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 2rem; color: var(--color-obsidian);">SaaS & Digital Products</h2>
+                    <div style="margin-bottom: 2rem; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-subtle);">
+                        <img src="./assets/visuals/category-digital-products.webp" alt="SaaS and Digital Products Architecture" style="width: 100%; height: auto; display: block;" loading="lazy" />
+                    </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
                         <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">SaaS Web Apps</h3>
-                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Full-stack subscription products with billing, auth, and multi-tenant databases.</p>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">SaaS Web Apps</h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Full-stack subscription products built with secure accounts for multiple customers or organisations.</p>
                         </div>
                         <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">Customer Portals</h3>
-                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Secure spaces for clients to view reports, pay invoices, and submit data securely.</p>
-                        </div>
-                        <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">Learning Platforms</h3>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Learning Platforms</h3>
                             <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Custom LMS portals to deliver courses, track progress, and issue certificates.</p>
                         </div>
                         <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">Publishing Websites</h3>
-                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Content-heavy platforms requiring specialized CMS structures and fast load times.</p>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Content / Publishing Platforms</h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Content-heavy platforms requiring specialized structures and fast load times.</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Job Application Trackers</h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Manage hiring pipelines, candidate reviews, and team collaboration in one place.</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Personal Productivity Apps</h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Bespoke tools designed exactly for your unique workflow and habits.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Category 3 -->
+                <!-- Category 3: AI & AUTOMATION -->
                 <div style="margin-bottom: 5rem;">
                     <h2 style="font-size: 2rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 2rem; color: var(--color-obsidian);">AI & Automation</h2>
+                    <div style="margin-bottom: 2rem; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-subtle);">
+                        <img src="./assets/visuals/category-ai-automation.webp" alt="AI and Automation Architecture" style="width: 100%; height: auto; display: block;" loading="lazy" />
+                    </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
                         <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">AI-Powered Apps</h3>
-                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Applications wrapped around LLMs, generating structured data, text, or reports from input.</p>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">AI-Powered Apps</h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Custom AI assistants and workflow tools that generate text, or structured reports from input.</p>
                         </div>
                         <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">Knowledge Assistants</h3>
-                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Internal chatbots that can query and summarize your secure company documents (RAG).</p>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Knowledge Bases / Assistants</h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">AI assistants that answer questions directly from your business documents.</p>
                         </div>
                         <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">Workflow Automation</h3>
-                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Serverless functions and scripts that pipe data instantly between APIs without human intervention.</p>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Automation Platforms</h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Connect your existing business systems so they share information automatically.</p>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Category 4 -->
+                <!-- Category 4: DATA & DECISION TOOLS -->
                 <div style="margin-bottom: 5rem;">
-                    <h2 style="font-size: 2rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 2rem; color: var(--color-obsidian);">Data & Analytics</h2>
+                    <h2 style="font-size: 2rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 2rem; color: var(--color-obsidian);">Data & Decision Tools</h2>
+                    <div style="margin-bottom: 2rem; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-subtle);">
+                        <img src="./assets/visuals/category-data-tools.webp" alt="Data and Decision Tools Architecture" style="width: 100%; height: auto; display: block;" loading="lazy" />
+                    </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
                         <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">Analytics Products</h3>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Analytics Products</h3>
                             <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Platforms built specifically to clean, process, and present live business data visually.</p>
                         </div>
                         <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">Calculators / Comparison Tools</h3>
-                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Dynamic, interactive quote calculators or diagnostic tools that generate leads.</p>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Budget / Finance Trackers</h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Bespoke financial ledgers mapping accurately to your unique accounting logic.</p>
                         </div>
                         <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <h3 style="margin-bottom: 0.5rem;">Budget / Finance Trackers</h3>
-                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Bespoke financial ledgers mapping accurately to your unique accounting logic.</p>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Calculators / Comparison Tools</h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Dynamic, interactive quote calculators or diagnostic tools that generate leads.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 5: TECHNICAL & SECURITY -->
+                <div style="margin-bottom: 5rem;">
+                    <h2 style="font-size: 2rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 2rem; color: var(--color-obsidian);">Technical & Security</h2>
+                    <div style="margin-bottom: 2rem; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-subtle);">
+                        <img src="./assets/visuals/category-technical-security.webp" alt="Technical and Security Architecture" style="width: 100%; height: auto; display: block;" loading="lazy" />
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+                        <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Network Management Tools</h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Custom interfaces to monitor, configure, and manage your network infrastructure.</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Cybersecurity Dashboards</h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Centralize security alerts, access logs, and compliance reporting into one view.</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: var(--color-warm-ivory); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+                            <h3 style="margin-bottom: 0.5rem; color: var(--color-obsidian);">Home-Lab Dashboards</h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.9375rem;">Bespoke control panels for managing your personal servers and hosted services.</p>
                         </div>
                     </div>
                 </div>
@@ -150,7 +195,7 @@
                     The beauty of custom software is that it can be exactly what you need. If you have a workflow problem, tell us what's slowing you down.
                 </p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="project-brief.html" class="btn btn--primary btn--lg">Tell Us What You Need Built</a>
+                    <a href="project-brief.html" class="btn btn--primary btn--lg">Discuss Your Idea</a>
                 </div>
             </div>
         </section>
@@ -164,7 +209,7 @@
             </div>
             <div class="footer__links">
                 <div class="footer__col">
-                    <h4 class="footer__heading">Services</h4>
+                    <h3 class="footer__heading">Services</h3>
                     <ul class="footer__list">
                         <li><a href="what-we-build.html">What We Build</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
@@ -172,15 +217,15 @@
                     </ul>
                 </div>
                 <div class="footer__col">
-                    <h4 class="footer__heading">Company</h4>
+                    <h3 class="footer__heading">Company</h3>
                     <ul class="footer__list">
                         <li><a href="work.html">Solution Examples</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="project-brief.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer__col">
-                    <h4 class="footer__heading">Legal</h4>
+                    <h3 class="footer__heading">Legal</h3>
                     <ul class="footer__list">
                         <li><a href="privacy.html">Privacy Policy</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
@@ -192,6 +237,6 @@
             </div>
         </div>
     </footer>
-    <script src="./utils/mobile-nav.js"></script>
+    <script src="./utils/index.js"></script>
 </body>
 </html>

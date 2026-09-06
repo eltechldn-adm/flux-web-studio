@@ -82,7 +82,7 @@
 .nav__link {
     font-size: var(--text-sm);
     font-weight: var(--font-weight-medium);
-    color: var(--color-text-muted);
+    color: var(--color-text-inverse-muted);
     text-decoration: none;
     padding: var(--space-2) var(--space-4);
     border-radius: var(--radius-full);
@@ -93,8 +93,8 @@
 
 .nav__link:hover,
 .nav__link[aria-current="page"] {
-    color: var(--color-text-primary);
-    background: rgba(255, 255, 255, 0.06);
+    color: var(--color-white);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 /* --------------------------------------------------
@@ -192,7 +192,7 @@
     .nav__link:hover,
     .nav__link[aria-current="page"] {
         color: var(--color-primary);
-        background: rgba(255, 255, 255, 0.04);
+        background: rgba(17, 19, 24, 0.04);
     }
 
     /* ── Mobile CTA ── */

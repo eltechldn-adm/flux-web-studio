@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./styles/components/index.css" />
 </head>
 <body>
+    <header>
     <a class="skip-link" href="#main-content">Skip to main content</a>
     
     <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
@@ -31,7 +32,7 @@
                 <li class="nav__item"><a href="about.html" class="nav__link">About</a></li>
             </ul>
             <div class="nav__cta">
-                <a href="project-brief.html" class="btn btn--primary" id="nav-cta-btn">Start Your Project</a>
+                <a href="project-brief.html" class="btn btn--primary" id="nav-cta-btn">Discuss Your Idea</a>
             </div>
             <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
                 <span class="nav__toggle-bar"></span>
@@ -40,6 +41,7 @@
             </button>
         </div>
     </nav>
+    </header>
     
     <main id="main-content">
         <section class="section" style="padding-top: 6rem; background: var(--color-white);">
@@ -47,7 +49,7 @@
                 <div style="max-width: 800px; margin-bottom: 4rem;">
                     <h1 class="hero__headline" style="font-size: clamp(2.5rem, 5vw, 4rem); color: var(--color-obsidian); margin-bottom: 1.5rem;">Solution Examples</h1>
                     <p style="font-size: 1.25rem; color: var(--color-text-muted);">
-                        We believe in setting clear expectations. Here are examples of the types of software architecture, AI tools, and interfaces we design and deploy.
+                        We believe in setting clear expectations. Here are examples of the types of problems Flux can solve and the software we could build around them.
                     </p>
                 </div>
                 
@@ -55,48 +57,35 @@
                     
                     <!-- Example 1 -->
                     <article style="display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; @media(min-width: 900px){grid-template-columns: 1fr 1fr;}">
-                        <div style="background: var(--color-warm-ivory); border-radius: var(--radius-xl); height: 400px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-subtle);">
-                            <div style="width: 80%; height: 70%; background: var(--color-white); border-radius: var(--radius-md); box-shadow: var(--shadow-md); padding: 1rem; border: 1px solid #e5e7eb; display: flex; flex-direction: column; gap: 1rem;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <div style="width: 100px; height: 12px; background: var(--color-obsidian); border-radius: 4px;"></div>
-                                    <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--color-primary); opacity: 0.2;"></div>
-                                </div>
-                                <div style="display: flex; gap: 1rem; flex: 1;">
-                                    <div style="width: 30%; background: #f9fafb; border-radius: 4px; border: 1px solid #f3f4f6;"></div>
-                                    <div style="flex: 1; background: #f9fafb; border-radius: 4px; border: 1px solid #f3f4f6;"></div>
-                                </div>
-                            </div>
+                        <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border-subtle);">
+                            <img src="./assets/visuals/work-crm-concept.webp" alt="Custom Operations CRM interface concept" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" />
                         </div>
                         <div>
                             <span style="display: inline-block; padding: 0.25rem 0.75rem; background: var(--color-obsidian); color: var(--color-white); font-size: 0.75rem; font-weight: bold; border-radius: 20px; margin-bottom: 1rem;">CONCEPT EXAMPLE</span>
                             <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-obsidian);">Custom Operations CRM</h2>
-                            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem; color: var(--color-primary);">The Problem</h3>
+                            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem; color: var(--color-obsidian);">The Problem</h3>
                             <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">Off-the-shelf CRMs forced the team to use bloated interfaces with 50 fields they never used, causing staff to abandon the tool and use spreadsheets instead.</p>
-                            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem; color: var(--color-primary);">What Would Be Built</h3>
+                            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem; color: var(--color-obsidian);">What Would Be Built</h3>
                             <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">A focused, lightning-fast web application tailored exactly to their 5-stage sales cycle. Core functionality includes role-based access, instant search, and automated email logging.</p>
-                            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem; color: var(--color-primary);">Business Outcome</h3>
-                            <p style="color: var(--color-text-muted);">A system the team actually uses, providing management with accurate pipeline data without the monthly per-seat SaaS fees.</p>
+                            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem; color: var(--color-obsidian);">Potential Business Value</h3>
+                            <p style="color: var(--color-text-muted);">This would help centralise prospect data, preventing leads from falling through the cracks and could significantly reduce administrative tracking time.</p>
                         </div>
                     </article>
 
                     <!-- Example 2 -->
                     <article style="display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; @media(min-width: 900px){grid-template-columns: 1fr 1fr;}">
                         <div style="order: 2; @media(min-width: 900px){order: 1;}">
-                            <span style="display: inline-block; padding: 0.25rem 0.75rem; background: var(--color-deep-aubergine); color: var(--color-white); font-size: 0.75rem; font-weight: bold; border-radius: 20px; margin-bottom: 1rem;">IN-HOUSE BUILD</span>
+                            <span style="display: inline-block; padding: 0.25rem 0.75rem; background: var(--color-deep-aubergine); color: var(--color-white); font-size: 0.75rem; font-weight: bold; border-radius: 20px; margin-bottom: 1rem;">CONCEPT EXAMPLE</span>
                             <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-obsidian);">AI Knowledge Assistant</h2>
-                            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem; color: var(--color-primary);">The Problem</h3>
+                            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem; color: var(--color-obsidian);">The Problem</h3>
                             <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">Onboarding new hires took weeks because crucial operating procedures were scattered across Google Drive, Notion, and Slack threads.</p>
-                            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem; color: var(--color-primary);">What Was Built</h3>
-                            <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">A secure, private RAG (Retrieval-Augmented Generation) application. Employees ask questions in natural language, and the AI retrieves the exact internal document, summarizes the answer, and links to the source.</p>
-                            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem; color: var(--color-primary);">Business Outcome</h3>
-                            <p style="color: var(--color-text-muted);">Instant answers to procedural questions, allowing senior staff to focus on deep work instead of repeatedly answering "where is the policy for X?"</p>
+                            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem; color: var(--color-obsidian);">What Would Be Built</h3>
+                            <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">A secure, private RAG (Retrieval-Augmented Generation) application. Employees ask questions in natural language, and the AI retrieves the exact internal document, summarises the answer, and links to the source.</p>
+                            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem; color: var(--color-obsidian);">Potential Business Value</h3>
+                            <p style="color: var(--color-text-muted);">Designed to save employees hours of searching through shared drives and manuals, accelerating onboarding for new staff.</p>
                         </div>
-                        <div style="background: var(--color-warm-ivory); border-radius: var(--radius-xl); height: 400px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-subtle); order: 1; @media(min-width: 900px){order: 2;}">
-                             <div style="width: 70%; height: 80%; background: var(--color-obsidian); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); padding: 1.5rem; border: 1px solid #374151; display: flex; flex-direction: column; gap: 1rem;">
-                                <div style="width: 60%; height: 40px; background: rgba(255,255,255,0.1); border-radius: 8px; align-self: flex-start;"></div>
-                                <div style="width: 80%; height: 80px; background: rgba(214, 255, 75, 0.1); border: 1px solid var(--color-electric-lime); border-radius: 8px; align-self: flex-end;"></div>
-                                <div style="margin-top: auto; width: 100%; height: 40px; background: rgba(255,255,255,0.05); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);"></div>
-                            </div>
+                        <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border-subtle); order: 1; @media(min-width: 900px){order: 2;}">
+                            <img src="./assets/visuals/work-ai-knowledge-concept.webp" alt="AI Knowledge Assistant interface concept" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" />
                         </div>
                     </article>
 
@@ -111,7 +100,7 @@
                     Whether it's an internal tool or a customer-facing portal, we can map out the architecture and timeline.
                 </p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="project-brief.html" class="btn btn--primary btn--lg">Start Your Project</a>
+                    <a href="project-brief.html" class="btn btn--primary btn--lg">Discuss Your Idea</a>
                 </div>
             </div>
         </section>
@@ -125,7 +114,7 @@
             </div>
             <div class="footer__links">
                 <div class="footer__col">
-                    <h4 class="footer__heading">Services</h4>
+                    <h3 class="footer__heading">Services</h3>
                     <ul class="footer__list">
                         <li><a href="what-we-build.html">What We Build</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
@@ -133,15 +122,15 @@
                     </ul>
                 </div>
                 <div class="footer__col">
-                    <h4 class="footer__heading">Company</h4>
+                    <h3 class="footer__heading">Company</h3>
                     <ul class="footer__list">
                         <li><a href="work.html">Solution Examples</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="project-brief.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer__col">
-                    <h4 class="footer__heading">Legal</h4>
+                    <h3 class="footer__heading">Legal</h3>
                     <ul class="footer__list">
                         <li><a href="privacy.html">Privacy Policy</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
@@ -153,6 +142,6 @@
             </div>
         </div>
     </footer>
-    <script src="./utils/mobile-nav.js"></script>
+    <script src="./utils/index.js"></script>
 </body>
 </html>

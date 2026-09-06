@@ -31,6 +31,7 @@
     </script>
 </head>
 <body>
+    <header>
     <a class="skip-link" href="#main-content">Skip to main content</a>
     
     <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
@@ -46,7 +47,7 @@
                 <li class="nav__item"><a href="about.html" class="nav__link">About</a></li>
             </ul>
             <div class="nav__cta">
-                <a href="project-brief.html" class="btn btn--primary" id="nav-cta-btn">Start Your Project</a>
+                <a href="project-brief.html" class="btn btn--primary" id="nav-cta-btn">Discuss Your Idea</a>
             </div>
             <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
                 <span class="nav__toggle-bar"></span>
@@ -55,6 +56,7 @@
             </button>
         </div>
     </nav>
+    </header>
     
     <main id="main-content">
         <section class="section" style="padding-top: 6rem; background: var(--color-white);">
@@ -70,23 +72,24 @@
                     
                     <!-- Founder Brand Treatment -->
                     <div style="background: var(--color-warm-ivory); border-radius: var(--radius-xl); padding: 3rem; display: flex; flex-direction: column; justify-content: center; border: 1px solid var(--border-subtle);">
-                        <div style="width: 80px; height: 80px; background: var(--color-deep-aubergine); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 2rem; margin-bottom: 2rem;">FWS</div>
-                        <h2 style="font-size: 2rem; color: var(--color-obsidian); margin-bottom: 1rem;">Human-led,<br>AI-accelerated.</h2>
-                        <p style="color: var(--color-text-muted); font-size: 1.125rem;">
-                            Flux Web Studio is a UK-based, founder-led software studio. We communicate directly, speak plain English, and take responsibility for what we build.
+                        <div style="width: 80px; height: 80px; background: var(--color-deep-aubergine); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 2rem; margin-bottom: 2rem;">
+                            <!-- OWNER TODO: add approved founder name, real photograph and biography before final production launch -->
+                        </div>
+                        <h2 style="font-size: 2rem; color: var(--color-obsidian); margin-bottom: 1rem;">Founder-led by design.</h2>
+                        <p style="font-size: 1.125rem; color: var(--color-text); line-height: 1.7;">
+                            Flux Web Studio is a UK-based, founder-led software studio. Clients work directly with the person responsible for understanding, scoping and delivering the project.
                         </p>
                     </div>
 
                     <!-- Philosophy -->
                     <div style="display: flex; flex-direction: column; gap: 2rem;">
-                        <div>
-                            <h3 style="font-size: 1.25rem; color: var(--color-obsidian); margin-bottom: 0.5rem;">Why small is an advantage</h3>
-                            <p style="color: var(--color-text-muted);">When you hire a massive agency, your project often gets passed down to junior developers while you speak to account managers. At Flux, you deal directly with the engineers scoping and building your software. Decisions are made in minutes, not weeks.</p>
+                        <div style="flex: 1; min-width: 300px;">
+                            <h3 style="font-size: 1.25rem; color: var(--color-obsidian); margin-bottom: 0.75rem;">Small by design.</h3>
+                            <p style="color: var(--color-text-muted);">Flux keeps projects focused and communication direct. Decisions stay close to the person responsible for delivery, which means less unnecessary process and clearer communication throughout the build.</p>
                         </div>
-                        
-                        <div>
-                            <h3 style="font-size: 1.25rem; color: var(--color-obsidian); margin-bottom: 0.5rem;">The AI Delivery Advantage</h3>
-                            <p style="color: var(--color-text-muted);">We embrace advanced AI engineering tools internally. We don't just sell "AI tools" to clients—we use AI to write boilerplate code, test faster, and deploy more reliably. This is why a small studio can deliver enterprise-grade custom applications quickly, passing the cost savings to you.</p>
+                        <div style="flex: 1; min-width: 300px;">
+                            <h3 style="font-size: 1.25rem; color: var(--color-obsidian); margin-bottom: 0.75rem;">AI-accelerated. Human-led.</h3>
+                            <p style="color: var(--color-text-muted);">We use modern AI-assisted development tools internally to accelerate research, prototyping, coding and testing. That helps a small studio move efficiently while keeping architecture, quality checks and project decisions under human control.</p>
                         </div>
 
                         <div>
@@ -106,7 +109,7 @@
                     If you're tired of workarounds, spreadsheets, and off-the-shelf software that almost fits, let's build something better.
                 </p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="project-brief.html" class="btn btn--primary btn--lg">Tell Us What You Need Built</a>
+                    <a href="project-brief.html" class="btn btn--primary btn--lg">Discuss Your Idea</a>
                 </div>
             </div>
         </section>
@@ -120,7 +123,7 @@
             </div>
             <div class="footer__links">
                 <div class="footer__col">
-                    <h4 class="footer__heading">Services</h4>
+                    <h3 class="footer__heading">Services</h3>
                     <ul class="footer__list">
                         <li><a href="what-we-build.html">What We Build</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
@@ -128,15 +131,15 @@
                     </ul>
                 </div>
                 <div class="footer__col">
-                    <h4 class="footer__heading">Company</h4>
+                    <h3 class="footer__heading">Company</h3>
                     <ul class="footer__list">
                         <li><a href="work.html">Solution Examples</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="project-brief.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer__col">
-                    <h4 class="footer__heading">Legal</h4>
+                    <h3 class="footer__heading">Legal</h3>
                     <ul class="footer__list">
                         <li><a href="privacy.html">Privacy Policy</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
@@ -148,6 +151,6 @@
             </div>
         </div>
     </footer>
-    <script src="./utils/mobile-nav.js"></script>
+    <script src="./utils/index.js"></script>
 </body>
 </html>

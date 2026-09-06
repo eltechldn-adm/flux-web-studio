@@ -40,7 +40,7 @@
  * -------------------------------------------------- */
 .btn--primary {
     background: var(--color-primary);
-    color: var(--color-white);
+    color: var(--color-obsidian);
     border-color: transparent;
     box-shadow: var(--shadow-md);
 }

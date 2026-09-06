@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="./styles/container.css" />
     <link rel="stylesheet" href="./styles/components/index.css" />
     <link rel="stylesheet" href="./styles/components/homepage.css" />
+
     
     <script type="application/ld+json">
     {
@@ -53,18 +54,15 @@
 
 <body>
 
+    <header>
     <a class="skip-link" href="#hero">Skip to main content</a>
 
-    <!-- ============================================================
-     1. NAVIGATION
-============================================================ -->
+    <!-- 1. NAVIGATION -->
     <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
         <div class="container nav__inner">
-
             <a href="index.html" class="nav__logo" aria-label="Flux Web Studio — Home">
                 <span class="nav__logo-text">Flux Web Studio</span>
             </a>
-
             <ul class="nav__menu" role="list">
                 <li class="nav__item"><a href="what-we-build.html" class="nav__link">What We Build</a></li>
                 <li class="nav__item"><a href="how-it-works.html" class="nav__link">How It Works</a></li>
@@ -72,28 +70,22 @@
                 <li class="nav__item"><a href="work.html" class="nav__link">Work</a></li>
                 <li class="nav__item"><a href="about.html" class="nav__link">About</a></li>
             </ul>
-
             <div class="nav__cta">
-                <a href="project-brief.html" class="btn btn--primary" id="nav-cta-btn">Start Your Project</a>
+                <a href="project-brief.html" class="btn btn--primary" id="nav-cta-btn">Discuss Your Idea</a>
             </div>
-
             <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
                 <span class="nav__toggle-bar"></span>
                 <span class="nav__toggle-bar"></span>
                 <span class="nav__toggle-bar"></span>
             </button>
-
         </div>
     </nav>
+    </header>
 
-
-    <!-- ============================================================
-     2. HERO — Software built around your business
-============================================================ -->
-    <section class="hero" id="hero" aria-label="Hero">
-
-        <div class="container hero__content" style="text-align: center; max-width: 900px; padding-top: 4rem;">
-
+    <!-- 1. HERO -->
+    <main id="main-content">
+    <section class="hero" id="hero" aria-label="Hero" style="padding-bottom: 2rem;">
+        <div class="container hero__content" style="text-align: center; max-width: 900px; padding-top: 2rem;">
             <div class="hero__badge" role="note" style="margin: 0 auto 1.5rem auto; background: rgba(17, 19, 24, 0.05); color: var(--color-obsidian); border: 1px solid var(--border-subtle);">
                 <span class="hero__badge-dot" aria-hidden="true" style="background: var(--color-primary);"></span>
                 Custom Software, AI & Automation
@@ -103,106 +95,81 @@
                 Software built around your business — <mark style="background: transparent; color: var(--color-primary);">not the other way round.</mark>
             </h1>
 
-            <p class="hero__sub" style="color: var(--color-text-muted); font-size: 1.125rem; max-width: 700px; margin: 0 auto 2.5rem auto;">
-                Your business probably already has the problem: spreadsheets doing the job of databases, inboxes doing the job of CRMs, staff copying information between systems, or a software idea nobody has had time to build.<br><br>
-                Flux Web Studio turns those problems into custom software, AI tools and automation.
+            <p class="hero__sub" style="color: var(--color-text-muted); font-size: 1.125rem; max-width: 700px; margin: 0 auto 2rem auto;">
+                We build custom business apps, AI tools and automation that replace manual work, disconnected systems and software that doesn't quite fit.
             </p>
 
             <div class="hero__actions" style="justify-content: center;">
-                <a href="project-brief.html" class="btn btn--primary btn--lg" id="hero-cta-primary">Start Your Project</a>
+                <a href="project-brief.html" class="btn btn--primary btn--lg" id="hero-cta-primary">Discuss Your Idea</a>
                 <a href="what-we-build.html" class="btn btn--secondary btn--lg" id="hero-cta-secondary">Explore What We Build</a>
             </div>
 
-            <div class="hero__trust" style="margin-top: 3rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; color: var(--color-text-muted); font-size: 0.875rem; font-weight: 500;">
+            <div class="hero__trust" style="margin-top: 2rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; color: var(--color-text-muted); font-size: 0.875rem; font-weight: 500; margin-bottom: 3rem;">
                 <span>✓ UK-based</span>
                 <span>✓ Founder-led</span>
                 <span>✓ Fixed scope</span>
                 <span>✓ Clear milestones</span>
-                <span>✓ Production-tested</span>
             </div>
-
-        </div>
-        
-        <!-- App Mockup Visual (HTML/CSS) -->
-        <div class="container" style="margin-top: 4rem; position: relative;">
-            <div style="background: var(--color-white); border-radius: var(--radius-xl); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-lg); overflow: hidden; max-width: 1000px; margin: 0 auto; display: flex;">
-                <div style="width: 240px; background: #fafafa; border-right: 1px solid var(--border-subtle); padding: 1.5rem; display: none; @media(min-width: 768px){display: block;}">
-                    <div style="height: 12px; width: 60%; background: #e5e7eb; border-radius: 4px; margin-bottom: 2rem;"></div>
-                    <div style="height: 10px; width: 80%; background: #e5e7eb; border-radius: 4px; margin-bottom: 1rem;"></div>
-                    <div style="height: 10px; width: 70%; background: #e5e7eb; border-radius: 4px; margin-bottom: 1rem;"></div>
-                    <div style="height: 10px; width: 90%; background: #e5e7eb; border-radius: 4px; margin-bottom: 1rem;"></div>
-                </div>
-                <div style="flex: 1; padding: 2rem; background: var(--color-white);">
-                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem; align-items: center;">
-                        <div style="height: 32px; width: 32px; background: var(--color-primary); border-radius: 8px; opacity: 0.2;"></div>
-                        <div>
-                            <div style="height: 14px; width: 120px; background: var(--color-obsidian); border-radius: 4px; margin-bottom: 6px;"></div>
-                            <div style="height: 10px; width: 80px; background: #9ca3af; border-radius: 4px;"></div>
-                        </div>
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
-                        <div style="padding: 1.5rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <div style="height: 10px; width: 50%; background: #9ca3af; border-radius: 4px; margin-bottom: 1rem;"></div>
-                            <div style="height: 24px; width: 30%; background: var(--color-obsidian); border-radius: 4px;"></div>
-                        </div>
-                        <div style="padding: 1.5rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-                            <div style="height: 10px; width: 60%; background: #9ca3af; border-radius: 4px; margin-bottom: 1rem;"></div>
-                            <div style="height: 24px; width: 40%; background: var(--color-obsidian); border-radius: 4px;"></div>
-                        </div>
-                    </div>
-                    <div style="height: 200px; background: #fafafa; border: 1px solid var(--border-subtle); border-radius: var(--radius-md);"></div>
-                </div>
+            
+            <div style="margin-top: 3rem; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); border: 1px solid var(--border-subtle);">
+                <img src="./assets/visuals/flux-system-hero.webp" alt="The Flux System: Transforming disconnected tools into elegant unified applications" style="width: 100%; height: auto; display: block;" fetchpriority="high" />
             </div>
         </div>
     </section>
 
-    <!-- ============================================================
-     3. PROBLEM RECOGNITION
-============================================================ -->
+    <!-- 2. PRODUCT UI SHOWCASE -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container" style="max-width: 1000px; margin: 0 auto; display: grid; gap: 2rem; grid-template-columns: 1fr; @media(min-width: 768px){grid-template-columns: 1fr 1fr;}">
+            
+            <!-- Analytics Mockup -->
+            <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border-subtle); background: var(--color-obsidian);">
+                <img src="./assets/visuals/analytics-platform.webp" alt="Abstract analytics dashboard interface" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" />
+            </div>
+
+            <!-- CRM Mockup -->
+            <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border-subtle); background: var(--color-warm-ivory);">
+                <img src="./assets/visuals/business-application.webp" alt="Abstract business application and CRM interface" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 3. PROBLEM RECOGNITION -->
     <section class="section" id="problem" aria-label="The problem" style="background: var(--color-white);">
         <div class="container">
-
             <div class="section__header">
-                <span class="section__label" style="color: var(--color-primary);">The Problem</span>
+                <span class="section__label" style="color: var(--color-obsidian);">The Problem</span>
                 <h2 class="section__title">Your business may already have the app problem.</h2>
                 <p class="section__subtitle" style="max-width: 650px;">
                     Businesses outgrow generic tools quickly. When off-the-shelf software doesn't quite fit, teams create messy workarounds that waste time and hide data.
                 </p>
             </div>
-
             <div class="problem-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-
                 <div class="problem-card" style="background: var(--color-warm-ivory); border: none;">
                     <h3 class="problem-card__title" style="color: var(--color-obsidian);">Spreadsheet Databases</h3>
                     <p class="problem-card__desc">
                         Spreadsheets holding critical business information that should be in a secure database with proper user access controls.
                     </p>
                 </div>
-
                 <div class="problem-card" style="background: var(--color-warm-ivory); border: none;">
                     <h3 class="problem-card__title" style="color: var(--color-obsidian);">Manual Admin Loops</h3>
                     <p class="problem-card__desc">
                         Staff copy/pasting information between different systems because they don't talk to each other automatically.
                     </p>
                 </div>
-
                 <div class="problem-card" style="background: var(--color-warm-ivory); border: none;">
                     <h3 class="problem-card__title" style="color: var(--color-obsidian);">The Unbuilt Idea</h3>
                     <p class="problem-card__desc">
                         A software idea or internal tool that would save hours or generate revenue, but nobody has had the time to build it.
                     </p>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- ============================================================
-     4. WHAT WE BUILD
-============================================================ -->
+    <!-- 4. FIVE CORE CAPABILITIES -->
     <section class="section" id="services" aria-label="Services" style="background: var(--color-obsidian); color: var(--color-white);">
         <div class="container">
-
             <div class="section__header" style="text-align: left;">
                 <span class="section__label" style="color: var(--color-electric-lime);">What We Build</span>
                 <h2 class="section__title" style="color: var(--color-white);">Five core software capabilities.</h2>
@@ -210,79 +177,102 @@
                     We don't expect you to know the technology stack. You describe the problem, and we build the right custom solution.
                 </p>
             </div>
-
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
                 <div style="padding: 2rem; border: 1px solid var(--border-inverse); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02);">
-                    <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">Custom Business Apps</h3>
+                    <h3 style="margin-bottom: 1rem; font-size: 1.25rem; color: var(--color-white);">Custom Business Apps</h3>
                     <p style="color: var(--color-text-inverse-muted); font-size: 0.9375rem;">Dashboards, CRM, inventory, booking, helpdesk and operational software tailored exactly to your workflows.</p>
                 </div>
                 <div style="padding: 2rem; border: 1px solid var(--border-inverse); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02);">
-                    <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">SaaS & Customer Platforms</h3>
+                    <h3 style="margin-bottom: 1rem; font-size: 1.25rem; color: var(--color-white);">SaaS & Customer Platforms</h3>
                     <p style="color: var(--color-text-inverse-muted); font-size: 0.9375rem;">Subscription applications, client portals, learning systems and customer-facing products built for scale.</p>
                 </div>
                 <div style="padding: 2rem; border: 1px solid var(--border-inverse); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02);">
-                    <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">AI-Powered Software</h3>
+                    <h3 style="margin-bottom: 1rem; font-size: 1.25rem; color: var(--color-white);">AI-Powered Software</h3>
                     <p style="color: var(--color-text-inverse-muted); font-size: 0.9375rem;">AI assistants, intelligent search, document Q&A, summarisation, extraction and workflow intelligence.</p>
                 </div>
                 <div style="padding: 2rem; border: 1px solid var(--border-inverse); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02);">
-                    <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">Automation & Integrations</h3>
+                    <h3 style="margin-bottom: 1rem; font-size: 1.25rem; color: var(--color-white);">Automation & Integrations</h3>
                     <p style="color: var(--color-text-inverse-muted); font-size: 0.9375rem;">APIs, scheduled processes, notifications and systems that move information between applications automatically.</p>
                 </div>
                 <div style="padding: 2rem; border: 1px solid var(--border-inverse); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02);">
-                    <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">Analytics & Decision Tools</h3>
+                    <h3 style="margin-bottom: 1rem; font-size: 1.25rem; color: var(--color-white);">Analytics & Decision Tools</h3>
                     <p style="color: var(--color-text-inverse-muted); font-size: 0.9375rem;">Reporting platforms, dashboards, calculators, comparison tools and data-driven systems.</p>
                 </div>
             </div>
-            
             <div style="margin-top: 3rem;">
                 <a href="what-we-build.html" class="btn btn--inverse">View all 20+ applications we build</a>
             </div>
-
         </div>
     </section>
 
-    <!-- ============================================================
-     5. INTERACTIVE BUILD EXPLORER
-============================================================ -->
+    <!-- 5. INTERACTIVE 20-APP EXPLORER -->
     <section class="section" id="build-explorer-section" style="background: var(--color-warm-ivory);">
         <div class="container">
             <div class="section__header">
-                <span class="section__label" style="color: var(--color-primary);">Interactive</span>
+                <span class="section__label" style="color: var(--color-obsidian);">Interactive</span>
                 <h2 class="section__title">What could Flux build for you?</h2>
                 <p class="section__subtitle">Select a common problem below to see which solutions we recommend.</p>
             </div>
 
             <div id="build-explorer" class="build-explorer">
-                <div class="be-options">
+                <div class="be-options" id="be-buttons-container">
                     <h3 class="be-section-title">I want to...</h3>
-                    <!-- Injected via JS -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;" id="be-buttons">
+                        <button class="btn btn--outline" data-be-target="admin">Reduce admin</button>
+                        <button class="btn btn--outline" data-be-target="data">Have one place for my data</button>
+                        <button class="btn btn--outline" data-be-target="login">Give customers a login</button>
+                        <button class="btn btn--outline" data-be-target="saas">Build a SaaS idea</button>
+                        <button class="btn btn--outline" data-be-target="ai">Add AI to my workflow</button>
+                        <button class="btn btn--outline" data-be-target="reports">Get better reporting</button>
+                        <button class="btn btn--outline" data-be-target="booking">Manage booking</button>
+                        <button class="btn btn--outline" data-be-target="notsure">I'm not sure</button>
+                    </div>
                 </div>
                 <div>
-                    <h3 class="be-section-title">Recommended Solutions</h3>
-                    <div class="be-results-area be-results">
-                        <!-- Injected via JS -->
+                    <h3 class="be-section-title" aria-live="polite">Recommended Solutions</h3>
+                    <div class="be-results-area be-results" id="be-results-area">
+                        <p style="color: var(--color-text-muted);">Select an option to see recommendations.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ============================================================
-     6. BEFORE / AFTER
-============================================================ -->
+    <!-- 6. DEMO / SOLUTION INTERFACES -->
     <section class="section" style="background: var(--color-white);">
+        <div class="container" style="max-width: 1000px; margin: 0 auto; display: grid; gap: 2rem; grid-template-columns: 1fr; @media(min-width: 768px){grid-template-columns: 1fr 1fr;}">
+            
+            <!-- AI Assistant Mockup -->
+            <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border-subtle); background: var(--color-warm-ivory);">
+                <img src="./assets/visuals/ai-application.webp" alt="Intelligent AI search interface" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" />
+            </div>
+
+            <!-- Customer Portal Mockup -->
+            <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border-subtle); background: var(--color-obsidian);">
+                <img src="./assets/visuals/saas-product.webp" alt="SaaS platform workspace and analytics" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 7. BEFORE / AFTER -->
+    <section class="section" style="background: var(--color-warm-ivory);">
         <div class="container">
             <div class="section__header">
                 <h2 class="section__title">The Transformation</h2>
             </div>
             
+            <div style="margin-bottom: 3rem; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); border: 1px solid var(--border-subtle);">
+                <img src="./assets/visuals/automation-system.webp" alt="Automation workflow showing disconnected systems joining a single pipeline" style="width: 100%; height: auto; display: block;" loading="lazy" />
+            </div>
+
             <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; @media(min-width: 768px){grid-template-columns: 1fr 1fr;}">
                 <div style="padding: 2rem; background: #fff0ed; border: 1px solid #ffd4cb; border-radius: var(--radius-lg);">
                     <h3 style="color: #b91c1c; margin-bottom: 1.5rem;">Before Flux</h3>
                     <ul style="display: flex; flex-direction: column; gap: 1rem; color: var(--color-obsidian);">
                         <li>❌ Spreadsheets used as a fragile CRM</li>
                         <li>❌ Customer requests disappearing into busy inboxes</li>
-                        <li>❌ Staff copying data from Stripe into accounting tools</li>
+                        <li>❌ Staff copying data manually between tools</li>
                         <li>❌ Manual reports generated every Friday</li>
                     </ul>
                 </div>
@@ -291,17 +281,15 @@
                     <ul style="display: flex; flex-direction: column; gap: 1rem; color: var(--color-obsidian);">
                         <li>✅ One tailored, secure web application</li>
                         <li>✅ Clients log in to their own portal</li>
-                        <li>✅ Automated workflows sync billing and accounting</li>
-                        <li>✅ Live dashboards update in real-time</li>
+                        <li>✅ Automated workflows sync data in real-time</li>
+                        <li>✅ Live dashboards update without human input</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ============================================================
-     7. HOW WE WORK
-============================================================ -->
+    <!-- 8. HOW FLUX WORKS -->
     <section class="section" style="background: var(--color-obsidian); color: var(--color-white);">
         <div class="container">
             <div class="section__header">
@@ -331,44 +319,36 @@
         </div>
     </section>
 
-    <!-- ============================================================
-     8. WHY FLUX & FOUNDER TRUST
-============================================================ -->
-    <section class="section" style="background: var(--color-warm-ivory);">
+    <!-- 9. WHY FLUX -->
+    <section class="section" style="background: var(--color-white);">
         <div class="container">
-            <div style="display: grid; grid-template-columns: 1fr; gap: 4rem; @media(min-width: 900px){grid-template-columns: 1fr 1fr;}">
-                <div>
-                    <h2 class="section__title" style="text-align: left; margin-bottom: 1.5rem;">Why Flux?</h2>
-                    <p style="margin-bottom: 2rem; color: var(--color-text-muted);">
-                        We bridge the gap between freelancers who might disappear and huge agencies with massive overheads.
-                    </p>
-                    <ul style="display: flex; flex-direction: column; gap: 1rem; color: var(--color-obsidian); font-weight: 500;">
-                        <li>• Founder-led delivery & direct communication</li>
-                        <li>• Plain-English scoping (no jargon)</li>
-                        <li>• Fixed scope & transparent milestones</li>
-                        <li>• AI-accelerated delivery for faster turnarounds</li>
-                        <li>• Built with future changes in mind</li>
-                    </ul>
-                </div>
-                
-                <div style="background: var(--color-white); padding: 3rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); border: 1px solid var(--border-subtle);">
-                    <div style="width: 64px; height: 64px; background: var(--color-deep-aubergine); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5rem; margin-bottom: 1.5rem;">FWS</div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Human-led, AI-accelerated.</h3>
-                    <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">
-                        Flux Web Studio is a UK-based, founder-led software studio designed to make custom technology accessible to businesses that don't want traditional agency complexity. 
-                    </p>
-                    <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">
-                        We use advanced AI-assisted engineering to accelerate prototyping, development, and testing. But every project still follows a structured human process from requirements and architecture through QA, security review, and deployment.
-                    </p>
-                    <a href="about.html" class="btn btn--secondary">Read our story</a>
-                </div>
+            <div class="section__header">
+                <h2 class="section__title">Why Flux?</h2>
+                <p class="section__subtitle" style="max-width: 650px;">
+                    Small by design. Flux keeps projects focused and communication direct. You aren't passed through layers of account management, and decisions remain close to the person responsible for delivery.
+                </p>
             </div>
+            <ul style="display: flex; flex-direction: column; gap: 1rem; color: var(--color-obsidian); font-weight: 500; max-width: 600px; margin: 0 auto;">
+                <li>• Founder-led delivery & direct communication</li>
+                <li>• Plain-English scoping (no technical jargon)</li>
+                <li>• Fixed scope & transparent milestones</li>
+                <li>• Built with future changes in mind</li>
+            </ul>
         </div>
     </section>
 
-    <!-- ============================================================
-     9. PRICING PREVIEW
-============================================================ -->
+    <!-- 10. FREE PROJECT FIT CHECK -->
+    <section class="section" style="background: var(--color-warm-ivory);">
+        <div class="container" style="text-align: center; max-width: 700px;">
+            <h2 class="section__title">Not sure what needs building?</h2>
+            <p class="section__subtitle" style="margin-bottom: 2rem;">
+                Tell us what's slowing you down. We'll review the problem and tell you what type of system we'd recommend. You don't need a technical specification.
+            </p>
+            <a href="project-brief.html" class="btn btn--primary btn--lg">Get a Free Project Fit Check</a>
+        </div>
+    </section>
+
+    <!-- 11. PRICING -->
     <section class="section" style="background: var(--color-white);">
         <div class="container">
             <div class="section__header">
@@ -387,7 +367,7 @@
                 
                 <!-- Business App -->
                 <div style="border: 2px solid var(--color-primary); border-radius: var(--radius-lg); padding: 2rem; background: var(--color-white); position: relative; box-shadow: var(--shadow-md);">
-                    <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold;">MOST COMMON</div>
+                    <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: var(--color-obsidian); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold;">MOST COMMON</div>
                     <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Business App</h3>
                     <div style="font-size: 2rem; font-weight: 700; color: var(--color-obsidian); margin-bottom: 1rem;">From £4,995</div>
                     <p style="font-size: 0.9375rem; color: var(--color-text-muted); margin-bottom: 1.5rem; min-height: 40px;">For: CRM, booking platforms, inventory systems, client portals, or analytics platforms.</p>
@@ -398,7 +378,7 @@
                 <div style="border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem; background: var(--color-warm-ivory);">
                     <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">SaaS / AI Product</h3>
                     <div style="font-size: 2rem; font-weight: 700; color: var(--color-obsidian); margin-bottom: 1rem;">From £7,995</div>
-                    <p style="font-size: 0.9375rem; color: var(--color-text-muted); margin-bottom: 1.5rem; min-height: 40px;">For: SaaS MVPs, subscription products, AI applications, or complex multi-user products.</p>
+                    <p style="font-size: 0.9375rem; color: var(--color-text-muted); margin-bottom: 1.5rem; min-height: 40px;">For: SaaS MVPs, AI applications and advanced multi-user software products.</p>
                     <div style="font-weight: 500; font-size: 0.875rem; margin-bottom: 2rem;">Typical: 4–8 weeks</div>
                 </div>
             </div>
@@ -408,70 +388,84 @@
             </div>
         </div>
     </section>
-    
-    <!-- ============================================================
-     10. FAQ
-============================================================ -->
+
+    <!-- 12. WORK / SOLUTION EXAMPLES -->
     <section class="section" style="background: var(--color-warm-ivory);">
+        <div class="container" style="text-align: center;">
+            <div class="section__header">
+                <h2 class="section__title">Solution Examples</h2>
+                <p class="section__subtitle">Explore example solutions and see how custom software could solve real business problems.</p>
+            </div>
+            <a href="work.html" class="btn btn--primary">View Our Work</a>
+        </div>
+    </section>
+
+    <!-- 13. FAQ -->
+    <section class="section" style="background: var(--color-white);">
         <div class="container" style="max-width: 800px;">
             <div class="section__header">
                 <h2 class="section__title">Common Questions</h2>
             </div>
             
             <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                <div style="background: var(--color-white); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+                <div style="background: var(--color-warm-ivory); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
                     <h3 style="font-size: 1.125rem; margin-bottom: 0.75rem;">Do I need to know exactly what I need?</h3>
-                    <p style="color: var(--color-text-muted);">No. Most clients come to us with a business problem ("I spend 10 hours a week doing X") rather than a technical specification. We will help map out the exact software requirements.</p>
+                    <p style="color: var(--color-text-muted);">No. You don't need to arrive with a technical specification. A business problem is enough — we can help translate it into sensible software requirements.</p>
                 </div>
                 
-                <div style="background: var(--color-white); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+                <div style="background: var(--color-warm-ivory); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
                     <h3 style="font-size: 1.125rem; margin-bottom: 0.75rem;">Can you work with my existing systems?</h3>
                     <p style="color: var(--color-text-muted);">Yes. If your current tools have an API, we can usually build custom dashboards, integrations, or automation that connects to them seamlessly.</p>
                 </div>
                 
-                <div style="background: var(--color-white); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+                <div style="background: var(--color-warm-ivory); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
                     <h3 style="font-size: 1.125rem; margin-bottom: 0.75rem;">Who owns the finished software?</h3>
                     <p style="color: var(--color-text-muted);">You receive the custom project deliverables agreed in your scope. Third-party services, frameworks and open-source components remain subject to their own licences.</p>
                 </div>
-                
-                <div style="background: var(--color-white); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
-                    <h3 style="font-size: 1.125rem; margin-bottom: 0.75rem;">Do you use AI to develop applications?</h3>
-                    <p style="color: var(--color-text-muted);">Yes, we use advanced AI-assisted engineering to write boilerplate code, test faster, and prototype rapidly. This allows us to deliver high-quality custom software in weeks instead of months, saving you money. A human engineer still reviews and tests all production code.</p>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- ============================================================
-     11. CTA BOTTOM
-============================================================ -->
+    <!-- 14. FOUNDER TRUST -->
+    <section class="section" style="background: var(--color-obsidian); color: var(--color-white);">
+        <div class="container" style="max-width: 800px;">
+            <div style="background: rgba(255,255,255,0.02); padding: 3rem; border-radius: var(--radius-xl); border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; text-align: center;">
+                <div style="width: 80px; height: 80px; background: var(--color-deep-aubergine); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 2rem">
+                    <!-- OWNER TODO: add approved founder name, real photograph and biography before final production launch -->
+                </div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--color-white);">Founder-led by design.</h3>
+                <div style="font-size: 1rem; color: var(--color-text-inverse-muted); line-height: 1.6; font-style: italic; margin-bottom: 1.5rem;">
+                    "Flux Web Studio is a UK-based, founder-led software studio. Clients work directly with the person responsible for understanding, scoping and delivering the project."
+                </div>
+                <a href="about.html" class="btn btn--inverse-outline">Read the full story</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 15. FINAL CTA -->
     <section class="section" style="background: var(--color-obsidian); color: var(--color-white); text-align: center;">
         <div class="container" style="max-width: 700px;">
             <h2 class="section__title" style="color: var(--color-white);">Got something you wish your software did?</h2>
-            <p style="font-size: 1.125rem; color: var(--color-text-inverse-muted); margin-bottom: 2.5rem; line-height: 1.6;">
+            <p style="font-size: 1.125rem; color: rgba(255,255,255,0.9); margin-bottom: 2.5rem; line-height: 1.6;">
                 Tell us what's slowing you down, what you've been trying to build, or what your current systems don't do properly. You don't need a technical specification — that's our job.
             </p>
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="project-brief.html" class="btn btn--primary btn--lg">Tell Us What You Need Built</a>
-                <a href="what-we-build.html" class="btn btn--inverse-outline btn--lg">Explore What We Build</a>
+                <a href="project-brief.html" class="btn btn--primary">Discuss Your Idea</a>
             </div>
         </div>
     </section>
+    </main>
 
-    <!-- ============================================================
-     12. FOOTER
-============================================================ -->
+    <!-- FOOTER -->
     <footer class="footer" role="contentinfo">
         <div class="container footer__inner">
-
             <div class="footer__brand">
                 <a href="index.html" class="footer__logo">Flux Web Studio</a>
                 <p class="footer__tagline">Custom software, AI and automation for modern businesses.</p>
             </div>
-
             <div class="footer__links">
                 <div class="footer__col">
-                    <h4 class="footer__heading">Services</h4>
+                    <h3 class="footer__heading">Services</h3>
                     <ul class="footer__list">
                         <li><a href="what-we-build.html">What We Build</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
@@ -479,31 +473,29 @@
                     </ul>
                 </div>
                 <div class="footer__col">
-                    <h4 class="footer__heading">Company</h4>
+                    <h3 class="footer__heading">Company</h3>
                     <ul class="footer__list">
                         <li><a href="work.html">Solution Examples</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="project-brief.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer__col">
-                    <h4 class="footer__heading">Legal</h4>
+                    <h3 class="footer__heading">Legal</h3>
                     <ul class="footer__list">
                         <li><a href="privacy.html">Privacy Policy</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
                     </ul>
                 </div>
             </div>
-
             <div class="footer__bottom">
                 <p>&copy; 2026 Flux Web Studio. All rights reserved.</p>
             </div>
-
         </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="./utils/mobile-nav.js"></script>
+    <script src="./utils/index.js"></script>
     <script src="./utils/build-explorer.js"></script>
 </body>
 </html>

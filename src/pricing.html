@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./styles/components/index.css" />
 </head>
 <body>
+    <header>
     <a class="skip-link" href="#main-content">Skip to main content</a>
     
     <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
@@ -26,12 +27,12 @@
             <ul class="nav__menu" role="list">
                 <li class="nav__item"><a href="what-we-build.html" class="nav__link">What We Build</a></li>
                 <li class="nav__item"><a href="how-it-works.html" class="nav__link">How It Works</a></li>
-                <li class="nav__item"><a href="pricing.html" class="nav__link">Pricing</a></li>
+                <li class="nav__item"><a href="pricing.html" class="nav__link" aria-current="page">Pricing</a></li>
                 <li class="nav__item"><a href="work.html" class="nav__link">Work</a></li>
                 <li class="nav__item"><a href="about.html" class="nav__link">About</a></li>
             </ul>
             <div class="nav__cta">
-                <a href="project-brief.html" class="btn btn--primary" id="nav-cta-btn">Start Your Project</a>
+                <a href="project-brief.html" class="btn btn--primary" id="nav-cta-btn">Discuss Your Idea</a>
             </div>
             <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
                 <span class="nav__toggle-bar"></span>
@@ -40,14 +41,15 @@
             </button>
         </div>
     </nav>
+    </header>
     
     <main id="main-content">
         <section class="section" style="padding-top: 6rem; background: var(--color-white);">
             <div class="container">
                 <div style="max-width: 800px; margin-bottom: 4rem;">
-                    <h1 class="hero__headline" style="font-size: clamp(2.5rem, 5vw, 4rem); color: var(--color-obsidian); margin-bottom: 1.5rem;">Transparent Pricing</h1>
+                    <h1 class="hero__headline" style="font-size: clamp(2.5rem, 5vw, 4rem); color: var(--color-obsidian); margin-bottom: 1.5rem;">Transparent Starting Prices</h1>
                     <p style="font-size: 1.25rem; color: var(--color-text-muted);">
-                        Custom software should not mean an open-ended cheque book. We agree on the scope, and we agree on a fixed price before any code is written.
+                        Custom software should not mean an open-ended cheque book. We agree on the scope, and we agree on a fixed price before any code is written. Final price is agreed after requirements are scoped.
                     </p>
                 </div>
                 
@@ -57,18 +59,18 @@
                     <div style="border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2.5rem; background: var(--color-warm-ivory); display: flex; flex-direction: column;">
                         <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--color-obsidian);">Focused Build</h2>
                         <div style="font-size: 2.5rem; font-weight: 800; color: var(--color-obsidian); margin-bottom: 1rem;">From £1,995</div>
-                        <p style="color: var(--color-text-muted); margin-bottom: 2rem;">For solving a specific bottleneck, building an internal tool, or automating a data flow.</p>
+                        <p style="color: var(--color-text-muted); margin-bottom: 2rem;">Typical fit: Solving a specific bottleneck, building an internal tool, or automating a data flow.</p>
                         
                         <ul style="display: flex; flex-direction: column; gap: 1rem; color: var(--color-obsidian); font-weight: 500; margin-bottom: 3rem; flex: 1;">
                             <li>✓ Simple Data Dashboards</li>
                             <li>✓ Lead Calculators & Quoting Tools</li>
-                            <li>✓ API & Zapier/Make Automations</li>
-                            <li>✓ Form-to-Database Pipelines</li>
-                            <li>✓ AI Document Summarization</li>
+                            <li>✓ Connect your existing business systems</li>
+                            <li>✓ Automatically capture and organise customer data</li>
+                            <li>✓ AI Document Summarisation</li>
                         </ul>
                         
                         <div style="background: rgba(17,19,24,0.05); padding: 1rem; border-radius: var(--radius-md); font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 1.5rem;">
-                            <strong>Timeline:</strong> 5–10 working days
+                            <strong>Typical timeframe:</strong> 5–10 working days
                         </div>
                         
                         <a href="project-brief.html" class="btn btn--secondary" style="width: 100%;">Discuss a focused build</a>
@@ -76,21 +78,21 @@
                     
                     <!-- Business App -->
                     <div style="border: 2px solid var(--color-primary); border-radius: var(--radius-lg); padding: 2.5rem; background: var(--color-white); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; position: relative;">
-                        <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: white; padding: 4px 16px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; letter-spacing: 0.05em;">MOST COMMON</div>
+                        <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: var(--color-obsidian); padding: 4px 16px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; letter-spacing: 0.05em;">MOST COMMON</div>
                         <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--color-obsidian);">Business App</h2>
                         <div style="font-size: 2.5rem; font-weight: 800; color: var(--color-obsidian); margin-bottom: 1rem;">From £4,995</div>
-                        <p style="color: var(--color-text-muted); margin-bottom: 2rem;">For replacing spreadsheets with a secure, custom-built operational platform.</p>
+                        <p style="color: var(--color-text-muted); margin-bottom: 2rem;">Typical fit: Replacing spreadsheets with a secure, custom-built operational platform.</p>
                         
                         <ul style="display: flex; flex-direction: column; gap: 1rem; color: var(--color-obsidian); font-weight: 500; margin-bottom: 3rem; flex: 1;">
                             <li>✓ Custom CRM / Inventory Systems</li>
                             <li>✓ Client / Partner Portals</li>
                             <li>✓ Booking & Scheduling Platforms</li>
-                            <li>✓ Internal Knowledge Bases (RAG)</li>
+                            <li>✓ AI assistants that answer questions from your business documents</li>
                             <li>✓ Complex Multi-Step Workflows</li>
                         </ul>
                         
                         <div style="background: rgba(17,19,24,0.05); padding: 1rem; border-radius: var(--radius-md); font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 1.5rem;">
-                            <strong>Timeline:</strong> 2–4 weeks
+                            <strong>Typical timeframe:</strong> 2–4 weeks
                         </div>
                         
                         <a href="project-brief.html" class="btn btn--primary" style="width: 100%;">Discuss a business app</a>
@@ -100,18 +102,18 @@
                     <div style="border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2.5rem; background: var(--color-warm-ivory); display: flex; flex-direction: column;">
                         <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--color-obsidian);">SaaS / AI Product</h2>
                         <div style="font-size: 2.5rem; font-weight: 800; color: var(--color-obsidian); margin-bottom: 1rem;">From £7,995</div>
-                        <p style="color: var(--color-text-muted); margin-bottom: 2rem;">For building a commercial software product to sell, or a highly complex enterprise tool.</p>
+                        <p style="color: var(--color-text-muted); margin-bottom: 2rem;">Typical fit: For SaaS MVPs, AI applications and advanced multi-user software products.</p>
                         
                         <ul style="display: flex; flex-direction: column; gap: 1rem; color: var(--color-obsidian); font-weight: 500; margin-bottom: 3rem; flex: 1;">
                             <li>✓ Subscription SaaS Platforms</li>
-                            <li>✓ Multi-tenant Architecture</li>
-                            <li>✓ Advanced AI Tool Wrappers</li>
+                            <li>✓ Secure accounts for multiple customers or organisations</li>
+                            <li>✓ Custom AI assistants and workflow tools</li>
                             <li>✓ Marketplace MVPs</li>
                             <li>✓ Bespoke E-Learning Portals</li>
                         </ul>
                         
                         <div style="background: rgba(17,19,24,0.05); padding: 1rem; border-radius: var(--radius-md); font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 1.5rem;">
-                            <strong>Timeline:</strong> 4–8 weeks
+                            <strong>Typical timeframe:</strong> 4–8 weeks
                         </div>
                         
                         <a href="project-brief.html" class="btn btn--secondary" style="width: 100%;">Discuss a SaaS project</a>
@@ -119,16 +121,20 @@
                     
                 </div>
                 
+                <div style="margin-bottom: 5rem; text-align: center;">
+                    <p style="color: var(--color-obsidian); font-weight: 500;">Complex, regulated or enterprise requirements: Custom assessment and proposal.</p>
+                </div>
+                
                 <div style="background: var(--color-obsidian); color: var(--color-white); padding: 3rem; border-radius: var(--radius-xl); display: grid; grid-template-columns: 1fr; gap: 2rem; @media(min-width: 768px){grid-template-columns: 1fr 1fr;}">
                     <div>
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">How Fixed Pricing Works</h3>
-                        <p style="color: var(--color-text-inverse-muted); margin-bottom: 1rem;">During the scoping phase, we define exactly what features will be built. We then quote a single, fixed price for that delivery.</p>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">What affects price?</h3>
+                        <p style="color: var(--color-text-inverse-muted); margin-bottom: 1rem;">During the scoping phase, we define exactly what features will be built. The number of views, user roles, integrations, and logic complexity determines the cost. We then quote a single, fixed price for that delivery.</p>
                         <p style="color: var(--color-text-inverse-muted);">If we take longer to build those features than estimated, we absorb the cost. If you request new features mid-build, we will quote them as a separate phase or swap them for existing scope.</p>
                     </div>
                     <div>
                         <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Hosting & Maintenance</h3>
-                        <p style="color: var(--color-text-inverse-muted); margin-bottom: 1rem;">Once the software is built, it needs to run somewhere. For simple projects, this can be as low as £0-£20/month via platforms like Cloudflare and Supabase.</p>
-                        <p style="color: var(--color-text-inverse-muted);">We offer optional retainer packages starting at £350/mo for businesses that want us to handle infrastructure, security updates, and minor improvements.</p>
+                        <p style="color: var(--color-text-inverse-muted); margin-bottom: 1rem;">Once the software is built, it needs to run somewhere. Some lightweight applications can have very low infrastructure costs, while applications with significant storage, AI usage, email, payments, traffic or third-party APIs will cost more. Infrastructure costs are confirmed during scoping.</p>
+                        <p style="color: var(--color-text-inverse-muted);">Optional maintenance and support available after launch. Pricing depends on the application and required service level.</p>
                     </div>
                 </div>
 
@@ -145,7 +151,7 @@
             </div>
             <div class="footer__links">
                 <div class="footer__col">
-                    <h4 class="footer__heading">Services</h4>
+                    <h3 class="footer__heading">Services</h3>
                     <ul class="footer__list">
                         <li><a href="what-we-build.html">What We Build</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
@@ -153,15 +159,15 @@
                     </ul>
                 </div>
                 <div class="footer__col">
-                    <h4 class="footer__heading">Company</h4>
+                    <h3 class="footer__heading">Company</h3>
                     <ul class="footer__list">
                         <li><a href="work.html">Solution Examples</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="project-brief.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer__col">
-                    <h4 class="footer__heading">Legal</h4>
+                    <h3 class="footer__heading">Legal</h3>
                     <ul class="footer__list">
                         <li><a href="privacy.html">Privacy Policy</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
@@ -173,6 +179,6 @@
             </div>
         </div>
     </footer>
-    <script src="./utils/mobile-nav.js"></script>
+    <script src="./utils/index.js"></script>
 </body>
 </html>

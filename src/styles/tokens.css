@@ -33,10 +33,10 @@
    * COLOUR — Text
    * -------------------------------------------------- */
   --color-text-primary: var(--color-obsidian);
-  --color-text-muted: #4b5563; /* Gray-700 equivalent for light bg */
+  --color-text-muted: #374151; /* Gray-800 for high contrast on light bg */
   
   --color-text-inverse: var(--color-white);
-  --color-text-inverse-muted: #d1d5db;
+  --color-text-inverse-muted: #e5e7eb; /* Gray-200 for high contrast on dark bg */
 
   /* --------------------------------------------------
    * COLOUR — Interaction

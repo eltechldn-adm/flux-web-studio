@@ -7,7 +7,6 @@
  * ============================================================
  */
 
-// ── Inline validation mirrors (server-side, no external deps) ─────
 const JUNK_VALUES = new Set([
   'test','asd','qwe','qwerty','asdf','zxcv','xxx','lorem','ipsum',
   'n/a','na','none','idk','abc','xyz','hello','hi','123','1234',
@@ -34,31 +33,39 @@ function isValidEmail(v) {
 
 function sanitize(str) {
   if (!str) return '';
-  return String(str).trim().replace(/[<>]/g, ''); // Strip basic XSS chars
+  // Convert to string and basic escape for safety
+  return String(str).trim()
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 /** Score lead quality: returns { quality, score, flagged } */
 function scoreLeadQuality(data) {
-  const { name, company, description, budget } = data;
+  const { name, company, problem, budget, timeframe } = data;
   let score = 0;
 
-  // Name looks human
-  const nameAlpha = (name || '').replace(/[^a-zA-Z]/g, '');
-  if (nameAlpha.length >= 3 && !isGibberish(name)) score += 2;
+  // Name looks human (allow Unicode, just check length)
+  if (name && name.length >= 2 && !isGibberish(name)) score += 2;
 
   // Company looks legitimate
   if (company && company.length >= 2 && !isGibberish(company)) score += 2;
 
-  // Description quality
-  const desc = (description || '').trim();
+  // Problem description quality
+  const desc = (problem || '').trim();
   const wordCount = desc.split(/\s+/).filter(w => w.length >= 2).length;
   if (desc.length >= 80 && wordCount >= 6) score += 3;
   else if (desc.length >= 30 && wordCount >= 3) score += 1;
 
   // Budget signal
-  if (budget === '10k+') score += 3;
-  else if (budget === '5k-10k') score += 2;
-  else if (budget === '3k-5k') score += 1;
+  if (budget === '£10,000+') score += 3;
+  else if (budget === '£5,000–£10,000') score += 2;
+  else if (budget === '£2,000–£5,000') score += 1;
+
+  // Timeframe signal
+  if (timeframe === 'ASAP' || timeframe === '1–2 months') score += 1;
 
   const flagged = score <= 2;
   let quality = 'High';
@@ -71,8 +78,6 @@ function scoreLeadQuality(data) {
 export async function onRequestPost({ request, env }) {
   try {
     let bodyData;
-    
-    // Support both JSON and FormData depending on how it was sent
     const contentType = request.headers.get('content-type') || '';
     if (contentType.includes('application/json')) {
       bodyData = await request.json();
@@ -80,28 +85,24 @@ export async function onRequestPost({ request, env }) {
       return jsonError('Invalid content type. Expected application/json.', 400);
     }
 
-    // ── 1. Extract all fields ──────────────────────────────────────
-    const turnstileToken = bodyData['cf-turnstile-response'];
+    // ── 1. Extract and sanitize payload ────────────────────────────
+    const turnstileToken = bodyData.turnstileToken || '';
+    const projectType    = sanitize(bodyData.projectType);
+    const problem        = sanitize(bodyData.problem);
+    const existingTools  = sanitize(bodyData.existingTools);
+    const timeframe      = sanitize(bodyData.timeframe);
+    const budget         = sanitize(bodyData.budget);
     const name           = sanitize(bodyData.name);
     const email          = sanitize(bodyData.email).toLowerCase();
-    const company        = sanitize(bodyData.company || '');
-    const projectType    = sanitize(bodyData.project_type);
-    const budget         = sanitize(bodyData.budget);
-    const description    = sanitize(bodyData.description);
-    const websiteUrl     = bodyData.website_url; // Honeypot
-
-    // ── 1b. Honeypot check ─────────────────────────────────────────
-    if (websiteUrl && websiteUrl !== '') {
-      console.warn('[API] Honeypot triggered. Silently accepting.');
-      return new Response(JSON.stringify({ success: true }), { headers: { 'Content-Type': 'application/json' } });
-    }
+    const company        = sanitize(bodyData.company);
+    const website        = sanitize(bodyData.website);
+    
+    // Note: Honeypot is handled strictly frontend for now, or you could read bodyData.honeypot_website here if sent.
 
     // ── 2. Turnstile Verification ──────────────────────────────────
     const turnstileSecret = env.TURNSTILE_SECRET_KEY;
-
     if (!turnstileToken) {
-      console.warn('[API] Submission rejected: missing Turnstile token.');
-      return jsonError('Security check not completed. Please try again.', 400);
+      return jsonFieldError('turnstileToken', 'Security check not completed. Please try again.');
     }
 
     if (turnstileSecret) {
@@ -116,70 +117,75 @@ export async function onRequestPost({ request, env }) {
       });
       const tsResult = await tsResponse.json();
       if (!tsResult.success) {
-        console.warn('[API] Turnstile verification failed:', tsResult['error-codes']);
-        return jsonError('Security verification failed. Please refresh and try again.', 400);
+        return jsonFieldError('turnstileToken', 'Security verification failed. Please refresh and try again.');
       }
-      console.log('[API] Turnstile verified.');
-    } else {
-      console.warn('[API] TURNSTILE_SECRET_KEY not set. Skipping server-side Turnstile check.');
     }
 
-    // ── 3. Server-side Validation ──────────────────────────────────
-    if (!name || !email || !projectType || !budget || !description) {
-      return jsonError('Missing required fields. Please complete all required information.', 400);
+    // ── 3. Server-side Field Validation ────────────────────────────
+    const fieldErrors = {};
+
+    if (!projectType) fieldErrors.projectType = "Please select a project type.";
+    
+    if (!problem || problem.length < 20 || problem.length > 5000) {
+      fieldErrors.problem = "Description must be between 20 and 5000 characters.";
     }
 
-    if (name.length < 2 || name.length > 80) {
-      return jsonError('Name must be between 2 and 80 characters.', 400, 'name');
+    if (!timeframe) fieldErrors.timeframe = "Please select a timeframe.";
+    if (!budget) fieldErrors.budget = "Please select a budget range.";
+
+    if (!name || name.length < 2 || name.length > 100) {
+      fieldErrors.name = "Please enter a valid name (2-100 characters).";
     }
 
-    if (!isValidEmail(email)) {
-      return jsonError('Please enter a valid email address.', 400, 'email');
+    if (!email || !isValidEmail(email)) {
+      fieldErrors.email = "Please enter a valid email address.";
     }
 
-    if (company && (company.length > 100)) {
-      return jsonError('Company name must be under 100 characters.', 400, 'company');
+    if (company && company.length > 150) {
+      fieldErrors.company = "Company name is too long.";
     }
 
-    if (description.length < 20 || description.length > 3000) {
-      return jsonError(
-        `Description must be between 20 and 3000 characters (currently ${description.length}).`,
-        400, 'description'
-      );
+    if (website && website.length > 300) {
+      fieldErrors.website = "Website URL is too long.";
     }
 
-    // Basic gibberish check on key fields
-    if (isGibberish(name)) {
-      return jsonError('The name provided does not appear to be valid. Please check and try again.', 400, 'name');
+    if (Object.keys(fieldErrors).length > 0) {
+      return new Response(JSON.stringify({ ok: false, fieldErrors }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    // Additional gibberish check on name only if it's strictly alphabetical gibberish
+    // But don't block valid unicode names. isGibberish mostly targets repeating chars or pure consonants.
+    if (name && isGibberish(name)) {
+       fieldErrors.name = "The name provided does not appear to be valid. Please check and try again.";
+       return new Response(JSON.stringify({ ok: false, fieldErrors }), {
+         status: 400,
+         headers: { 'Content-Type': 'application/json' }
+       });
     }
 
     // ── 4. Lead Quality Scoring ────────────────────────────────────
     const { quality, score, flagged } = scoreLeadQuality({
-      name, company, description, budget
+      name, company, problem, budget, timeframe
     });
 
-    console.log(`[API] Lead quality: ${quality} (score: ${score}, flagged: ${flagged})`);
-
     // ── 5. Forward to Email Worker ─────────────────────────────────
-    // Using Service Binding instead of fetch URL if available, but falling back to fetch just in case.
-    // The previous implementation used fetch, we'll keep it but ideally would use `env.EMAIL_WORKER.fetch()` if bound.
-    let workerResponse;
-    
     const payload = {
       fullName: name,
       email,
-      companyName: company,
-      companyWebsite: '',
+      companyName: company || '',
+      companyWebsite: website || '',
       businessType: projectType,
       automationInterest: projectType,
-      workflowDescription: description,
-      urgency: budget,
+      workflowDescription: problem + (existingTools ? `\n\nExisting tools: ${existingTools}` : ''),
+      urgency: timeframe + ' | ' + budget,
       leadQuality: quality,
       flaggedLowQuality: flagged,
     };
 
-    console.log(`[API] Forwarding to worker. Lead: ${name}, Quality: ${quality}`);
-
+    let workerResponse;
     if (env.EMAIL_WORKER) {
       workerResponse = await env.EMAIL_WORKER.fetch(new Request('https://fws-email-worker.eltechldn.workers.dev', {
         method: 'POST',
@@ -195,20 +201,14 @@ export async function onRequestPost({ request, env }) {
       });
     }
 
-    console.log(`[API] Worker response status: ${workerResponse.status}`);
-
     if (workerResponse.ok) {
       const responseBody = await workerResponse.json();
       if (responseBody.success === true) {
-        console.log('[API] Worker confirmed success.');
-        return new Response(JSON.stringify({ success: true }), { headers: { 'Content-Type': 'application/json' }});
+        return new Response(JSON.stringify({ ok: true }), { headers: { 'Content-Type': 'application/json' }});
       } else {
-        console.error('[API] Worker returned success=false:', responseBody.error);
         return jsonError(responseBody.error || 'Failed to dispatch email.', 500);
       }
     } else {
-      const errorText = await workerResponse.text();
-      console.error(`[API] Worker failed (${workerResponse.status}):`, errorText);
       return jsonError('Internal server error. Please try again shortly.', 500);
     }
 
@@ -218,12 +218,18 @@ export async function onRequestPost({ request, env }) {
   }
 }
 
-/** Returns a structured JSON error response. */
-function jsonError(message, status = 400, field = null) {
-  const body = { success: false, error: message };
-  if (field) body.field = field;
-  return new Response(JSON.stringify(body), {
+/** Returns a generic JSON error response. */
+function jsonError(message, status = 400) {
+  return new Response(JSON.stringify({ ok: false, error: message }), {
     status,
+    headers: { 'Content-Type': 'application/json' }
+  });
+}
+
+/** Returns a field-specific validation error. */
+function jsonFieldError(field, message) {
+  return new Response(JSON.stringify({ ok: false, fieldErrors: { [field]: message } }), {
+    status: 400,
     headers: { 'Content-Type': 'application/json' }
   });
 }

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Start a Project | Flux Web Studio</title>
-    <meta name="description" content="Submit a brief for your custom software, AI application, or automation project." />
+    <title>Discuss Your Idea | Flux Web Studio</title>
+    <meta name="description" content="Tell us what you're trying to solve. Submit an enquiry for your custom software, AI application, or automation project." />
     
     <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,8 +17,218 @@
     
     <!-- Cloudflare Turnstile -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <style>
+        .form-card {
+            background: #fafaf9; /* warm white / ivory */
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 3rem 3rem;
+            border: 1px solid var(--border-subtle);
+            margin: 0 auto;
+            max-width: 760px;
+        }
+        @media (max-width: 768px) {
+            .form-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+        .form__group {
+            margin-bottom: 2.5rem;
+        }
+        .form__label {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--color-obsidian);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .form__helper {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+            display: block;
+            line-height: 1.4;
+        }
+        
+        /* Radio cards */
+        .radio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        @media (max-width: 600px) {
+            .radio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .radio-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            border: 2px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            background: var(--color-white);
+            transition: all 0.2s ease;
+        }
+        .radio-card:hover {
+            border-color: var(--color-primary-light);
+        }
+        .radio-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .radio-card input[type="radio"]:focus-visible ~ .radio-card__label {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+        .radio-card input[type="radio"]:checked + .radio-card__label::before {
+            border-color: var(--color-primary);
+            background-color: var(--color-primary);
+            box-shadow: inset 0 0 0 4px var(--color-white);
+        }
+        .radio-card input[type="radio"]:checked ~ .radio-card__label {
+            color: var(--color-obsidian);
+            font-weight: 600;
+        }
+        .radio-card:has(input[type="radio"]:checked) {
+            border-color: var(--color-primary);
+            background: #f0f9ff;
+        }
+        .radio-card__label {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            font-size: 1rem;
+            color: var(--color-text-body);
+            cursor: pointer;
+            line-height: 1.2;
+        }
+        .radio-card__label::before {
+            content: '';
+            display: inline-block;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid var(--border-subtle);
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        /* 2-column layout for desktop */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .form-row .form__group {
+            margin-bottom: 0;
+        }
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+        
+        /* Error state */
+        .error-message {
+            color: #b91c1c;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        .form__input.invalid,
+        .radio-grid.invalid .radio-card {
+            border-color: #b91c1c;
+        }
+        .form__input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--color-white);
+            color: var(--color-obsidian);
+            transition: border-color 0.2s;
+        }
+        .form__input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+        textarea.form__input {
+            min-height: 160px;
+            resize: vertical;
+        }
+        select.form__input {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%234B5563%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem top 50%;
+            background-size: 0.65rem auto;
+            padding-right: 2.5rem;
+        }
+        
+        .success-panel {
+            display: none;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: var(--radius-lg);
+            padding: 3rem 2.5rem;
+            color: #166534;
+        }
+        .success-panel h2 {
+            color: #15803d;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 700;
+        }
+        .success-panel p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            color: #166534;
+            line-height: 1.6;
+        }
+        .success-panel h3 {
+            color: #15803d;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .success-panel ol {
+            list-style-type: decimal;
+            list-style-position: inside;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            font-size: 1.05rem;
+            color: #166534;
+        }
+        .global-error {
+            display: none;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+    </style>
 </head>
 <body>
+    <header>
     <a class="skip-link" href="#main-content">Skip to main content</a>
     
     <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
@@ -34,7 +244,7 @@
                 <li class="nav__item"><a href="about.html" class="nav__link">About</a></li>
             </ul>
             <div class="nav__cta">
-                <a href="project-brief.html" class="btn btn--primary" id="nav-cta-btn">Start Your Project</a>
+                <a href="project-brief.html" class="btn btn--primary" id="nav-cta-btn" aria-current="page">Discuss Your Idea</a>
             </div>
             <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
                 <span class="nav__toggle-bar"></span>
@@ -43,78 +253,149 @@
             </button>
         </div>
     </nav>
+    </header>
     
     <main id="main-content">
         <section class="section" style="padding-top: 6rem; background: var(--color-white); min-height: 80vh;">
-            <div class="container" style="max-width: 600px;">
-                <div style="margin-bottom: 3rem;">
-                    <h1 class="hero__headline" style="font-size: clamp(2rem, 4vw, 3rem); color: var(--color-obsidian); margin-bottom: 1rem;">Project Brief</h1>
-                    <p style="font-size: 1.125rem; color: var(--color-text-muted);">
-                        Tell us about the problem you want to solve. We'll review your brief and get back to you within 24 hours to schedule a scoping call.
-                    </p>
-                </div>
+            <div class="container" style="max-width: 800px; margin-bottom: 3rem; text-align: center;">
+                <h1 class="hero__headline" style="font-size: clamp(2rem, 5vw, 3.5rem); color: var(--color-obsidian); margin-bottom: 1rem;">Tell us what you're trying to solve.</h1>
+                <p style="font-size: 1.125rem; color: var(--color-text-muted); max-width: 680px; margin: 0 auto; line-height: 1.6;">
+                    You don't need a technical specification. Tell us what's not working, what you'd like to build, or what you'd like your current systems to do better.
+                </p>
+            </div>
+
+            <div class="container" style="padding-bottom: 6rem;">
                 
-                <form id="project-brief-form" class="form" action="/api/project-brief" method="POST">
+                <div id="success-panel" class="success-panel" role="alert" aria-live="polite">
+                    <h2>Thanks — we've got it.</h2>
+                    <p>We'll review what you've sent and contact you with the most sensible next step.</p>
+                    <h3>What happens next?</h3>
+                    <ol>
+                        <li>We review the problem.</li>
+                        <li>We decide whether Flux is a good fit.</li>
+                        <li>If needed, we arrange a short conversation.</li>
+                        <li>You receive a proposed scope and price before development begins.</li>
+                    </ol>
+                </div>
+
+                <form id="project-brief-form" class="form-card" action="/api/project-brief" method="POST" novalidate>
                     
+                    <div id="global-error" class="global-error" role="alert" aria-live="assertive"></div>
+
                     <!-- Honeypot -->
                     <div style="display:none;" aria-hidden="true">
-                        <label for="website_url">Leave this field blank</label>
-                        <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off" />
+                        <label for="honeypot_website">Leave this field blank</label>
+                        <input type="text" id="honeypot_website" name="honeypot_website" tabindex="-1" autocomplete="off" />
                     </div>
                     
-                    <div class="form__group">
-                        <label class="form__label" for="name">Name</label>
-                        <input class="form__input" type="text" id="name" name="name" required />
-                    </div>
-                    
-                    <div class="form__group">
-                        <label class="form__label" for="email">Work Email</label>
-                        <input class="form__input" type="email" id="email" name="email" required />
-                    </div>
-                    
-                    <div class="form__group">
-                        <label class="form__label" for="company">Company (Optional)</label>
-                        <input class="form__input" type="text" id="company" name="company" />
-                    </div>
-                    
-                    <div class="form__group">
-                        <label class="form__label" for="project_type">Project Type</label>
-                        <select class="form__input" id="project_type" name="project_type" required>
-                            <option value="">Please select...</option>
-                            <option value="business-operations">Internal Business App (CRM, Dashboard, etc.)</option>
-                            <option value="saas">SaaS or Customer Platform</option>
-                            <option value="ai">AI Tool or Assistant</option>
-                            <option value="automation">Workflow Automation</option>
-                            <option value="analytics">Analytics & Data</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form__group">
-                        <label class="form__label" for="budget">Approximate Budget</label>
-                        <select class="form__input" id="budget" name="budget" required>
-                            <option value="">Please select...</option>
-                            <option value="1k-3k">£1,995 - £3,000</option>
-                            <option value="3k-5k">£3,000 - £5,000</option>
-                            <option value="5k-10k">£5,000 - £10,000</option>
-                            <option value="10k+">£10,000+</option>
-                            <option value="unsure">Unsure / Need scoping</option>
-                        </select>
-                    </div>
+                    <fieldset style="border: none; padding: 0; margin: 0;">
+                        <legend class="visually-hidden">Project Enquiry Details</legend>
 
-                    <div class="form__group">
-                        <label class="form__label" for="description">Tell us about the problem or idea</label>
-                        <textarea class="form__input" id="description" name="description" rows="5" required placeholder="E.g., We currently use 5 spreadsheets to track inventory and we want a custom app to manage it..."></textarea>
-                    </div>
-                    
-                    <!-- Turnstile Widget -->
-                    <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" style="margin-bottom: 1.5rem;"></div>
-                    
-                    <button type="submit" class="btn btn--primary btn--lg" style="width: 100%;" id="submit-btn">
-                        Submit Brief
-                    </button>
-                    
-                    <div id="form-status" class="form__status" style="margin-top: 1rem; display: none; padding: 1rem; border-radius: var(--radius-md);"></div>
+                        <div class="form__group">
+                            <span class="form__label">What can we help you with? <span style="color: #ef4444;" aria-hidden="true">*</span></span>
+                            <div class="radio-grid" id="projectType-group" role="radiogroup" aria-required="true">
+                                <label class="radio-card">
+                                    <input type="radio" name="projectType" value="Custom Business App" />
+                                    <span class="radio-card__label">Custom Business App</span>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="projectType" value="SaaS / Product Idea" />
+                                    <span class="radio-card__label">SaaS / Product Idea</span>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="projectType" value="AI Application" />
+                                    <span class="radio-card__label">AI Application</span>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="projectType" value="Dashboard / Analytics" />
+                                    <span class="radio-card__label">Dashboard / Analytics</span>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="projectType" value="Automation / Integration" />
+                                    <span class="radio-card__label">Automation / Integration</span>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="projectType" value="Customer Portal" />
+                                    <span class="radio-card__label">Customer Portal</span>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="projectType" value="Something Else" />
+                                    <span class="radio-card__label">Something Else</span>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="projectType" value="I'm Not Sure" />
+                                    <span class="radio-card__label">I'm Not Sure</span>
+                                </label>
+                            </div>
+                            <div class="error-message" id="error-projectType">Please select what we can help you with.</div>
+                        </div>
+
+                        <div class="form__group">
+                            <label class="form__label" for="problem">What would you like to build or improve? <span style="color: #ef4444;" aria-hidden="true">*</span></label>
+                            <span class="form__helper">Tell us what's happening today and what you'd like to happen instead.</span>
+                            <textarea class="form__input" id="problem" name="problem" required aria-required="true"></textarea>
+                            <div class="error-message" id="error-problem">Please describe your problem or idea.</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form__group">
+                                <label class="form__label" for="budget">Approximate budget &mdash; optional</label>
+                                <select class="form__input" id="budget" name="budget">
+                                    <option value="">Please select...</option>
+                                    <option value="Under £2,000">Under £2,000</option>
+                                    <option value="£2,000–£5,000">£2,000–£5,000</option>
+                                    <option value="£5,000–£10,000">£5,000–£10,000</option>
+                                    <option value="£10,000+">£10,000+</option>
+                                    <option value="Not sure yet">Not sure yet</option>
+                                </select>
+                                <div class="error-message" id="error-budget"></div>
+                            </div>
+                            
+                            <div class="form__group">
+                                <label class="form__label" for="timeframe">Ideal timeframe <span style="color: #ef4444;" aria-hidden="true">*</span></label>
+                                <select class="form__input" id="timeframe" name="timeframe" required aria-required="true">
+                                    <option value="">Please select...</option>
+                                    <option value="As soon as practical">As soon as practical</option>
+                                    <option value="1–2 months">1–2 months</option>
+                                    <option value="3–6 months">3–6 months</option>
+                                    <option value="Just exploring">Just exploring</option>
+                                    <option value="Not sure yet">Not sure yet</option>
+                                </select>
+                                <div class="error-message" id="error-timeframe">Please select a timeframe.</div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form__group">
+                                <label class="form__label" for="name">Your name <span style="color: #ef4444;" aria-hidden="true">*</span></label>
+                                <input class="form__input" type="text" id="name" name="name" required aria-required="true" />
+                                <div class="error-message" id="error-name">Please enter your name.</div>
+                            </div>
+                            
+                            <div class="form__group">
+                                <label class="form__label" for="email">Email address <span style="color: #ef4444;" aria-hidden="true">*</span></label>
+                                <input class="form__input" type="email" id="email" name="email" required aria-required="true" />
+                                <div class="error-message" id="error-email">Please enter a valid email address.</div>
+                            </div>
+                        </div>
+
+                        <div class="form__group">
+                            <label class="form__label" for="company">Company or website &mdash; optional</label>
+                            <input class="form__input" type="text" id="company" name="company" />
+                            <div class="error-message" id="error-company"></div>
+                        </div>
+
+                        <!-- Turnstile Widget -->
+                        <div class="form__group" style="margin-bottom: 2rem;">
+                            <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" id="turnstile-container" style="min-height: 65px;"></div>
+                            <div class="error-message" id="error-turnstileToken">Please complete the security check.</div>
+                            <input type="hidden" id="turnstileToken" name="turnstileToken" />
+                        </div>
+                        
+                        <button type="submit" class="btn btn--primary btn--lg" style="width: 100%; font-size: 1.125rem; padding: 1.125rem;" id="submit-btn">
+                            Send My Project Brief
+                        </button>
+                    </fieldset>
                 </form>
             </div>
         </section>
@@ -131,50 +412,146 @@
             </div>
         </div>
     </footer>
-    <script src="./utils/mobile-nav.js"></script>
+    <script src="./utils/index.js"></script>
     <script>
-        // Auto-select category from URL params if present
-        document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const category = params.get('category');
-            if (category) {
-                const select = document.getElementById('project_type');
-                if (select) {
-                    const options = Array.from(select.options);
-                    const option = options.find(o => o.value === category);
-                    if (option) {
-                        option.selected = true;
+        // Store Turnstile token in hidden field when solved
+        window.onload = function() {
+            if (typeof turnstile !== 'undefined') {
+                turnstile.render('#turnstile-container', {
+                    sitekey: '1x00000000000000000000AA',
+                    callback: function(token) {
+                        document.getElementById('turnstileToken').value = token;
                     }
-                }
+                });
             }
-        });
+        };
 
-        // Form submission handling
         const form = document.getElementById('project-brief-form');
-        const statusDiv = document.getElementById('form-status');
+        const successPanel = document.getElementById('success-panel');
         const submitBtn = document.getElementById('submit-btn');
+        const globalError = document.getElementById('global-error');
+
+        // Utility to clear errors
+        function clearErrors() {
+            form.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+            form.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+            globalError.style.display = 'none';
+        }
+
+        // Utility to show error
+        function showError(fieldId, message) {
+            const input = document.getElementById(fieldId);
+            if (input) {
+                input.classList.add('invalid');
+                const errorDiv = document.getElementById(`error-${fieldId}`);
+                if (errorDiv) {
+                    errorDiv.textContent = message;
+                    errorDiv.style.display = 'block';
+                }
+            } else if (fieldId === 'projectType') {
+                document.getElementById('projectType-group').classList.add('invalid');
+                document.getElementById('error-projectType').style.display = 'block';
+            }
+        }
+
+        // Validate form client-side
+        function validateForm() {
+            clearErrors();
+            let isValid = true;
+            let firstInvalidField = null;
+
+            // Project Type validation
+            const projectType = document.querySelector('input[name="projectType"]:checked');
+            if (!projectType) {
+                showError('projectType', 'Please select what we can help you with.');
+                isValid = false;
+                firstInvalidField = document.querySelector('input[name="projectType"]');
+            }
+
+            // Description
+            const problem = document.getElementById('problem');
+            if (!problem.value.trim()) {
+                showError('problem', 'Please describe your problem or idea.');
+                isValid = false;
+                if (!firstInvalidField) firstInvalidField = problem;
+            }
+            
+            // Timeframe
+            const timeframe = document.getElementById('timeframe');
+            if (!timeframe.value.trim()) {
+                showError('timeframe', 'Please select a timeframe.');
+                isValid = false;
+                if (!firstInvalidField) firstInvalidField = timeframe;
+            }
+
+            // Name (permissive)
+            const name = document.getElementById('name');
+            if (!name.value.trim()) {
+                showError('name', 'Please enter your name.');
+                isValid = false;
+                if (!firstInvalidField) firstInvalidField = name;
+            }
+            
+            // Email
+            const email = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.value.trim() || !emailRegex.test(email.value)) {
+                showError('email', 'Please enter a valid email address.');
+                isValid = false;
+                if (!firstInvalidField) firstInvalidField = email;
+            }
+
+            // Turnstile
+            const turnstileToken = document.getElementById('turnstileToken');
+            if (!turnstileToken.value) {
+                showError('turnstileToken', 'Please complete the security check.');
+                isValid = false;
+                if (!firstInvalidField) firstInvalidField = document.querySelector('.cf-turnstile');
+            }
+
+            if (firstInvalidField) {
+                firstInvalidField.focus();
+                // scroll slightly up if covered by floating headers
+                const y = firstInvalidField.getBoundingClientRect().top + window.scrollY - 100;
+                window.scrollTo({top: y, behavior: 'smooth'});
+            }
+
+            return isValid;
+        }
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
+            if (!validateForm()) return;
+
             // Honeypot check
-            if (document.getElementById('website_url').value !== '') {
+            if (document.getElementById('honeypot_website').value !== '') {
                 // Silently ignore bot submission
-                statusDiv.textContent = 'Brief submitted successfully.';
-                statusDiv.style.display = 'block';
-                statusDiv.style.backgroundColor = '#f0fdf4';
-                statusDiv.style.color = '#15803d';
-                form.reset();
+                form.style.display = 'none';
+                successPanel.style.display = 'block';
                 return;
             }
 
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
-            statusDiv.style.display = 'none';
 
             try {
-                const formData = new FormData(form);
-                const data = Object.fromEntries(formData.entries());
+                // Capture Turnstile response from Cloudflare widget if hidden field didn't catch it
+                const tsResponse = new FormData(form).get('cf-turnstile-response');
+                if (tsResponse && !document.getElementById('turnstileToken').value) {
+                    document.getElementById('turnstileToken').value = tsResponse;
+                }
+
+                const data = {
+                    projectType: document.querySelector('input[name="projectType"]:checked').value,
+                    problem: document.getElementById('problem').value,
+                    budget: document.getElementById('budget').value, // Optional
+                    timeframe: document.getElementById('timeframe').value,
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    company: document.getElementById('company').value, // Optional
+                    turnstileToken: document.getElementById('turnstileToken').value
+                };
                 
                 const response = await fetch(form.action, {
                     method: 'POST',
@@ -185,28 +562,42 @@
                 });
 
                 if (response.ok) {
-                    statusDiv.textContent = 'Brief submitted successfully. We will be in touch soon.';
-                    statusDiv.style.display = 'block';
-                    statusDiv.style.backgroundColor = '#f0fdf4';
-                    statusDiv.style.color = '#15803d';
-                    form.reset();
+                    form.style.display = 'none';
+                    successPanel.style.display = 'block';
+                    window.scrollTo({top: 0, behavior: 'smooth'});
                 } else {
                     const errData = await response.json().catch(() => ({}));
-                    statusDiv.textContent = errData.error || 'There was a problem submitting your brief. Please try again.';
-                    statusDiv.style.display = 'block';
-                    statusDiv.style.backgroundColor = '#fff0ed';
-                    statusDiv.style.color = '#b91c1c';
-                    turnstile.reset();
+                    if (errData.fieldErrors) {
+                        let firstField = null;
+                        for (const field of Object.keys(errData.fieldErrors)) {
+                            showError(field, errData.fieldErrors[field]);
+                            if (!firstField) firstField = field;
+                        }
+                        if (firstField) {
+                            const inputEl = document.getElementById(firstField) || document.querySelector(`input[name="${firstField}"]`);
+                            if (inputEl) {
+                                inputEl.focus();
+                                const y = inputEl.getBoundingClientRect().top + window.scrollY - 100;
+                                window.scrollTo({top: y, behavior: 'smooth'});
+                            }
+                        }
+                    } else if (errData.error) {
+                        globalError.textContent = errData.error;
+                        globalError.style.display = 'block';
+                        window.scrollTo({top: globalError.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth'});
+                    }
+                    if (window.turnstile) turnstile.reset();
                 }
             } catch (err) {
-                statusDiv.textContent = 'Network error. Please try again.';
-                statusDiv.style.display = 'block';
-                statusDiv.style.backgroundColor = '#fff0ed';
-                statusDiv.style.color = '#b91c1c';
-                turnstile.reset();
+                globalError.textContent = 'Network error. Please try again.';
+                globalError.style.display = 'block';
+                if (window.turnstile) turnstile.reset();
+                window.scrollTo({top: globalError.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth'});
             } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit Brief';
+                if (form.style.display !== 'none') {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send My Project Brief';
+                }
             }
         });
     </script>
