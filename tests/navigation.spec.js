@@ -23,4 +23,27 @@ test.describe('Navigation', () => {
     await page.click('text=Discuss Your Idea');
     await expect(page).toHaveURL(/.*project-brief(\.html)?/);
   });
+
+  test('Mobile navigation links work', async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'Mobile nav test only');
+    
+    await page.goto('/');
+
+    const menuToggle = page.locator('#nav-toggle');
+
+    // What We Build
+    await menuToggle.click();
+    await page.click('.nav__menu >> text=What We Build');
+    await expect(page).toHaveURL(/.*what-we-build(\.html)?/);
+
+    // Pricing
+    await menuToggle.click();
+    await page.click('.nav__menu >> text=Pricing');
+    await expect(page).toHaveURL(/.*pricing(\.html)?/);
+
+    // Discuss Your Idea (not in .nav__menu, it's the CTA button in nav on mobile)
+    await menuToggle.click();
+    await page.click('.nav__cta >> text=Discuss Your Idea');
+    await expect(page).toHaveURL(/.*project-brief(\.html)?/);
+  });
 });
