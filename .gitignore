@@ -22,3 +22,5 @@ npm-debug.log*
 fws-email-worker/node_modules/
 fws-email-worker/dist/
 fws-email-worker/.wrangler/
+test-results/
+playwright-report/

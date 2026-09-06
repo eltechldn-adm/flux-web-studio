@@ -183,10 +183,12 @@ test.describe('Project Brief Form E2E', () => {
   });
 
   test('Double-submit prevention disables button', async ({ page }) => {
+    let routeFinished = false;
     await page.route('/api/project-brief', async route => {
       // Delay response to check button state
-      await new Promise(resolve => setTimeout(resolve, 500));
-      route.fulfill({ status: 200, body: JSON.stringify({ success: true }) });
+      await new Promise(resolve => setTimeout(resolve, 300));
+      await route.fulfill({ status: 200, body: JSON.stringify({ success: true }) }).catch(() => {});
+      routeFinished = true;
     });
 
     await page.click('.radio-card:has-text("Custom Business App")');
@@ -205,6 +207,9 @@ test.describe('Project Brief Form E2E', () => {
     const btn = page.locator('#submit-btn');
     await expect(btn).toBeDisabled();
     await expect(btn).toContainText('Submitting...');
+
+    // Await route finish to prevent leaking request to real network on context teardown
+    await expect.poll(() => routeFinished).toBeTruthy();
   });
 
   test('Layout remains stable during Turnstile load', async ({ page }) => {

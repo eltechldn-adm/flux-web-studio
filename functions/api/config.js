@@ -17,7 +17,8 @@ export async function onRequestGet({ request, env }) {
         headers: { 'Content-Type': 'application/json' }
       });
     } else {
-      return new Response(JSON.stringify({ error: "Configuration Error: TURNSTILE_SITEKEY missing in production." }), {
+      console.error("[API] Configuration Error.");
+      return new Response(JSON.stringify({ error: "Service temporarily unavailable." }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' }
       });
