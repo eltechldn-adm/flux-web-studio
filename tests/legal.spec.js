@@ -56,10 +56,10 @@ test.describe('Legal Pages', () => {
     
     // Cloudflare/Turnstile disclosure
     expect(content).toContain('Cloudflare Turnstile');
-    expect(content).toContain('verify that you are a human');
+    expect(content).toContain('provide bot and abuse protection');
     
     // No false analytics claims
-    expect(content).toContain('We do not use analytics, advertising, or tracking cookies.');
+    expect(content).toContain('We do not currently use analytics or advertising cookies.');
     expect(content).not.toContain('Google Analytics');
   });
 
